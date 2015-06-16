@@ -140,7 +140,7 @@ and letFunUp expr =
                     let newAfterExpr = Expr.Let(v, iE, bF)
                     Expr.Let(vF, iEF, letFunUp newAfterExpr)
                 | Patterns.Let(vF, iEF, bF) ->
-                    let fUp = letFunUp retFunUp
+                    let fUp = retFunUp
                     match fUp with
                     | Patterns.Let (var2, inExpr2, afterExpr2) when isLetFun fUp ->
                         let newAfterExpr = Expr.Let(v, iE, afterExpr2)
@@ -311,6 +311,7 @@ let addNeededLamAndAppicatins (expr:Expr) =
     run expr
 
 let getListLet expr =
+    let namer = new Namer()
     let listExpr = new ResizeArray<_>()
     let rec addLetInList expr =
         match expr with
@@ -326,7 +327,7 @@ let getListLet expr =
         | _ -> addLetInList expr
         
     match expr with
-    | Patterns.Lambda(lv, lb) -> listExpr.Add(firstLams (Expr.Lambda(lv, lb)))    
+    | Patterns.Lambda(lv, lb) -> listExpr.Add(firstLams (Expr.Lambda(lv, lb)))
     | _ -> ()
     
     listExpr  
