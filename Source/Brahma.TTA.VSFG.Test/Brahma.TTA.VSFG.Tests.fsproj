@@ -75,9 +75,9 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\VSFG\Brahma.TTA.VSFG.fsproj">
+    <ProjectReference Include="..\Brahma.TTA.VSFG\Brahma.TTA.VSFG.fsproj">
       <Name>Brahma.TTA.VSFG</Name>
-      <Project>{de5ead02-4c6a-4149-8ae1-515ceb09a1b6}</Project>
+      <Project>{95bf201a-6d14-4de2-ae90-be191515268b}</Project>
       <Private>True</Private>
     </ProjectReference>
   </ItemGroup>

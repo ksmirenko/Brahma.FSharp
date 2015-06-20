@@ -14,7 +14,7 @@ let SmallGraph () =
     let yOut = new OutPort()
     let y = new InitialNode(yOut)
 
-    let plusLeft = new InPort(xOut, x :> Node)
+    let plusLeft = new InPort(xOut)
     let plusRight = new InPort(yOut)
     let plusOut = new OutPort()
     let plus = new AddNode(plusLeft, plusRight, plusOut)
@@ -52,10 +52,10 @@ let SmallGraph () =
     let terminal = new TerminalNode(terminalIn)
 
     Assert.NotNull(x.PrevNodes)
-    Assert.AreEqual(1, x.PrevNodes.Length)
+    Assert.AreEqual(1, x.PrevNodes.Count)
 
     Assert.NotNull(y.PrevNodes)
-    Assert.AreEqual(1, y.PrevNodes.Length)
+    Assert.AreEqual(1, y.PrevNodes.Count)
     
 
 
