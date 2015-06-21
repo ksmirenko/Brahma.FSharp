@@ -27,21 +27,37 @@ and OutPort (targets : ResizeArray<InPort>) =
     new () = OutPort (new ResizeArray<_>())
     new (x : InPort) = OutPort (new ResizeArray<_>([|x|]))
 
-and Node (inPorts : ResizeArray<InPort>, outPorts : ResizeArray<OutPort>, operation) = 
+and Node (inPorts : ResizeArray<InPort>, outPorts : ResizeArray<OutPort>, operation) as this = 
     interface INode
-    member this.InPorts = inPorts
-    member this.OutPorts = outPorts
+
+    member this.InPorts = 
+        for port in inPorts do
+            port.Node <- this
+        inPorts
+    member this.OutPorts = 
+        for port in outPorts do
+            port.Node <- this
+        outPorts
     member this.Operation = operation
-    member this.NextNodes = 
+    member this.GetNextNodes () = 
         let res = new ResizeArray<_>()
         for port in this.OutPorts do
             res.AddRange (port.NextNodes)
         res
-    member this.PrevNodes = 
+    member this.GetPrevNodes () = 
         let res = new ResizeArray<_>()
         for port in this.InPorts do
             res.AddRange (port.PrevNodes)
         res
+    member this.AddNewInPort () =
+        let port = new InPort()
+        port.Node <- this
+        this.InPorts.Add(port)
+    member this.AddNewOutPort () =
+        let port = new OutPort()
+        port.Node <- this
+        this.OutPorts.Add(port)
+        
     static member AddEdge (outPort : OutPort) (inPort : InPort) =
         outPort.Targets.Add inPort
         inPort.PrevNodes.Add outPort.Node
@@ -51,90 +67,62 @@ and Node (inPorts : ResizeArray<InPort>, outPorts : ResizeArray<OutPort>, operat
     new (operation) =
         Node (new ResizeArray<_>(), new ResizeArray<_>(), operation)
 
-type InitialNode(outPort : OutPort) as this =
-    inherit Node (new ResizeArray<_>(), new ResizeArray<_>([|outPort|]), null)
-    let _ = outPort.Node <- this
-    new () = InitialNode (new OutPort())
+type InitialNode() =
+    inherit Node (new ResizeArray<_>(), new ResizeArray<_>([|new OutPort()|]), null)
 
-type TerminalNode(inPort : InPort) as this =
-    inherit Node (new ResizeArray<_>([|inPort|]), new ResizeArray<_>(), null)
-    let _ = inPort.Node <- this
-    new () = TerminalNode (new InPort())
-
-type UnaryNode (inPort : InPort, outPort : OutPort, operation) as this =
-    inherit Node (new ResizeArray<_>([|inPort|]), new ResizeArray<_>([|outPort|]), operation)
-    let _ = 
-        inPort.Node <- this
-        outPort.Node <- this
-    new (operation) = UnaryNode (new InPort(), new OutPort(), operation)
-
-type NegativeNode (inPort : InPort, outPort : OutPort) =
-    inherit UnaryNode (inPort, outPort, box (~-))
-    new () = NegativeNode (new InPort(), new OutPort())
-
-type IncNode (inPort : InPort, outPort : OutPort) =
-    inherit UnaryNode (inPort, outPort, box (fun x -> x + 1))
-    new () = IncNode (new InPort(), new OutPort())
-
-type DecNode (inPort : InPort, outPort : OutPort) =
-    inherit UnaryNode (inPort, outPort, box (fun x -> x - 1))
-    new () = DecNode (new InPort(), new OutPort())
+type TerminalNode() =
+    inherit Node (new ResizeArray<_>([|new InPort()|]), new ResizeArray<_>(), null)
 
 
-type BinaryNode (left : InPort, right : InPort, outPort : OutPort, operation) as this =
-    inherit Node (new ResizeArray<_>([|left; right|]), new ResizeArray<_>([|outPort|]), operation)
-    let _ = 
-        left.Node <- this
-        right.Node <- this
-        outPort.Node <- this
-    new (operation) = BinaryNode (new InPort(), new InPort(), new OutPort(), operation)
+type UnaryNode (operation) =
+    inherit Node (new ResizeArray<_>([|new InPort()|]), new ResizeArray<_>([|new OutPort()|]), operation)
+    new () = UnaryNode (null)
 
-type AddNode (left : InPort, right : InPort, outPort : OutPort) =
-    inherit BinaryNode (left, right, outPort, box (fun x y -> x + y))
-    new () = AddNode (new InPort(), new InPort(), new OutPort())
+type NegativeNode () =
+    inherit UnaryNode (box (~-))
 
-type SubNode (left : InPort, right : InPort, outPort : OutPort) =
-    inherit BinaryNode (left, right, outPort, box (fun x y -> x - y))
-    new () = SubNode (new InPort(), new InPort(), new OutPort())
+type IncNode () =
+    inherit UnaryNode (box (fun x -> x + 1))
 
-type MulNode (left : InPort, right : InPort, outPort : OutPort) =
-    inherit BinaryNode (left, right, outPort, box (fun x y -> x * y))
-    new () = MulNode (new InPort(), new InPort(), new OutPort())
-
-type DivNode (left : InPort, right : InPort, outPort : OutPort) =
-    inherit BinaryNode (left, right, outPort, box (fun x y -> x / y))
-    new () = DivNode (new InPort(), new InPort(), new OutPort())
-
-type EqNode (left : InPort, right : InPort, outPort : OutPort) =
-    inherit BinaryNode (left, right, outPort, box (fun x y -> x = y))
-    new () = EqNode (new InPort(), new InPort(), new OutPort())
-
-type GtNode (left : InPort, right : InPort, outPort : OutPort) =
-    inherit BinaryNode (left, right, outPort, box (fun x y -> x > y))
-    new () = GtNode (new InPort(), new InPort(), new OutPort())
-
-type LtNode (left : InPort, right : InPort, outPort : OutPort) =
-    inherit BinaryNode (left, right, outPort, box (fun x y -> x < y))
-    new () = LtNode (new InPort(), new InPort(), new OutPort())
-
-type GeqNode (left : InPort, right : InPort, outPort : OutPort) =
-    inherit BinaryNode (left, right, outPort, box (fun x y -> x >= y))
-    new () = GeqNode (new InPort(), new InPort(), new OutPort())
-
-type LeqNode (left : InPort, right : InPort, outPort : OutPort) =
-    inherit BinaryNode (left, right, outPort, box (fun x y -> x <= y))
-    new () = LeqNode (new InPort(), new InPort(), new OutPort())
+type DecNode () =
+    inherit UnaryNode (box (fun x -> x - 1))
 
 
-type ThreeOpNode (op1 : InPort, op2 : InPort, op3 : InPort, outPort : OutPort, operation) as this =
-    inherit Node (new ResizeArray<_>([|op1; op2; op3|]), new ResizeArray<_>([|outPort|]), operation)
-    let _ =
-        op1.Node <- this
-        op2.Node <- this
-        op3.Node <- this
-        outPort.Node <- this
-    new (operation) = ThreeOpNode (new InPort(), new InPort(), new InPort(), new OutPort(), operation)
-        
-type MultiplexorNode (predicate : InPort, _true : InPort, _false : InPort, outPort : OutPort) = 
-    inherit ThreeOpNode (predicate, _true, _false, outPort, box (fun p t f -> if p then t else f))
-    new () = MultiplexorNode (new InPort(), new InPort(), new InPort(), new OutPort())
+type BinaryNode (operation) =
+    inherit Node (new ResizeArray<_>([|new InPort(); new InPort()|]), new ResizeArray<_>([|new OutPort()|]), operation)
+    new () = BinaryNode (null)
+
+type AddNode () =
+    inherit BinaryNode (box (fun x y -> x + y))
+
+type SubNode () =
+    inherit BinaryNode (box (fun x y -> x - y))
+
+type MulNode () =
+    inherit BinaryNode (box (fun x y -> x * y))
+
+type DivNode () =
+    inherit BinaryNode (box (fun x y -> x / y))
+
+type EqNode () =
+    inherit BinaryNode (box (fun x y -> x = y))
+
+type GtNode () =
+    inherit BinaryNode (box (fun x y -> x > y))
+
+type LtNode () =
+    inherit BinaryNode (box (fun x y -> x < y))
+
+type GeqNode () =
+    inherit BinaryNode (box (fun x y -> x >= y))
+
+type LeqNode () =
+    inherit BinaryNode (box (fun x y -> x <= y))
+
+
+type ThreeOpNode (operation) =
+    inherit Node (new ResizeArray<_>([|new InPort(); new InPort(); new InPort()|]), new ResizeArray<_>([|new OutPort()|]), operation)
+    new () = ThreeOpNode (null)
+
+type MultiplexorNode () = 
+    inherit ThreeOpNode (box (fun p t f -> if p then t else f))

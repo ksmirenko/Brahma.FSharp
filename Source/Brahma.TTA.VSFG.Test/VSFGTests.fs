@@ -8,74 +8,52 @@ let calculate (node : UnaryNode) =
 
 [<Test>]
 let SmallGraph () =
-    let xOut = new OutPort()
-    let x = new InitialNode(xOut)
+    let x = new InitialNode()
 
-    let yOut = new OutPort()
-    let y = new InitialNode(yOut)
+    let y = new InitialNode()
 
-    let plusLeft = new InPort(xOut)
-    let plusRight = new InPort(yOut)
-    let plusOut = new OutPort()
-    let plus = new AddNode(plusLeft, plusRight, plusOut)
+    let plus = new AddNode()
 
-    Node.AddEdge xOut plusRight
-    Node.AddEdge yOut plusLeft
+    Node.AddEdgeByInd x 0 plus 0
+    Node.AddEdgeByInd y 0 plus 1
 
-    let lessLeft = new InPort(xOut)
-    let lessRight = new InPort(yOut)
-    let lessOut = new OutPort()
-    let less = new LtNode(lessLeft, lessRight, lessOut)
+    let less = new LtNode()
 
-    Node.AddEdge xOut lessRight
-    Node.AddEdge yOut lessLeft
+    Node.AddEdgeByInd x 0 less 0
+    Node.AddEdgeByInd y 0 less 1
 
-    let incIn = new InPort(xOut)
-    let incOut = new OutPort()
-    let inc = new IncNode(incIn, incOut)
+    let inc = new IncNode()
 
-    Node.AddEdge xOut incIn
+    Node.AddEdgeByInd x 0 inc 0
 
-    let decIn = new InPort(yOut)
-    let decOut = new OutPort()
-    let dec = new DecNode(decIn, decOut)
+    let dec = new DecNode()
 
-    Node.AddEdge yOut decIn
+    Node.AddEdgeByInd y 0 dec 0
 
-    let xIn = new InPort(incOut)
-    x.InPorts.Add(xIn)
-    
-    Node.AddEdge incOut xIn
+    x.AddNewInPort()
+    Node.AddEdgeByInd inc 0 x 0
 
-    let yIn = new InPort(decOut)
-    y.InPorts.Add(yIn)
+    y.AddNewInPort()
+    Node.AddEdgeByInd dec 0 y 0
 
-    Node.AddEdge decOut yIn
-
-    let fOut = new OutPort()
-    let f = new BinaryNode(xIn, yIn, fOut, null)
+    let f = new BinaryNode(null)
 
 
-    let multiplexorOut = new OutPort()
-    let predicate = new InPort(lessOut)
-    let _true = new InPort(fOut)
-    let _false = new InPort(plusOut)
-    let multiplexor = new MultiplexorNode(predicate, _true, _false, multiplexorOut)
+    let multiplexor = new MultiplexorNode()
 
-    Node.AddEdge lessOut predicate
-    Node.AddEdge fOut _true
-    Node.AddEdge plusOut _false
+    Node.AddEdgeByInd less 0 multiplexor 0
+    Node.AddEdgeByInd f 0 multiplexor 1
+    Node.AddEdgeByInd plus 0 multiplexor 2
+                      
+    let terminal = new TerminalNode()
 
-    let terminalIn = new InPort(multiplexorOut)
-    let terminal = new TerminalNode(terminalIn)
+    Node.AddEdgeByInd multiplexor 0 terminal 0
 
-    Node.AddEdge multiplexorOut terminalIn
+    Assert.NotNull(x.GetPrevNodes())
+    Assert.AreEqual(1, x.GetPrevNodes().Count)
 
-    Assert.NotNull(x.PrevNodes)
-    Assert.AreEqual(1, x.PrevNodes.Count)
-
-    Assert.NotNull(y.PrevNodes)
-    Assert.AreEqual(1, y.PrevNodes.Count)
+    Assert.NotNull(y.GetPrevNodes)
+    Assert.AreEqual(1, y.GetPrevNodes().Count)
     
 
 
