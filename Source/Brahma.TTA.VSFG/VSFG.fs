@@ -57,26 +57,32 @@ and Node (inPorts : ResizeArray<InPort>, outPorts : ResizeArray<OutPort>, operat
         let port = new OutPort()
         port.Node <- this
         this.OutPorts.Add(port)
-        
-    static member AddEdge (outPort : OutPort) (inPort : InPort) =
-        outPort.Targets.Add inPort
-        inPort.PrevNodes.Add outPort.Node
-        outPort.NextNodes.Add inPort.Node
-    static member AddEdgeByInd (outNode : Node) (outPortInd : int) (inNode : Node) (inPortInd : int) =
-        Node.AddEdge outNode.OutPorts.[outPortInd] inNode.InPorts.[inPortInd]
+
+    new (inPortsCount, outPortsCount, operation) =
+        Node (new ResizeArray<_>(Array.init inPortsCount (fun _ -> new InPort())),
+              new ResizeArray<_>(Array.init outPortsCount (fun _ -> new OutPort())),
+              operation)
     new (operation) =
         Node (new ResizeArray<_>(), new ResizeArray<_>(), operation)
 
 type InitialNode() =
-    inherit Node (new ResizeArray<_>(), new ResizeArray<_>([|new OutPort()|]), null)
+    inherit Node (0, 1, null)
 
 type TerminalNode() =
-    inherit Node (new ResizeArray<_>([|new InPort()|]), new ResizeArray<_>(), null)
-
+    inherit Node (1, 0, null)
 
 type UnaryNode (operation) =
-    inherit Node (new ResizeArray<_>([|new InPort()|]), new ResizeArray<_>([|new OutPort()|]), operation)
+    inherit Node (1, 1, operation)
     new () = UnaryNode (null)
+
+type BinaryNode (operation) =
+    inherit Node (2, 1, operation)
+    new () = BinaryNode (null)
+
+type ThreeOpNode (operation) =
+    inherit Node (3, 1, operation)
+    new () = ThreeOpNode (null)
+
 
 type NegativeNode () =
     inherit UnaryNode (box (~-))
@@ -87,10 +93,6 @@ type IncNode () =
 type DecNode () =
     inherit UnaryNode (box (fun x -> x - 1))
 
-
-type BinaryNode (operation) =
-    inherit Node (new ResizeArray<_>([|new InPort(); new InPort()|]), new ResizeArray<_>([|new OutPort()|]), operation)
-    new () = BinaryNode (null)
 
 type AddNode () =
     inherit BinaryNode (box (fun x y -> x + y))
@@ -120,9 +122,23 @@ type LeqNode () =
     inherit BinaryNode (box (fun x y -> x <= y))
 
 
-type ThreeOpNode (operation) =
-    inherit Node (new ResizeArray<_>([|new InPort(); new InPort(); new InPort()|]), new ResizeArray<_>([|new OutPort()|]), operation)
-    new () = ThreeOpNode (null)
-
 type MultiplexorNode () = 
     inherit ThreeOpNode (box (fun p t f -> if p then t else f))
+
+
+type VSFG (initialNodes : Node array, terminalNodes : Node array) =
+    member this.InitialNodes = initialNodes
+    member this.TerminalNodes = terminalNodes
+
+    static member AddEdge (outPort : OutPort) (inPort : InPort) =
+        outPort.Targets.Add inPort
+        inPort.PrevNodes.Add outPort.Node
+        outPort.NextNodes.Add inPort.Node
+
+    static member AddEdgeByInd (outNode : Node) (outPortInd : int) (inNode : Node) (inPortInd : int) =
+        VSFG.AddEdge outNode.OutPorts.[outPortInd] inNode.InPorts.[inPortInd]
+
+    static member AddVerticesAndEdges (toAdd : (Node * int * Node * int) array) =
+        toAdd 
+        |> Array.iter (fun (outNode, outInd, inNode, inInd) -> VSFG.AddEdgeByInd outNode outInd inNode inInd)
+    
