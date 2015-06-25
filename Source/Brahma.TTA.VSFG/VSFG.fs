@@ -14,6 +14,10 @@ and InPort (inputs : ResizeArray<OutPort>) =
 
     member this.Inputs = inputs
 
+    member this.AddInputs outPort = 
+        this.Inputs.Add outPort
+        this.PrevNodes.Add outPort.Node
+
     new () = InPort (new ResizeArray<_>())
     new (x : OutPort) = InPort (new ResizeArray<_>([|x|]))
 
@@ -23,6 +27,10 @@ and OutPort (targets : ResizeArray<InPort>) =
     member this.NextNodes = nextNodes
 
     member this.Targets = targets
+
+    member this.AddTarget inPort = 
+        this.Targets.Add inPort
+        this.NextNodes.Add inPort.Node
 
     new () = OutPort (new ResizeArray<_>())
     new (x : InPort) = OutPort (new ResizeArray<_>([|x|]))
@@ -131,9 +139,8 @@ type VSFG (initialNodes : Node array, terminalNodes : Node array) =
     member this.TerminalNodes = terminalNodes
 
     static member AddEdge (outPort : OutPort) (inPort : InPort) =
-        outPort.Targets.Add inPort
-        inPort.PrevNodes.Add outPort.Node
-        outPort.NextNodes.Add inPort.Node
+        outPort.AddTarget inPort
+        inPort.AddInputs outPort
 
     static member AddEdgeByInd (outNode : Node) (outPortInd : int) (inNode : Node) (inPortInd : int) =
         VSFG.AddEdge outNode.OutPorts.[outPortInd] inNode.InPorts.[inPortInd]
@@ -141,4 +148,17 @@ type VSFG (initialNodes : Node array, terminalNodes : Node array) =
     static member AddVerticesAndEdges (toAdd : (Node * int * Node * int) array) =
         toAdd 
         |> Array.iter (fun (outNode, outInd, inNode, inInd) -> VSFG.AddEdgeByInd outNode outInd inNode inInd)
-    
+
+type NestedVsfgNode = 
+    inherit Node
+    val Vsfg : VSFG
+    new (vsfg : VSFG) =
+        let inPorts = 
+            let ports = new ResizeArray<_> ()
+            vsfg.InitialNodes |> Array.iter (fun n -> ports.AddRange (n.InPorts))
+            ports
+        let outPorts =
+            let ports = new ResizeArray<_> ()
+            vsfg.TerminalNodes |> Array.iter (fun n -> ports.AddRange (n.OutPorts))
+            ports
+        { inherit Node (inPorts, outPorts, null); Vsfg = vsfg}
