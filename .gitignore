@@ -26,6 +26,7 @@ Source/Bulgakov/Example/packages/*
 Source/Kovalev/MyExample/packages/*
 _ReSharper.*
 RXExample/packages/*
+packages
 Source/agents_new/Agents/packages/*
 *.vspx
 **/packages/*
