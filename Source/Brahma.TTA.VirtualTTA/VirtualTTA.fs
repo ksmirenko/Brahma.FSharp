@@ -16,6 +16,12 @@ type FunctionUnit =
 type TTA(FUs : array<FunctionUnit * int>, countOfBuses : int) = 
     let board = Array.init FUs.Length (fun i -> Array.init (snd FUs.[i]) (fun _ -> (fst FUs.[i])))
 
+    (**
+     * buses.[i] = true, if it is free
+     *           = false, if it isn't free
+     *)
+    let buses = Array.init countOfBuses (fun _ -> true)
+
     let isFreeFU fu = 
         match fu with
         | ADD(_,_,b) -> b = true
@@ -23,26 +29,35 @@ type TTA(FUs : array<FunctionUnit * int>, countOfBuses : int) =
         | DIV(_,_,b) -> b = true
         | REGISTER(_,b) -> b = true
 
-    let setFUAsEmpty fu = 
+    let setFUAsFree fu = 
         match fu with
         | ADD(x,y,_) -> ADD(x,y,true)
         | SUB(x,y,_) -> SUB(x,y,true)
         | DIV(x,y,_) -> DIV(x,y,true)
         | REGISTER(x,_) -> REGISTER(x,true)
 
-    let setFUAsNonEmpty fu = 
+    let setFUAsNonFree fu = 
         match fu with
         | ADD(x,y,_) -> ADD(x,y,false)
         | SUB(x,y,_) -> SUB(x,y,false)
         | DIV(x,y,_) -> DIV(x,y,false)
         | REGISTER(x,_) -> REGISTER(x,false)
 
+    member this.isFreeBus() = 
+        Array.exists (fun x -> x = true) buses
 
-    member this.SetFUAsEmpty (i, j) =
-        board.[i].[j] <- (setFUAsEmpty board.[i].[j])
+    member this.TakeABus() =
+        buses.[(Array.findIndex (fun x -> x = true) buses)] <- false
 
-    member this.SetFUAsNonEmpty (i, j) = 
-        board.[i].[j] <- (setFUAsNonEmpty board.[i].[j])
+    member this.ReleaseAllBuses() = 
+        for i in [0..buses.Length - 1] do
+            buses.[i] <- true
+
+    member this.SetFUAsFree (i, j) =
+        board.[i].[j] <- (setFUAsFree board.[i].[j])
+
+    member this.SetFUAsNonFree (i, j) = 
+        board.[i].[j] <- (setFUAsNonFree board.[i].[j])
 
     (* Assume, that we have free FU of this type *)
     member this.GetFreeFU fu = 
