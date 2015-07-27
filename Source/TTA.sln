@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30501.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{136A55B7-BED5-4FC7-8129-DE53386E3FD3}"
 EndProject
@@ -39,8 +39,14 @@ EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Brahma.TTA.VSFG.Tests", "Brahma.TTA.VSFG.Test\Brahma.TTA.VSFG.Tests.fsproj", "{681B3BFE-B4C1-4B5B-A6C2-A2B6F26C33DA}"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Brahma.TTA.VSFG", "Brahma.TTA.VSFG\Brahma.TTA.VSFG.fsproj", "{95BF201A-6D14-4DE2-AE90-BE191515268B}"
+	ProjectSection(ProjectDependencies) = postProject
+		{0E731438-DD9E-4444-950D-EF2DE31D3E97} = {0E731438-DD9E-4444-950D-EF2DE31D3E97}
+		{2C06094E-EE18-4C97-B446-B651198D12D8} = {2C06094E-EE18-4C97-B446-B651198D12D8}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brahma.OpenCL", "Brahma.OpenCL\Brahma.OpenCL.csproj", "{1F52ECB5-6CD2-4D76-A4B7-A23131C9D195}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Brahma.TTA.VSFGCompiler", "Brahma.TTA.VSFGCompiler\Brahma.TTA.VSFGCompiler.fsproj", "{D8FF1391-D552-438C-BB1D-DF8C37AEA263}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -211,6 +217,18 @@ Global
 		{1F52ECB5-6CD2-4D76-A4B7-A23131C9D195}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{1F52ECB5-6CD2-4D76-A4B7-A23131C9D195}.Release|x64.ActiveCfg = Release|Any CPU
 		{1F52ECB5-6CD2-4D76-A4B7-A23131C9D195}.Release|x86.ActiveCfg = Release|Any CPU
+		{D8FF1391-D552-438C-BB1D-DF8C37AEA263}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D8FF1391-D552-438C-BB1D-DF8C37AEA263}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D8FF1391-D552-438C-BB1D-DF8C37AEA263}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{D8FF1391-D552-438C-BB1D-DF8C37AEA263}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{D8FF1391-D552-438C-BB1D-DF8C37AEA263}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{D8FF1391-D552-438C-BB1D-DF8C37AEA263}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{D8FF1391-D552-438C-BB1D-DF8C37AEA263}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D8FF1391-D552-438C-BB1D-DF8C37AEA263}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D8FF1391-D552-438C-BB1D-DF8C37AEA263}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{D8FF1391-D552-438C-BB1D-DF8C37AEA263}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{D8FF1391-D552-438C-BB1D-DF8C37AEA263}.Release|x64.ActiveCfg = Release|Any CPU
+		{D8FF1391-D552-438C-BB1D-DF8C37AEA263}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -227,5 +245,6 @@ Global
 		{681B3BFE-B4C1-4B5B-A6C2-A2B6F26C33DA} = {136A55B7-BED5-4FC7-8129-DE53386E3FD3}
 		{95BF201A-6D14-4DE2-AE90-BE191515268B} = {FD2E37A8-0DDC-46AA-913B-DE26979BB585}
 		{1F52ECB5-6CD2-4D76-A4B7-A23131C9D195} = {4308F740-751A-4F53-A7C0-1A75B6AB6D7D}
+		{D8FF1391-D552-438C-BB1D-DF8C37AEA263} = {FD2E37A8-0DDC-46AA-913B-DE26979BB585}
 	EndGlobalSection
 EndGlobal

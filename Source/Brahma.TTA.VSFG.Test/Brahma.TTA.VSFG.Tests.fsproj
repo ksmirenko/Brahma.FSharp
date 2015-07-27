@@ -75,6 +75,11 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Brahma.TTA.VirtualTTA\Brahma.TTA.VirtualTTA.fsproj">
+      <Name>Brahma.TTA.VirtualTTA</Name>
+      <Project>{2c06094e-ee18-4c97-b446-b651198d12d8}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\Brahma.TTA.VSFG\Brahma.TTA.VSFG.fsproj">
       <Name>Brahma.TTA.VSFG</Name>
       <Project>{95bf201a-6d14-4de2-ae90-be191515268b}</Project>

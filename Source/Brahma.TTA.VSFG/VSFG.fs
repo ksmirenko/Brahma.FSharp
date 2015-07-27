@@ -1,7 +1,16 @@
-﻿module Brahma.TTA.VSFG
+﻿namespace Brahma.TTA.VSFG
+
+open Brahma.TTA.VirtualTTA
 
 type INode = interface end
 
+(**
+ * NodeStatus = Unused, if we didn't pass input edges
+ *              Preparing, if we passed at least one input edge
+ *              Ready, if we passed all input edges
+ *              Used, if we passed all output edges
+ *)
+type NodeStatus = Unused | Preparing | Ready | Used
 
 type Port () = 
     interface INode
@@ -9,6 +18,13 @@ type Port () =
 
 and InPort (inputs : ResizeArray<OutPort>) =
     inherit Port ()
+
+    (**
+     * TODO: Can be there more than 1 prevNodes?
+     * Is it necessary to store (Node array) instead of (Node)?
+     *)
+    //do if (inputs.Count > 1) then printfn "Error. Can't in more than 1 port"
+
     let prevNodes = new ResizeArray<_>()
     member this.PrevNodes = prevNodes
 
@@ -35,8 +51,36 @@ and OutPort (targets : ResizeArray<InPort>) =
     new () = OutPort (new ResizeArray<_>())
     new (x : InPort) = OutPort (new ResizeArray<_>([|x|]))
 
-and Node (inPorts : ResizeArray<InPort>, outPorts : ResizeArray<OutPort>, operation) as this = 
+and Node (inPorts : ResizeArray<InPort>, outPorts : ResizeArray<OutPort>, opType : OperationType) = 
+    
+    let mutable inPortsCount = inPorts.Count
+    let mutable outPortsCount = outPorts.Count
+
     interface INode
+
+    member val Status = Unused with get, set
+    member val ResultAddr = (-1<ln>, -1<col>) with get, set
+    member val OpType = opType with get, set
+    member val IsVisited : bool array = Array.init 1 (fun x -> false) with get, set
+
+    member this.SetInPortsCount(count : int) = 
+        inPortsCount <- count
+    member this.SetOutPortsCount(count : int) =
+        outPortsCount <- count
+
+    member this.DecInPorts() = 
+        inPortsCount <- inPortsCount - 1
+        if inPortsCount = inPorts.Count - 1
+        then this.Status <- Preparing
+
+        if inPortsCount = 0
+        then this.Status <- Ready
+
+    member this.DecOutPorts() = 
+        outPortsCount <- outPortsCount - 1
+
+        if outPortsCount = 0
+        then this.Status <- Used
 
     member this.InPorts = 
         for port in inPorts do
@@ -46,7 +90,17 @@ and Node (inPorts : ResizeArray<InPort>, outPorts : ResizeArray<OutPort>, operat
         for port in outPorts do
             port.Node <- this
         outPorts
-    member this.Operation = operation
+
+    member this.GetNextNotVisitedNodes() = 
+        let (allNodes : ResizeArray<Node>) = this.GetNextNodes()
+        let notVisitedNodes = new ResizeArray<Node>()
+
+        for i in [0..allNodes.Count-1] do
+            if this.IsVisited.[i] = false
+            then notVisitedNodes.Add(allNodes.[i])
+
+        notVisitedNodes
+
     member this.GetNextNodes () = 
         let res = new ResizeArray<_>()
         for port in this.OutPorts do
@@ -57,81 +111,87 @@ and Node (inPorts : ResizeArray<InPort>, outPorts : ResizeArray<OutPort>, operat
         for port in this.InPorts do
             res.AddRange (port.PrevNodes)
         res
-    member this.AddNewInPort () =
-        let port = new InPort()
-        port.Node <- this
-        this.InPorts.Add(port)
-    member this.AddNewOutPort () =
-        let port = new OutPort()
-        port.Node <- this
-        this.OutPorts.Add(port)
 
-    new (inPortsCount, outPortsCount, operation) =
+    member this.SetNodeAsVisited(node : Node) = 
+        let outNodes = this.GetNextNodes()
+
+        for i in [0..outNodes.Count-1] do
+            if outNodes.[i] = node
+            then this.IsVisited.[i] <- true 
+
+    (**
+     * Returns (x, y), where
+     * x -- outPorts from this node
+     * y -- inPort from node
+     *)
+    member this.GetPorts(node : Node) = 
+        let resInd = ref (-1<port>, -1<port>)
+        
+        for i in [0..outPorts.Count-1] do
+            let curOutPort = outPorts.[i]
+            let nextNodes = curOutPort.NextNodes
+            
+            (**
+             * let index = 10
+             * let measuredIndex = index * 1<port> -- multiply by one it just convert number to measured number
+             *)
+            for targetNode in nextNodes do
+                if targetNode = node then
+                    let prevNodes = targetNode.GetPrevNodes()
+                    for j in [0..prevNodes.Count-1] do
+                        if this = prevNodes.[j] then
+                            resInd := ((i + inPorts.Count) * 1<port>, j * 1<port>)
+        !resInd     
+
+    new (inPortsCount, outPortsCount, opType) =
         Node (new ResizeArray<_>(Array.init inPortsCount (fun _ -> new InPort())),
               new ResizeArray<_>(Array.init outPortsCount (fun _ -> new OutPort())),
-              operation)
-    new (operation) =
-        Node (new ResizeArray<_>(), new ResizeArray<_>(), operation)
+              opType)
+    new (opType) =
+        Node (new ResizeArray<_>(), new ResizeArray<_>(), opType)
 
 type InitialNode() =
-    inherit Node (0, 1, null)
+    inherit Node (0, 1, REGISTER_TYPE)
+    (* TODO: Add this.Status <- Ready *)
 
 type TerminalNode() =
-    inherit Node (1, 0, null)
+    inherit Node (1, 0, REGISTER_TYPE)
 
-type UnaryNode (operation) =
-    inherit Node (1, 1, operation)
-    new () = UnaryNode (null)
+type UnaryNode (opType : OperationType) =
+    inherit Node (1, 1, opType)
 
-type BinaryNode (operation) =
-    inherit Node (2, 1, operation)
-    new () = BinaryNode (null)
+type BinaryNode (opType : OperationType) =
+    inherit Node (2, 1, opType)
 
-type ThreeOpNode (operation) =
-    inherit Node (3, 1, operation)
-    new () = ThreeOpNode (null)
-
-
-type NegativeNode () =
-    inherit UnaryNode (box (~-))
-
-type IncNode () =
-    inherit UnaryNode (box (fun x -> x + 1))
-
-type DecNode () =
-    inherit UnaryNode (box (fun x -> x - 1))
-
+type ThreeOpNode (opType : OperationType) =
+    inherit Node (3, 1, opType)
 
 type AddNode () =
-    inherit BinaryNode (box (fun x y -> x + y))
+    inherit BinaryNode (ADD_TYPE)
 
 type SubNode () =
-    inherit BinaryNode (box (fun x y -> x - y))
-
-type MulNode () =
-    inherit BinaryNode (box (fun x y -> x * y))
+    inherit BinaryNode (SUB_TYPE)
 
 type DivNode () =
-    inherit BinaryNode (box (fun x y -> x / y))
+    inherit BinaryNode (DIV_TYPE)
 
 type EqNode () =
-    inherit BinaryNode (box (fun x y -> x = y))
+    inherit BinaryNode (EQ_TYPE)
 
 type GtNode () =
-    inherit BinaryNode (box (fun x y -> x > y))
+    inherit BinaryNode (GT_TYPE)
 
 type LtNode () =
-    inherit BinaryNode (box (fun x y -> x < y))
+    inherit BinaryNode (LT_TYPE)
 
 type GeqNode () =
-    inherit BinaryNode (box (fun x y -> x >= y))
+    inherit BinaryNode (GEG_TYPE)
 
 type LeqNode () =
-    inherit BinaryNode (box (fun x y -> x <= y))
-
+    inherit BinaryNode (LEQ_TYPE)
 
 type MultiplexorNode () = 
-    inherit ThreeOpNode (box (fun p t f -> if p then t else f))
+    inherit ThreeOpNode (MULTIPLEXOR_TYPE)
 
 
 type VSFG (initialNodes : Node array, terminalNodes : Node array) =
@@ -144,6 +204,8 @@ type VSFG (initialNodes : Node array, terminalNodes : Node array) =
 
     static member AddEdgeByInd (outNode : Node) (outPortInd : int) (inNode : Node) (inPortInd : int) =
         VSFG.AddEdge outNode.OutPorts.[outPortInd] inNode.InPorts.[inPortInd]
+        outNode.IsVisited <- Array.init ((outNode.GetNextNodes()).Count) (fun x -> false)
+        outNode.SetOutPortsCount(outNode.IsVisited.Length)
 
     static member AddVerticesAndEdges (toAdd : (Node * int * Node * int) array) =
         toAdd 
@@ -161,4 +223,4 @@ type NestedVsfgNode =
             let ports = new ResizeArray<_> ()
             vsfg.TerminalNodes |> Array.iter (fun n -> ports.AddRange (n.OutPorts))
             ports
-        { inherit Node (inPorts, outPorts, null); Vsfg = vsfg}
+        { inherit Node (inPorts, outPorts, REGISTER_TYPE); Vsfg = vsfg}

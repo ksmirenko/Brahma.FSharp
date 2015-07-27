@@ -44,6 +44,13 @@
   <ItemGroup>
     <Compile Include="VSFG.fs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Brahma.TTA.VirtualTTA\Brahma.TTA.VirtualTTA.fsproj">
+      <Name>Brahma.TTA.VirtualTTA</Name>
+      <Project>{2c06094e-ee18-4c97-b446-b651198d12d8}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
   </PropertyGroup>
