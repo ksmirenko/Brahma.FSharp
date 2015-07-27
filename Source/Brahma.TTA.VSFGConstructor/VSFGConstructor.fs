@@ -50,7 +50,6 @@ type VSFGConstructor (input: string) =
             |_ ->
                 let initials = Dictionary<string, Node>()
                 let terminal = new TerminalNode()
-                terminal.AddNewOutPort()
 
                 let rec f (prev: Node) inputN (e:FSharpExpr) = 
                     match e with 
@@ -87,22 +86,18 @@ type VSFGConstructor (input: string) =
                             visitArgs call 0 argExprs 
              
                         | "( <= )" -> 
-                            printfn "to input port %A of object %A <- <=" inputN prev 
                             let call = new LeqNode()
                             VSFG.AddEdgeByInd (call :> Node) (0) (prev) (0)
                             visitArgs call 0 argExprs
                         | "( >= )" -> 
-                            printfn "to input port %A of object %A <- >=" inputN prev 
                             let call = new GeqNode()
                             VSFG.AddEdgeByInd (call :> Node) (0) (prev) (0)
                             visitArgs call 0 argExprs
                         | "( = )" -> 
-                            printfn "to input port %A of object %A <- =" inputN prev 
                             let call = new EqNode()
                             VSFG.AddEdgeByInd (call :> Node) (0) (prev) (0)
                             visitArgs call 0 argExprs 
                         | _ -> 
-                            printfn "to input port %A of object %A <- %A" inputN prev memberOrFunc.DisplayName 
                             let nested = new NestedVsfgNode(functionMap.[memberOrFunc.DisplayName])
                             VSFG.AddEdgeByInd (nested :> Node) (0) (prev) (0)
                             visitArgs nested 0 argExprs
@@ -121,7 +116,6 @@ type VSFGConstructor (input: string) =
                          let vsfg = this.getVSFG bindingExpr
                          functionMap.Add (bindingVar.DisplayName, vsfg)
                          let nested = new Brahma.TTA.VSFG.NestedVsfgNode(vsfg)
-                       
                          f prev inputN bodyExpr 
                          ()
 
@@ -141,7 +135,6 @@ type VSFGConstructor (input: string) =
                         let name = valueToGet.DisplayName
                         if not (initials.ContainsKey name) && not (functionMap.ContainsKey name) then
                            let initial = InitialNode()
-                           initial.AddNewInPort()
                            initials.Add (name, initial)
                         else 
                             if initials.ContainsKey name then 
@@ -153,7 +146,6 @@ type VSFGConstructor (input: string) =
                         let name = lambdaVar.DisplayName
                         if not (initials.ContainsKey name) && not (functionMap.ContainsKey name) then
                            let initial = InitialNode()
-                           initial.AddNewInPort()
                            initials.Add (name, initial)
                         f prev inputN  bodyExpr
                     | BasicPatterns.Application(funcExpr, typeArgs, argExprs) -> 

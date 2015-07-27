@@ -161,11 +161,11 @@ and Node (inPorts : ResizeArray<InPort>, outPorts : ResizeArray<OutPort>, opType
         Node (new ResizeArray<_>(), new ResizeArray<_>(), opType)
 
 type InitialNode() =
-    inherit Node (0, 1, REGISTER_TYPE)
+    inherit Node (1, 1, REGISTER_TYPE)
     (* TODO: Add this.Status <- Ready *)
 
 type TerminalNode() =
-    inherit Node (1, 0, REGISTER_TYPE)
+    inherit Node (1, 1, REGISTER_TYPE)
 
 type UnaryNode (opType : OperationType) =
     inherit Node (1, 1, opType)
