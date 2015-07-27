@@ -91,6 +91,16 @@ and Node (inPorts : ResizeArray<InPort>, outPorts : ResizeArray<OutPort>, opType
             port.Node <- this
         outPorts
 
+    member this.AddNewInPort () =
+        let port = new InPort()
+        port.Node <- this
+        this.InPorts.Add(port)
+
+    member this.AddNewOutPort () =
+        let port = new OutPort()
+        port.Node <- this
+        this.OutPorts.Add(port)
+
     member this.GetNextNotVisitedNodes() = 
         let (allNodes : ResizeArray<Node>) = this.GetNextNodes()
         let notVisitedNodes = new ResizeArray<Node>()
