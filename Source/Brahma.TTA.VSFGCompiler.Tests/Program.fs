@@ -24,7 +24,7 @@ let VSFGCompilerWithoutMUXandFunctions () =
     let plus5 = new AddNode()
     let plus6 = new AddNode() 
 
-    let vsfg = new VSFG ([|x; y|], [|terminal|])
+    let vsfg = new VSFG ([|x; y|], [|terminal|], [||])
 
     VSFG.AddVerticesAndEdges 
         [|

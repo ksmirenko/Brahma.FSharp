@@ -167,6 +167,12 @@ type InitialNode() =
 type TerminalNode() =
     inherit Node (1, 1, REGISTER_TYPE)
 
+type ConstNode = 
+    inherit Node
+    val Value: int
+    new(value: int) = 
+        {inherit Node(0,1, REGISTER_TYPE); Value = value}
+    
 type UnaryNode (opType : OperationType) =
     inherit Node (1, 1, opType)
 
@@ -204,9 +210,10 @@ type MultiplexorNode () =
     inherit ThreeOpNode (MULTIPLEXOR_TYPE)
 
 
-type VSFG (initialNodes : Node array, terminalNodes : Node array) =
+type VSFG (initialNodes : Node array, terminalNodes : Node array, constNodes : ConstNode array) =
     member this.InitialNodes = initialNodes
     member this.TerminalNodes = terminalNodes
+    member this.ConstNodes = constNodes
 
     static member AddEdge (outPort : OutPort) (inPort : InPort) =
         outPort.AddTarget inPort

@@ -25,12 +25,8 @@ let SmallGraph () =
     let less = new LtNode()
     let multiplexor = new MultiplexorNode()
 
-    x.AddNewInPort()
-    y.AddNewInPort()
 
-    terminal.AddNewOutPort()
-
-    let vsfg = new VSFG ([|x; y|], [|terminal|])
+    let vsfg = new VSFG ([|x; y|], [|terminal|], [||])
     let f = new NestedVsfgNode (vsfg)
 
     VSFG.AddVerticesAndEdges 

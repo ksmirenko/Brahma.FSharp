@@ -2,6 +2,7 @@
 
 open Brahma.TTA.VSFG
 open Brahma.TTA.VSFGConstructorHelper
+open System
 open System.Collections.Generic
 
 open Microsoft.FSharp.Compiler.SourceCodeServices
@@ -48,8 +49,9 @@ type VSFGConstructor (input: string) =
                    //if already have created
                    functionMap.[v.DisplayName]
             |_ ->
-                let initials = Dictionary<string, Node>()
+                let initials = new Dictionary<string, Node>()
                 let terminal = new TerminalNode()
+                let consts = new Dictionary<int, ConstNode>()
 
                 let rec f (prev: Node) inputN (e:FSharpExpr) = 
                     match e with 
@@ -129,7 +131,15 @@ type VSFGConstructor (input: string) =
 
                          f prev inputN  bodyExpr
                          ()
-                    | BasicPatterns.Const(constValueObj, constType) -> ()
+                    | BasicPatterns.Const(constValueObj, constType) ->
+                        let value = Convert.ToInt32(constValueObj)
+                        if consts.ContainsKey value then
+                            VSFG.AddEdgeByInd consts.[value] 0 prev inputN
+                        else
+                            let constNode = new ConstNode(value)
+                            consts.Add (value, constNode)
+                            VSFG.AddEdgeByInd constNode 0 prev inputN
+                        ()
                     | BasicPatterns.Value(valueToGet) ->
                 
                         let name = valueToGet.DisplayName
@@ -166,11 +176,11 @@ type VSFGConstructor (input: string) =
                         | [] -> ()
         
                 f terminal 0  e
-                new  VSFG(initials.Values |>  Seq.toArray, [|terminal|]) 
+                new  VSFG(initials.Values |>  Seq.toArray, [|terminal|], consts.Values |> Seq.toArray) 
             
 
-    member this.print ind f = 
-        (helper.getFSharpExpr ind) |> visitor f
+    member this.print f = 
+        (helper.getFSharpExpr 0) |> visitor f
 
     member this.Helper = helper
 
