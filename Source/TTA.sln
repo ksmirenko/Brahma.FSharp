@@ -52,6 +52,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Brahma.TTA.VSFGConstructor"
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Brahma.TTA.VSFGConstructor.Tests", "Brahma.TTA.VSFGConstructor.Tests\Brahma.TTA.VSFGConstructor.Tests.fsproj", "{65A3C264-A440-48D1-824D-86F5870273CB}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Brahma.TTA.VSFGCompiler.Tests", "Brahma.TTA.VSFGCompiler.Tests\Brahma.TTA.VSFGCompiler.Tests.fsproj", "{BB791631-0B09-4B4E-B62D-10A127C46BDF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -257,6 +259,18 @@ Global
 		{65A3C264-A440-48D1-824D-86F5870273CB}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{65A3C264-A440-48D1-824D-86F5870273CB}.Release|x64.ActiveCfg = Release|Any CPU
 		{65A3C264-A440-48D1-824D-86F5870273CB}.Release|x86.ActiveCfg = Release|Any CPU
+		{BB791631-0B09-4B4E-B62D-10A127C46BDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB791631-0B09-4B4E-B62D-10A127C46BDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB791631-0B09-4B4E-B62D-10A127C46BDF}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{BB791631-0B09-4B4E-B62D-10A127C46BDF}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{BB791631-0B09-4B4E-B62D-10A127C46BDF}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BB791631-0B09-4B4E-B62D-10A127C46BDF}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BB791631-0B09-4B4E-B62D-10A127C46BDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB791631-0B09-4B4E-B62D-10A127C46BDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB791631-0B09-4B4E-B62D-10A127C46BDF}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{BB791631-0B09-4B4E-B62D-10A127C46BDF}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{BB791631-0B09-4B4E-B62D-10A127C46BDF}.Release|x64.ActiveCfg = Release|Any CPU
+		{BB791631-0B09-4B4E-B62D-10A127C46BDF}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -276,5 +290,6 @@ Global
 		{D8FF1391-D552-438C-BB1D-DF8C37AEA263} = {FD2E37A8-0DDC-46AA-913B-DE26979BB585}
 		{3838CD95-117F-4203-9C50-5BF7E8B824E6} = {FD2E37A8-0DDC-46AA-913B-DE26979BB585}
 		{65A3C264-A440-48D1-824D-86F5870273CB} = {136A55B7-BED5-4FC7-8129-DE53386E3FD3}
+		{BB791631-0B09-4B4E-B62D-10A127C46BDF} = {136A55B7-BED5-4FC7-8129-DE53386E3FD3}
 	EndGlobalSection
 EndGlobal
