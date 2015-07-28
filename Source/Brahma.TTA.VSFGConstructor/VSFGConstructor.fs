@@ -146,6 +146,8 @@ type VSFGConstructor (input: string) =
                         if not (initials.ContainsKey name) && not (functionMap.ContainsKey name) then
                            let initial = InitialNode()
                            initials.Add (name, initial)
+                           VSFG.AddEdgeByInd (initials.[name]) 0 (prev) inputN
+
                         else 
                             if initials.ContainsKey name then 
                                 VSFG.AddEdgeByInd (initials.[name]) 0 (prev) inputN
