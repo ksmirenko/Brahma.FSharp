@@ -139,15 +139,14 @@ let SimpleCompilingFromFSharpToAsm2() =
 
     let FU1 = ADD("in1", "in2t", "out1", true)
     let FU2 = REGISTER("0", true)
-    let TTA = new TTA([| (FU1, 5); (FU2, 4) |], 1)
+    let TTA = new TTA([| (FU1, 5); (FU2, 4) |], 2)
 
     let compiler = new VSFGCompiler(vsfg, TTA)
 
     let code = compiler.Compile()
 
     ()
-
-    
+    (*
     let file = new System.IO.StreamWriter(@"C:\Users\User\Documents\Workspace\test.txt")
 
     code.ForEach( 
@@ -161,4 +160,45 @@ let SimpleCompilingFromFSharpToAsm2() =
     )
 
     file.Close()
-    
+    *)
+
+[<Test>]
+let MoreComplexCompilingFromFSharpToAsm() =     
+    let t = VSFGConstructor("
+
+    let main (x:int) (y:int) (z : int) :int = (x + y) + z + x + x + y + z + x + y + z / x + y / z + (x + y) + z + x + x + y + z + x + y + z / x + y / z + (x + y) + z + x + x + y + z + x + y + z / x + y / z + (x + y) + z + x + x + y + z + x + y + z / x + y / z
+    "
+        )
+    let vsfg = t.getVSFG (t.Helper.getFSharpExpr 0)
+
+    let inits = vsfg.InitialNodes
+    inits.[0].ResultAddr <- (1<ln>, 0<col>)
+    inits.[1].ResultAddr <- (1<ln>, 1<col>)
+    inits.[2].ResultAddr <- (1<ln>, 2<col>)
+
+    let terminals = vsfg.TerminalNodes
+    terminals.[0].ResultAddr <- (1<ln>, 3<col>)
+
+    let FU1 = ADD("in1", "in2t", "out1", true)
+    let FU2 = REGISTER("0", true)
+    let FU3 = SUB("in1", "in2t", "out1", true)
+    let FU4 = DIV("in1", "in2t", "out1", true)
+    let TTA = new TTA([| (FU1, 5); (FU2, 5); (FU3, 5); (FU4, 5) |], 3)
+
+    let compiler = new VSFGCompiler(vsfg, TTA)
+
+    let code = compiler.Compile()
+
+    let file = new System.IO.StreamWriter(@"C:\Users\User\Documents\Workspace\test.txt")
+
+    code.ForEach( 
+        fun x -> 
+        ( 
+            //printf "("
+            Array.iter( fun y -> file.Write(Asm.toString(y, TTA)); file.Write("; ")) x
+            file.WriteLine()
+            //printfn ")"
+        ) 
+    )
+
+    file.Close()

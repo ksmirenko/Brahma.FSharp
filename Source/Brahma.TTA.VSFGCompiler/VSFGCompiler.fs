@@ -62,7 +62,22 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
             toRemove.ForEach(fun x -> this.Tta.SetFUAsFree(x.ResultAddr)) 
             ignore(readies.RemoveAll(fun x -> x.Status = Used))  
 
-
+        let IsWillGeneratedTriggerInstruction(srcNode : Node, dstNode : Node) = 
+            let dstPortIndex = snd (srcNode.GetPorts(dstNode))
+            dstNode.IsTriggerPort(dstPortIndex) && dstNode.inPortsCount > 1
+            
+        (* Move all triggered instructions in the end of the array *)
+        let ReorderDstNodes(srcNode : Node, dstNodes : ResizeArray<Node>) = 
+            let l = ref 0
+            let r = ref (dstNodes.Count - 1)
+            while !l < !r do  
+                if IsWillGeneratedTriggerInstruction(srcNode, dstNodes.[!l])
+                then
+                    let tmp = dstNodes.[!l]
+                    dstNodes.[!l] <- dstNodes.[!r]
+                    dstNodes.[!r] <- tmp
+                    r := !r - 1
+                l := !l + 1
 
 
         Initialization()        
@@ -70,55 +85,59 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
         while not (readies.Count = 1 && readies.[0] = (this.Vsfg.TerminalNodes).[0]) do
 
             let curReadiesLength = readies.Count
+            (* double pass through the loop is need to increase asm instruction density *)
+            for tmp in [0..1] do
+                for i in  [0..curReadiesLength-1] do
+                    let srcNode = readies.[i]
 
-            for i in  [0..curReadiesLength-1] do
-                let srcNode = readies.[i]
-
-                let dstNodes = srcNode.GetNextNotVisitedNodes()
+                    let dstNodes = srcNode.GetNextNotVisitedNodes()
                 
-                for dstNode in dstNodes do
-                    let portIndexes = srcNode.GetPorts(dstNode)
-                    let dstPortIndex = snd portIndexes
+                    for dstNode in dstNodes do
+                        let portIndexes = srcNode.GetPorts(dstNode)
+                        let dstPortIndex = snd portIndexes
 
-                    if (this.Tta.IsFreeBus() && not ( dstNode.IsTriggerPort(dstPortIndex) && dstNode.inPortsCount > 1 ))
-                    then
-                        if dstNode.Status = Unused 
+                        if (this.Tta.IsFreeBus() && not (IsWillGeneratedTriggerInstruction(srcNode, dstNode)))
                         then
-                            let isHaveFreeFU = this.Tta.IsFreeFU(dstNode.OpType)
-                
-                            if isHaveFreeFU
+                            if dstNode.Status = Unused 
                             then
-                                let index = this.Tta.GetFreeFU(dstNode.OpType)
-                                this.Tta.SetFUAsNonFree(index)
-                                this.Tta.TakeABus()
+                                let isHaveFreeFU = this.Tta.IsFreeFU(dstNode.OpType)
+                
+                                if isHaveFreeFU
+                                then
+                                    let index = this.Tta.GetFreeFU(dstNode.OpType)
+                                    this.Tta.SetFUAsNonFree(index)
+                                    this.Tta.TakeABus()
 
-                                if dstNode <> ((this.Vsfg.TerminalNodes).[0])
-                                then dstNode.ResultAddr <- index
+                                    if dstNode <> ((this.Vsfg.TerminalNodes).[0])
+                                    then dstNode.ResultAddr <- index
 
-                                srcNode.SetNodeAsVisited(dstNode)
+                                    srcNode.SetNodeAsVisited(dstNode)
 
-                                dstNode.DecInPorts()
+                                    dstNode.DecInPorts()
+                                    srcNode.DecOutPorts()
+
+                                    if dstNode.Status = Ready
+                                    then readies.Add(dstNode)
+
+                                    GenerateCommand(srcNode, dstNode)
+
+                            elif dstNode.Status = Preparing
+                            then
                                 srcNode.DecOutPorts()
+                                dstNode.DecInPorts()
+                                this.Tta.TakeABus()
 
                                 if dstNode.Status = Ready
                                 then readies.Add(dstNode)
 
+                                srcNode.SetNodeAsVisited(dstNode)
+
                                 GenerateCommand(srcNode, dstNode)
-
-                        elif dstNode.Status = Preparing
-                        then
-                            srcNode.DecOutPorts()
-                            dstNode.DecInPorts()
-                            this.Tta.TakeABus()
-
-                            if dstNode.Status = Ready
-                            then readies.Add(dstNode)
-
-                            srcNode.SetNodeAsVisited(dstNode)
-
-                            GenerateCommand(srcNode, dstNode)
-                        else
-                            printfn "ERROR\n"
+                            elif dstNode.Status = Ready
+                            then
+                                ()
+                            else
+                                printfn "ERROR\n"
 
             ReleaseUsedNodesFromReadies()
 
@@ -128,3 +147,48 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
         asmCode.RemoveAt(asmCode.Count-1)
 
         asmCode 
+
+(*
+[<EntryPoint>]
+let main(arg : string[]) = 
+    let t = VSFGConstructor("
+
+    let main (x:int) (y:int) (z : int) :int = (x + y) + z + x + x + y + z + x + y + z / x + y / z + (x + y) + z + x + x + y + z + x + y + z / x + y / z + (x + y) + z + x + x + y + z + x + y + z / x + y / z + (x + y) + z + x + x + y + z + x + y + z / x + y / z
+    "
+        )
+    let vsfg = t.getVSFG (t.Helper.getFSharpExpr 0)
+
+    let inits = vsfg.InitialNodes
+    inits.[0].ResultAddr <- (1<ln>, 0<col>)
+    inits.[1].ResultAddr <- (1<ln>, 1<col>)
+    inits.[2].ResultAddr <- (1<ln>, 2<col>)
+
+    let terminals = vsfg.TerminalNodes
+    terminals.[0].ResultAddr <- (1<ln>, 3<col>)
+
+    let FU1 = ADD("in1", "in2t", "out1", true)
+    let FU2 = REGISTER("0", true)
+    let FU3 = SUB("in1", "in2t", "out1", true)
+    let FU4 = DIV("in1", "in2t", "out1", true)
+    let TTA = new TTA([| (FU1, 5); (FU2, 5); (FU3, 5); (FU4, 5) |], 3)
+
+    let compiler = new VSFGCompiler(vsfg, TTA)
+
+    let code = compiler.Compile()
+
+    let file = new System.IO.StreamWriter(@"C:\Users\User\Documents\Workspace\test.txt")
+
+    code.ForEach( 
+        fun x -> 
+        ( 
+            //printf "("
+            Array.iter( fun y -> file.Write(Asm.toString(y, TTA)); file.Write("; ")) x
+            file.WriteLine()
+            //printfn ")"
+        ) 
+    )
+
+    file.Close()
+    
+    0
+*)
