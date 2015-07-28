@@ -63,6 +63,8 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
             ignore(readies.RemoveAll(fun x -> x.Status = Used))  
 
 
+
+
         Initialization()        
          
         while not (readies.Count = 1 && readies.[0] = (this.Vsfg.TerminalNodes).[0]) do
@@ -73,9 +75,12 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
                 let srcNode = readies.[i]
 
                 let dstNodes = srcNode.GetNextNotVisitedNodes()
-
+                
                 for dstNode in dstNodes do
-                    if (this.Tta.IsFreeBus())
+                    let portIndexes = srcNode.GetPorts(dstNode)
+                    let dstPortIndex = snd portIndexes
+
+                    if (this.Tta.IsFreeBus() && not ( dstNode.IsTriggerPort(dstPortIndex) && dstNode.inPortsCount > 1 ))
                     then
                         if dstNode.Status = Unused 
                         then

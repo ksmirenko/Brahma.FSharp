@@ -53,33 +53,34 @@ and OutPort (targets : ResizeArray<InPort>) =
 
 and Node (inPorts : ResizeArray<InPort>, outPorts : ResizeArray<OutPort>, opType : OperationType) = 
     
-    let mutable inPortsCount = inPorts.Count
-    let mutable outPortsCount = outPorts.Count
-
     interface INode
+
+    member val inPortsCount = inPorts.Count with get, set
+    member val outPortsCount = outPorts.Count with get, set
 
     member val Status = Unused with get, set
     member val ResultAddr = (-1<ln>, -1<col>) with get, set
     member val OpType = opType with get, set
     member val IsVisited : bool array = Array.init 1 (fun x -> false) with get, set
 
+
     member this.SetInPortsCount(count : int) = 
-        inPortsCount <- count
+        this.inPortsCount <- count
     member this.SetOutPortsCount(count : int) =
-        outPortsCount <- count
+        this.outPortsCount <- count
 
     member this.DecInPorts() = 
-        inPortsCount <- inPortsCount - 1
-        if inPortsCount = inPorts.Count - 1
+        this.inPortsCount <- this.inPortsCount - 1
+        if this.inPortsCount = inPorts.Count - 1
         then this.Status <- Preparing
 
-        if inPortsCount = 0
+        if this.inPortsCount = 0
         then this.Status <- Ready
 
     member this.DecOutPorts() = 
-        outPortsCount <- outPortsCount - 1
+        this.outPortsCount <- this.outPortsCount - 1
 
-        if outPortsCount = 0
+        if this.outPortsCount = 0
         then this.Status <- Used
 
     member this.InPorts = 
@@ -129,6 +130,9 @@ and Node (inPorts : ResizeArray<InPort>, outPorts : ResizeArray<OutPort>, opType
             if outNodes.[i] = node
             then this.IsVisited.[i] <- true 
 
+    member this.IsTriggerPort(port : int<port>) =
+        port = (this.InPorts.Count - 1) * 1<port>
+
     (**
      * Returns (x, y), where
      * x -- outPorts from this node
@@ -151,7 +155,7 @@ and Node (inPorts : ResizeArray<InPort>, outPorts : ResizeArray<OutPort>, opType
                     for j in [0..prevNodes.Count-1] do
                         if this = prevNodes.[j] then
                             resInd := ((i + inPorts.Count) * 1<port>, j * 1<port>)
-        !resInd     
+        !resInd
 
     new (inPortsCount, outPortsCount, opType) =
         Node (new ResizeArray<_>(Array.init inPortsCount (fun _ -> new InPort())),
