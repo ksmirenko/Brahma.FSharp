@@ -2,6 +2,8 @@
 
 open Brahma.TTA.VSFG
 open Brahma.TTA.VirtualTTA
+open Brahma.TTA.VSFGCompiler
+open Brahma.TTA.VSFGConstructor
 open NUnit.Framework
 
 [<Test>]
@@ -47,6 +49,49 @@ let VSFGCompilerWithoutMUXandFunctions () =
 
             plus6 :> Node, 0, terminal :> Node, 0;
         |]
+
+    let FU1 = ADD("in1", "in2t", "out1", true)
+    let FU2 = REGISTER("0", true)
+    let TTA = new TTA([| (FU1, 5); (FU2, 4) |], 1)
+
+    let compiler = new VSFGCompiler(vsfg, TTA)
+
+    let code = compiler.Compile()
+
+    ()
+
+    (*
+    let file = new System.IO.StreamWriter(@"C:\Users\User\Documents\Workspace\test.txt")
+
+    code.ForEach( 
+        fun x -> 
+        ( 
+            //printf "("
+            Array.iter( fun y -> file.Write(Asm.toString(y, TTA)); file.Write("; ")) x
+            file.WriteLine()
+            //printfn ")"
+        ) 
+    )
+
+    file.Close()
+    *)
+
+[<Test>]
+let SimpleCompilingFromFSharpToAsm() = 
+        
+    let t = VSFGConstructor("
+
+    let main (x:int) (y:int) :int = x + y
+    "
+        )
+    let vsfg = t.getVSFG (t.Helper.getFSharpExpr 0)
+
+    let inits = vsfg.InitialNodes
+    inits.[0].ResultAddr <- (1<ln>, 0<col>)
+    inits.[1].ResultAddr <- (1<ln>, 1<col>)
+
+    let terminals = vsfg.TerminalNodes
+    terminals.[0].ResultAddr <- (1<ln>, 2<col>)
 
     let FU1 = ADD("in1", "in2t", "out1", true)
     let FU2 = REGISTER("0", true)

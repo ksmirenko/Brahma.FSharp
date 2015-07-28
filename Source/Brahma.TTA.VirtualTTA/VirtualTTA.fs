@@ -29,7 +29,7 @@ module FunctionUnit =
         | ADD(port0, port1, port2, _) -> "ADD" + c.ToString() + "." + (if p = 0<port> then port0 elif p = 1<port> then port1 elif p = 2<port> then port2 else "-1")
         | SUB(port0, port1, port2, _) -> "SUB" + c.ToString() + "." + (if p = 0<port> then port0 elif p = 1<port> then port1 elif p = 2<port> then port2 else "-1")
         | DIV(port0, port1, port2, _) -> "DIV" + c.ToString() + "." + (if p = 0<port> then port0 elif p = 1<port> then port1 elif p = 2<port> then port2 else "-1")
-        | REGISTER(port0, _) -> "RF" + c.ToString() + "." + (if p = 0<port> then port0 else "-1")
+        | REGISTER(port0, _) -> "RF" + c.ToString() + "." + (if p = 0<port> then port0 elif p = 1<port> then port0 else "-1")
 
     let isFree fu = 
         match fu with

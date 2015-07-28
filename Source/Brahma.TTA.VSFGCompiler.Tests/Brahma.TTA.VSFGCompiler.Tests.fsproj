@@ -38,6 +38,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FSharp.Compiler.Service">
+      <HintPath>..\packages\FSharp.Compiler.Service.1.3.1.0\lib\net45\FSharp.Compiler.Service.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>True</Private>
@@ -50,7 +53,7 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Program.fs" />
+    <Compile Include="VSFGCompilerTests.fs" />
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
@@ -62,6 +65,11 @@
     <ProjectReference Include="..\Brahma.TTA.VSFGCompiler\Brahma.TTA.VSFGCompiler.fsproj">
       <Name>Brahma.TTA.VSFGCompiler</Name>
       <Project>{d8ff1391-d552-438c-bb1d-df8c37aea263}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Brahma.TTA.VSFGConstructor\Brahma.TTA.VSFGConstructor.fsproj">
+      <Name>Brahma.TTA.VSFGConstructor</Name>
+      <Project>{3838cd95-117f-4203-9c50-5bf7e8b824e6}</Project>
       <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\Brahma.TTA.VSFG\Brahma.TTA.VSFG.fsproj">

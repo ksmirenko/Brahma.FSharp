@@ -2,6 +2,7 @@
 
 open Brahma.TTA.VirtualTTA
 open Brahma.TTA.VSFG
+open Brahma.TTA.VSFGConstructor
 
 type Addr = int<ln> * int<col> * int<port>
 
@@ -58,7 +59,7 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
 
         let ReleaseUsedNodesFromReadies() =
             let toRemove = readies.FindAll(fun x -> x.Status = Used)
-            toRemove.ForEach(fun x -> this.Tta.SetFUAsFree(x.ResultAddr))
+            toRemove.ForEach(fun x -> this.Tta.SetFUAsFree(x.ResultAddr)) 
             ignore(readies.RemoveAll(fun x -> x.Status = Used))  
 
 

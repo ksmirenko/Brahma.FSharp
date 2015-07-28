@@ -38,6 +38,9 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="FSharp.Compiler.Service">
+      <HintPath>..\packages\FSharp.Compiler.Service.1.3.1.0\lib\net45\FSharp.Compiler.Service.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
       <Private>True</Private>
@@ -54,6 +57,11 @@
     <ProjectReference Include="..\Brahma.TTA.VirtualTTA\Brahma.TTA.VirtualTTA.fsproj">
       <Name>Brahma.TTA.VirtualTTA</Name>
       <Project>{2c06094e-ee18-4c97-b446-b651198d12d8}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Brahma.TTA.VSFGConstructor\Brahma.TTA.VSFGConstructor.fsproj">
+      <Name>Brahma.TTA.VSFGConstructor</Name>
+      <Project>{3838cd95-117f-4203-9c50-5bf7e8b824e6}</Project>
       <Private>True</Private>
     </ProjectReference>
     <ProjectReference Include="..\Brahma.TTA.VSFG\Brahma.TTA.VSFG.fsproj">
