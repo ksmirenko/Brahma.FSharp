@@ -84,7 +84,7 @@ let SimpleCompilingFromFSharpToAsm() =
     let main (x:int) (y:int) :int = x + y
     "
         )
-    let vsfg = t.getVSFG (t.Helper.getFSharpExpr 0)
+    let vsfg = t.getVSFG
 
     let inits = vsfg.InitialNodes
     inits.[0].ResultAddr <- (1<ln>, 0<col>)
@@ -127,7 +127,7 @@ let SimpleCompilingFromFSharpToAsm2() =
     let main (x:int) (y:int) (z : int) :int = x + y + z
     "
         )
-    let vsfg = t.getVSFG (t.Helper.getFSharpExpr 0)
+    let vsfg = t.getVSFG
 
     let inits = vsfg.InitialNodes
     inits.[0].ResultAddr <- (1<ln>, 0<col>)
@@ -162,7 +162,7 @@ let SimpleCompilingFromFSharpToAsm2() =
     file.Close()
     *)
 
-[<Test>]
+(*[<Test>]
 let MoreComplexCompilingFromFSharpToAsm() =     
     let t = VSFGConstructor("
 
@@ -188,6 +188,8 @@ let MoreComplexCompilingFromFSharpToAsm() =
     let compiler = new VSFGCompiler(vsfg, TTA)
 
     let code = compiler.Compile()
+    //ай-я-яй=)
+    //конечно не буду это пушить в репозиторий, это же только у меня запустится!!
 
     let file = new System.IO.StreamWriter(@"C:\Users\User\Documents\Workspace\test.txt")
 
@@ -202,3 +204,5 @@ let MoreComplexCompilingFromFSharpToAsm() =
     )
 
     file.Close()
+
+    *)

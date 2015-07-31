@@ -215,9 +215,20 @@ type MultiplexorNode () =
 
 
 type VSFG (initialNodes : Node array, terminalNodes : Node array, constNodes : ConstNode array) =
-    member this.InitialNodes = initialNodes
-    member this.TerminalNodes = terminalNodes
-    member this.ConstNodes = constNodes
+    let mutable _initialNodes = initialNodes
+    let mutable _terminalNodes = terminalNodes
+    let mutable _constNodes = constNodes
+
+    member this.InitialNodes = _initialNodes
+
+    member this.TerminalNodes = _terminalNodes
+    member this.ConstNodes = _constNodes
+    member this.SetInitialNodes (a: Node array) = 
+        _initialNodes <- a
+    member this.SetTerminalNodes (a: Node array) = 
+        _terminalNodes <- a
+    member this.SetConstNodes (a: ConstNode array) = 
+        _constNodes <- a
 
     static member AddEdge (outPort : OutPort) (inPort : InPort) =
         outPort.AddTarget inPort

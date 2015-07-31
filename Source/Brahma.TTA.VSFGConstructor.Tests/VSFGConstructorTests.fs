@@ -47,23 +47,68 @@ let VSFGConstructorHelper() =
     Assert.AreEqual ((0 |> t.getFSharpArgs).Length, 3)
 
 [<Test>]
+let DeepNested() = 
+
+    let t = VSFGConstructor("
+
+   let main (x:int) :int =
+    let rec g (x:int) : int= 
+        let f (x:int) : int = 
+            let e (r:int) :int = g r 
+            let h :int = e 2
+            
+            123
+        123 
+     
+
+    let rec f (x:int) (y:int) :int = 
+        let g (x:int) (t:int) (y:int) = x 
+        if x + 2 > y then
+            f (x + 2) x
+        else 
+            g x y 2
+
+    f (g x) x
+    ")
+
+    t.print (fun x -> printf "visit %A" x)
+
+    let vsfg = t.getVSFG
+
+    ()
+
+[<Test>]
 let WithoutRec() = 
     
     let t = VSFGConstructor("
 
    let main (x:int) :int =
-    let g x y = x + y 
-    let f (x:int) (y:int) :int =
-        let e x y = x + y
-        if x > y then
-           g (x) (x+y)
+    let g (x:int) (y:int) :int = 123
+    let  f (x:int) (y:int) :int = 
+        if x + 2 > y then
+            g (x + 2) (x-y+2*x)
         else 
-            x - y
-    f 2 x
+            g x y
+    f x x
+    ")
+        
+        
+    t.print (fun x -> printfn "visit %A" x)
+    let vsfg = t.getVSFG
+    ()
+    
+[<Test>]
+let Recursion() = 
+    let t = VSFGConstructor("
+
+   let main (x:int) :int =
+    let rec f x y = 
+        if x > y then
+            f (x + 2) (y)
+        else x
+    f x x  
     "
         )
-    let vsfg = t.getVSFG (t.Helper.getFSharpExpr 0)
-    Assert.AreEqual (vsfg.InitialNodes.Length, 1)
-    
-    checkNeighbours vsfg.TerminalNodes.[0] 1 0
 
+    let vsfg = t.getVSFG 
+    ()
