@@ -85,7 +85,13 @@ let IfTest() =
     ")
     let a = t.getVSFG
     ()
-    
+[<Test>] 
+let anotherTest() =
+   let t = VSFGConstructor("
+    let main (x:int) (y: int) = (x + y) + x + (y + x)
+        ")
+   let v = t.getVSFG
+   ()
 [<Test>]
 let WithoutRec() = 
     
