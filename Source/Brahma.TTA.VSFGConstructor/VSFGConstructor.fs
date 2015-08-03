@@ -71,39 +71,39 @@ type VSFGConstructor (input: string) =
                     ()
                 | "( / )" -> 
                     let call = new DivNode()
-                    VSFG.AddEdgeByInd (call) (0) (prev) (0)
+                    VSFG.AddEdgeByInd (call) (0) (prev) (inputN)
                     visitArgs call 0 argExprs 
                     ()
                 | "( * )" -> 
                     let call = new DivNode()
-                    VSFG.AddEdgeByInd (call :> Node) (0) (prev) (0)
+                    VSFG.AddEdgeByInd (call :> Node) (0) (prev) (inputN)
                     visitArgs call 0 argExprs
                 | "( > )" -> 
                     let call = new GtNode()
-                    VSFG.AddEdgeByInd (call :> Node) (0) (prev) (0)
+                    VSFG.AddEdgeByInd (call :> Node) (0) (prev) (inputN)
                     visitArgs call 0 argExprs
             
                 | "( < )" -> 
                     printfn "to input port %A of object %A <- <" inputN prev 
                     let call = new LtNode()
-                    VSFG.AddEdgeByInd (call :> Node) (0) (prev) (0)
+                    VSFG.AddEdgeByInd (call :> Node) (0) (prev) (inputN)
                     visitArgs call 0 argExprs 
              
                 | "( <= )" -> 
                     let call = new LeqNode()
-                    VSFG.AddEdgeByInd (call :> Node) (0) (prev) (0)
+                    VSFG.AddEdgeByInd (call :> Node) (0) (prev) (inputN)
                     visitArgs call 0 argExprs
                 | "( >= )" -> 
                     let call = new GeqNode()
-                    VSFG.AddEdgeByInd (call :> Node) (0) (prev) (0)
+                    VSFG.AddEdgeByInd (call :> Node) (0) (prev) (inputN)
                     visitArgs call 0 argExprs
                 | "( = )" -> 
                     let call = new EqNode()
-                    VSFG.AddEdgeByInd (call :> Node) (0) (prev) (0)
+                    VSFG.AddEdgeByInd (call :> Node) (0) (prev) (inputN)
                     visitArgs call 0 argExprs 
                 | _ -> 
                     let nested = new NestedVsfgNode(functionMap.[memberOrFunc.DisplayName])
-                    VSFG.AddEdgeByInd (nested :> Node) (0) (prev) (0)
+                    VSFG.AddEdgeByInd (nested :> Node) (0) (prev) (inputN)
                     visitArgs nested 0 argExprs
                     ()     
 
@@ -112,8 +112,8 @@ type VSFGConstructor (input: string) =
 
                 let mux = new MultiplexorNode()
                 VSFG.AddEdgeByInd (mux) 0 (prev) inputN
-                f mux 1  guardExpr
-                f mux 0  elseExpr
+                f mux 0  guardExpr
+                f mux 1  elseExpr
                 f mux 2  thenExpr
 
                 ()

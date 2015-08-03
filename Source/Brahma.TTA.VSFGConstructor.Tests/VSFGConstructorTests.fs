@@ -77,6 +77,15 @@ let DeepNested() =
 
     ()
 
+
+[<Test>]
+let IfTest() =  
+    let t = VSFGConstructor("
+    let main (x:int) (y : int) :int = if x<y then x else y 
+    ")
+    let a = t.getVSFG
+    ()
+    
 [<Test>]
 let WithoutRec() = 
     
