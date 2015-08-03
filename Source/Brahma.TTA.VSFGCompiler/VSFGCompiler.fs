@@ -1,4 +1,4 @@
-﻿module Brahma.TTA.VSFGCompiler
+﻿namespace Brahma.TTA.VSFGCompiler
 
 open Brahma.TTA.VirtualTTA
 open Brahma.TTA.VSFG
@@ -437,52 +437,21 @@ let main(arg : string[]) =
     0
 *)
 
-
-
+(*
 [<EntryPoint>]
 let main(arg : string[]) = 
     
     let t = VSFGConstructor("
 
-    let main (x:int) (y : int) :int = (x + y) + x + (y + x)
+    let main (x:int) (y : int) :int = if x < y 
+                                      then
+                                        if x < y then x else y 
+                                      else 
+                                        y + x
     "
     )
 
     let vsfg = t.getVSFG
-    
-
-    (*
-    let x = new InitialNode()
-    let y = new InitialNode()
-
-    let terminal = new TerminalNode() 
-
-    let less = new LtNode()
-    let multiplexor = new MultiplexorNode()
-    let multiplexor2 = new MultiplexorNode()
-    let plus = new AddNode()
-
-    let vsfg = new VSFG ([|x; y|], [|terminal|], [||])
-
-    VSFG.AddVerticesAndEdges 
-        [|
-            x :> Node, 0, less :> Node, 0;
-            y :> Node, 0, less :> Node, 1;
-
-            x :> Node, 0, plus :> Node, 0;
-            y :> Node, 0, plus :> Node, 1;
-
-            less :> Node, 0, multiplexor :> Node, 0;
-            x :> Node, 0, multiplexor :> Node, 1;
-            plus :> Node, 0, multiplexor :> Node, 2;
-
-            less :> Node, 0, multiplexor2 :> Node, 0;
-            multiplexor :> Node, 0, multiplexor2 :> Node, 1;
-            multiplexor :> Node, 0, multiplexor2 :> Node, 2;
-
-            multiplexor2 :> Node, 0, terminal :> Node, 0;
-        |]
-    *)
 
     let inits = vsfg.InitialNodes
     inits.[0].ResultAddr <- (1<ln>, 0<col>)
@@ -496,7 +465,7 @@ let main(arg : string[]) =
     let FU3 = BOOL("0", true)
     let FU4 = LT("in1", "in2t", "out1", true)
     let FU5 = DIV("in1", "in2t", "out1", true)
-    let TTA = new TTA([| (FU1, 5); (FU2, 5); (FU3, 2); (FU4, 1); (FU5, 1) |], 1)
+    let TTA = new TTA([| (FU1, 5); (FU2, 5); (FU3, 2); (FU4, 2); (FU5, 1) |], 5)
     
     let compiler = new VSFGCompiler(vsfg, TTA)
 
@@ -517,3 +486,4 @@ let main(arg : string[]) =
     file.Close()
     
     0
+*)
