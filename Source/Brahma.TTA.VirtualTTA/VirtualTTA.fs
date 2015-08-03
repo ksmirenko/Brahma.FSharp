@@ -4,7 +4,7 @@
 [<Measure>] type col
 [<Measure>] type port
 
-type OperationType = ADD_TYPE | SUB_TYPE | DIV_TYPE | REGISTER_TYPE | EQ_TYPE | GT_TYPE | LT_TYPE | GEG_TYPE | LEQ_TYPE | MULTIPLEXOR_TYPE
+type OperationType = ADD_TYPE | SUB_TYPE | MUL_TYPE | DIV_TYPE | REGISTER_TYPE | EQ_TYPE | GT_TYPE | LT_TYPE | GEQ_TYPE | LEQ_TYPE | MULTIPLEXOR_TYPE
 
 (**
  * bool value = true, if FU is free
@@ -17,7 +17,9 @@ type FunctionUnitType =
     | ADD of string * string * string * bool
     | SUB of string * string * string * bool
     | DIV of string * string * string * bool
+    | LT of string * string * string * bool
     | REGISTER of string * bool
+    | BOOL of string * bool
 
 module FunctionUnit = 
     (**
@@ -29,28 +31,36 @@ module FunctionUnit =
         | ADD(port0, port1, port2, _) -> "ADD" + c.ToString() + "." + (if p = 0<port> then port0 elif p = 1<port> then port1 elif p = 2<port> then port2 else "-1")
         | SUB(port0, port1, port2, _) -> "SUB" + c.ToString() + "." + (if p = 0<port> then port0 elif p = 1<port> then port1 elif p = 2<port> then port2 else "-1")
         | DIV(port0, port1, port2, _) -> "DIV" + c.ToString() + "." + (if p = 0<port> then port0 elif p = 1<port> then port1 elif p = 2<port> then port2 else "-1")
+        | LT(port0, port1, port2, _) -> "LT" + c.ToString() + "." + (if p = 0<port> then port0 elif p = 1<port> then port1 elif p = 2<port> then port2 else "-1")
         | REGISTER(port0, _) -> "RF" + c.ToString() + "." + (if p = 0<port> then port0 elif p = 1<port> then port0 else "-1")
+        | BOOL(port0, _) -> "BOOL" + c.ToString() + "." + (if p = 0<port> then port0 else p.ToString())
 
     let isFree fu = 
         match fu with
         | ADD(_, _, _, b) -> b = true
         | SUB(_, _, _, b) -> b = true
         | DIV(_, _, _, b) -> b = true
+        | LT(_, _, _, b) -> b = true
         | REGISTER(_, b) -> b = true
+        | BOOL(_, b) -> b = true
 
     let setAsFree fu = 
         match fu with
         | ADD(x, y, z, _) -> ADD(x, y, z, true)
         | SUB(x, y, z, _) -> SUB(x, y, z, true)
         | DIV(x, y, z, _) -> DIV(x, y, z, true)
+        | LT(x, y, z, _) -> LT(x, y, z, true)
         | REGISTER(x, _) -> REGISTER(x, true)
+        | BOOL(x, _) -> BOOL(x, true)
 
     let setAsNonFree fu = 
         match fu with
         | ADD(x, y, z, _) -> ADD(x, y, z, false)
         | SUB(x, y, z, _) -> SUB(x, y, z, false)
         | DIV(x, y, z, _) -> DIV(x, y, z, false)
+        | LT(x, y, z, _) -> LT(x, y, z, false)
         | REGISTER(x, _) -> REGISTER(x, false)
+        | BOOL(x, _) -> BOOL(x, false)
 
 
 type TTA(FUs : array<FunctionUnitType * int>, countOfBuses : int) = 
@@ -116,8 +126,14 @@ type TTA(FUs : array<FunctionUnitType * int>, countOfBuses : int) =
                     | DIV(_, _, _, _) -> match opType with
                                          | DIV_TYPE -> Some(Array.findIndex FunctionUnit.isFree fuWithSameType)
                                          | _ -> None
+                    | LT(_, _, _, _) -> match opType with
+                                         | LT_TYPE -> Some(Array.findIndex FunctionUnit.isFree fuWithSameType)
+                                         | _ -> None
                     | REGISTER(_, _) -> match opType with
                                          | REGISTER_TYPE -> Some(Array.findIndex FunctionUnit.isFree fuWithSameType)
+                                         | _ -> None
+                    | BOOL (_, _) -> match opType with
+                                         | MULTIPLEXOR_TYPE -> Some(Array.findIndex FunctionUnit.isFree fuWithSameType)
                                          | _ -> None
             match elem with
                 | Some(column) ->
@@ -142,8 +158,14 @@ type TTA(FUs : array<FunctionUnitType * int>, countOfBuses : int) =
                     | DIV(_, _, _, _) -> match opType with
                                          | DIV_TYPE -> Some(Array.isEmpty (Array.filter FunctionUnit.isFree fuWithSameType))
                                          | _ -> None
+                    | LT(_, _, _, _) -> match opType with
+                                         | LT_TYPE -> Some(Array.isEmpty (Array.filter FunctionUnit.isFree fuWithSameType))
+                                         | _ -> None
                     | REGISTER(_, _) -> match opType with
                                          | REGISTER_TYPE -> Some(Array.isEmpty (Array.filter FunctionUnit.isFree fuWithSameType))
+                                         | _ -> None
+                    | BOOL(_, _) -> match opType with
+                                         | MULTIPLEXOR_TYPE -> Some(Array.isEmpty (Array.filter FunctionUnit.isFree fuWithSameType))
                                          | _ -> None
 
             match isEmpty with
