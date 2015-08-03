@@ -72,25 +72,18 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
             if (srcNode.OpType = MULTIPLEXOR_TYPE)
             then
                 let predicateEdge = Edge(srcNode.InPorts.[0].Inputs.[0], srcNode.InPorts.[0])
-                let falseEdge = ref (Edge(srcNode.InPorts.[1].Inputs.[0], srcNode.InPorts.[1]))
-                let trueEdge = ref (Edge(srcNode.InPorts.[2].Inputs.[0], srcNode.InPorts.[2]))
-
-                while (!falseEdge).SrcNode.OpType = MULTIPLEXOR_TYPE do
-                    falseEdge := Edge((!falseEdge).SrcNode.InPorts.[1].Inputs.[0], (!falseEdge).SrcNode.InPorts.[1])
-
-                while (!trueEdge).SrcNode.OpType = MULTIPLEXOR_TYPE do
-                    trueEdge := Edge((!trueEdge).SrcNode.InPorts.[2].Inputs.[0], (!trueEdge).SrcNode.InPorts.[2])
-
+                let falseEdge = (Edge(srcNode.InPorts.[1].Inputs.[0], srcNode.InPorts.[1]))
+                let trueEdge =(Edge(srcNode.InPorts.[2].Inputs.[0], srcNode.InPorts.[2]))
 
                 let srcPortPredicate = 0<port>
-                let srcPortFalse = (!falseEdge).OutPort.Index
-                let srcPortTrue = (!trueEdge).OutPort.Index
+                let srcPortFalse = falseEdge.OutPort.Index
+                let srcPortTrue = trueEdge.OutPort.Index
 
                 let dstPort = edge.InPort.Index
 
                 let (srcLnPredicate : int<ln>, srcColPredicate : int<col>) = edge.SrcNode.ResultAddr
-                let (srcLnFalse : int<ln>, srcColFalse : int<col>) = (!falseEdge).SrcNode.ResultAddr
-                let (srcLnTrue : int<ln>, srcColTrue : int<col>) = (!trueEdge).SrcNode.ResultAddr
+                let (srcLnFalse : int<ln>, srcColFalse : int<col>) = falseEdge.SrcNode.ResultAddr
+                let (srcLnTrue : int<ln>, srcColTrue : int<col>) = trueEdge.SrcNode.ResultAddr
 
                 let (dstLn : int<ln>, dstCol : int<col>) = edge.DstNode.ResultAddr
 
@@ -168,6 +161,9 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
                             if isHaveFreeFU || dstNode = ((this.Vsfg.TerminalNodes).[0])
                             then
 
+                                dstNode.DecInPorts()
+                                srcNode.DecOutPorts()
+
                                 (* Когда будем обрабатывать хвостовую рекурсию, здесь пометим, что <> nested_vsfg *)
                                 if dstNode <> ((this.Vsfg.TerminalNodes).[0])
                                 then 
@@ -180,8 +176,6 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
                                     then    
                                         readyEdges.AddRange(dstNode.GetNextEdges())
 
-                                dstNode.DecInPorts()
-                                srcNode.DecOutPorts()
                             
                                 SetEdgeAsUsed(curEdge)
 
@@ -441,16 +435,17 @@ let main(arg : string[]) =
 [<EntryPoint>]
 let main(arg : string[]) = 
     
+    (*TODO: Fix bug with multiple if-then-else. Should compute before*)
     let t = VSFGConstructor("
 
     let main (x:int) (y : int) :int = if x < y 
                                       then
-                                        if x < y then x else y 
+                                        if y < x then x else y 
                                       else 
-                                        y + x
+                                        y
     "
     )
-
+       
     let vsfg = t.getVSFG
 
     let inits = vsfg.InitialNodes
@@ -458,7 +453,7 @@ let main(arg : string[]) =
     inits.[1].ResultAddr <- (1<ln>, 1<col>)
 
     let terminals = vsfg.TerminalNodes
-    terminals.[0].ResultAddr <- (1<ln>, 3<col>)
+    terminals.[0].ResultAddr <- (1<ln>, 2<col>)
 
     let FU1 = ADD("in1", "in2t", "out1", true)
     let FU2 = REGISTER("0", true)
@@ -466,6 +461,10 @@ let main(arg : string[]) =
     let FU4 = LT("in1", "in2t", "out1", true)
     let FU5 = DIV("in1", "in2t", "out1", true)
     let TTA = new TTA([| (FU1, 5); (FU2, 5); (FU3, 2); (FU4, 2); (FU5, 1) |], 5)
+    
+    TTA.SetFUAsNonFree(inits.[0].ResultAddr)
+    TTA.SetFUAsNonFree(inits.[1].ResultAddr)
+    TTA.SetFUAsNonFree(terminals.[0].ResultAddr)
     
     let compiler = new VSFGCompiler(vsfg, TTA)
 
