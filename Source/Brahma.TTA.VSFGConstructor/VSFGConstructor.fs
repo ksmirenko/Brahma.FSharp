@@ -111,7 +111,14 @@ type VSFGConstructor (input: string) =
                 printfn "IF "
 
                 let mux = new MultiplexorNode()
-                VSFG.AddEdgeByInd (mux) 0 (prev) inputN
+                match prev.OpType with  
+                    |MULTIPLEXOR_TYPE -> 
+                        let initial = new InitialNode()
+                        VSFG.AddEdgeByInd mux 0 initial 0
+                        VSFG.AddEdgeByInd (initial) 0 (prev) inputN
+                    | _ ->
+                        VSFG.AddEdgeByInd (mux) 0 (prev) inputN
+                
                 f mux 0  guardExpr
                 f mux 1  elseExpr
                 f mux 2  thenExpr
