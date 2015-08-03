@@ -61,12 +61,12 @@ type VSFGConstructor (input: string) =
                 match memberOrFunc.DisplayName with 
                 | "( + )" -> 
                     let call = new AddNode()
-                    VSFG.AddEdgeByInd (call :> Node) (0) (prev) (0)
+                    VSFG.AddEdgeByInd (call :> Node) (0) (prev) (inputN)
                     visitArgs (call) 0  argExprs 
                     ()
                 | "( - )" -> 
                     let call = new SubNode()
-                    VSFG.AddEdgeByInd (call :> Node) (0) (prev) (0)
+                    VSFG.AddEdgeByInd (call :> Node) (0) (prev) (inputN)
                     visitArgs call 0  argExprs 
                     ()
                 | "( / )" -> 
