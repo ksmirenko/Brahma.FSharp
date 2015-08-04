@@ -1,4 +1,4 @@
-﻿namespace Brahma.TTA.VSFGCompiler
+﻿module Brahma.TTA.VSFGCompiler
 
 open Brahma.TTA.VirtualTTA
 open Brahma.TTA.VSFG
@@ -39,37 +39,56 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
     member this.Compile() = 
         let curGlobalComandIndex = ref 0
         let curMicroComandIndex = ref 0
-        
-        let CheckEndOfInstruction() =
-            if !curMicroComandIndex <> 0
-            then 
+
+        let rec CheckEndOfInstruction() =
+            let isFound = ref false
+
+            if !curMicroComandIndex = 0
+            then
+                let prevNodes = new ResizeArray<Node>()
+                let nextUnusedNodes = new ResizeArray<Node>()
+                for edge in readyEdges do
+                    prevNodes.Add(edge.SrcNode)
+                    if edge.DstNode.Status = Unused && (not (this.Tta.IsFreeFU(edge.DstNode.OpType)))
+                    then
+                        nextUnusedNodes.Add(edge.DstNode)
+
+                let isFound = ref false
+                for nextNode in nextUnusedNodes do 
+                    for prevNode in prevNodes do
+                        if nextNode.OpType = prevNode.OpType && not !isFound
+                        then
+                            isFound := true
+                            SwapNodeWithRegister(prevNode)
+
+            if !isFound || !curMicroComandIndex <> 0
+            then   
                 curMicroComandIndex := 0
                 curGlobalComandIndex := !curGlobalComandIndex + 1
                 this.Tta.ReleaseAllBuses()
                 asmCode.Add(Array.init (this.Tta.BusCount()) (fun x -> Mov(Asm.emptyAddr, Asm.emptyAddr)))
 
-        let SetEdgeAsUsed(edge : Edge) = 
+        and SetEdgeAsUsed(edge : Edge) = 
             for i in [0..readyEdges.Count-1] do
                 if edge = readyEdges.[i]
                 then
                     readyEdges.[i].IsUsed <- true
 
-        let ReleaseUsedEdges() = 
-            let toRemove = readyEdges.FindAll(fun x -> x.IsUsed = true)
-            
-            for edge in toRemove do
-                if edge.SrcNode.Status = Used && not (edge.SrcNode.IsHaveDstMUX())
-                then
-                    this.Tta.SetFUAsFree(edge.SrcNode.ResultAddr)
-            
-            ignore(readyEdges.RemoveAll(fun x -> x.IsUsed = true))
-
-
-        let GenerateCommand(edge : Edge) = 
+        and GenerateCommand(edge : Edge) = 
             let srcNode = edge.SrcNode
             let dstNode = edge.DstNode
 
-            if (srcNode.OpType = MULTIPLEXOR_TYPE)
+            if (srcNode.OpType = CONST_TYPE)
+            then
+                let (dstLn : int<ln>, dstCol : int<col>) = dstNode.ResultAddr
+                let dstPort = edge.InPort.Index
+
+                let asmCommand = Mvc(srcNode.NumValue, (dstLn, dstCol, dstPort))
+                asmCode.[!curGlobalComandIndex].[!curMicroComandIndex] <- asmCommand
+
+                curMicroComandIndex := !curMicroComandIndex + 1
+
+            elif (srcNode.OpType = MULTIPLEXOR_TYPE)
             then
                 let predicateEdge = Edge(srcNode.InPorts.[0].Inputs.[0], srcNode.InPorts.[0])
                 let falseEdge = (Edge(srcNode.InPorts.[1].Inputs.[0], srcNode.InPorts.[1]))
@@ -113,6 +132,29 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
 
                 curMicroComandIndex := !curMicroComandIndex + 1
 
+        and SwapNodeWithRegister(node : Node) = 
+            let isFreeRegister = this.Tta.IsFreeFU(REGISTER_TYPE)
+            if isFreeRegister
+            then
+                let index = this.Tta.GetFreeFU(REGISTER_TYPE)
+                let initNode = new InitialNode()
+                initNode.ResultAddr <- index
+                GenerateCommand(Edge(node.OutPorts.[0], initNode.InPorts.[0]))
+                this.Tta.SetFUAsNonFree(index)
+                this.Tta.SetFUAsFree(node.ResultAddr)
+                node.ResultAddr <- index
+
+
+        let ReleaseUsedEdges() = 
+            let toRemove = readyEdges.FindAll(fun x -> x.IsUsed = true)
+            
+            for edge in toRemove do
+                if edge.SrcNode.Status = Used && not (edge.SrcNode.OpType = CONST_TYPE) && not (edge.SrcNode.IsHaveDstMUX())
+                then
+                    this.Tta.SetFUAsFree(edge.SrcNode.ResultAddr)
+            
+            ignore(readyEdges.RemoveAll(fun x -> x.IsUsed = true))
+
         let AssociateNodePorts (node : Node) = 
             let index = ref 0<port>
             
@@ -137,6 +179,9 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
             
             for initNode in this.Vsfg.InitialNodes do
                 readyEdges.AddRange(initNode.GetNextEdges())
+            for constNode in this.Vsfg.ConstNodes do
+                constNode.NumValue <- constNode.Value
+                readyEdges.AddRange(constNode.GetNextEdges())
             
 
         Initialization()
@@ -431,21 +476,16 @@ let main(arg : string[]) =
     0
 *)
 
-(*
 [<EntryPoint>]
 let main(arg : string[]) = 
     
     (*TODO: Fix bug with multiple if-then-else. Should compute before*)
     let t = VSFGConstructor("
 
-    let main (x:int) (y : int) :int = if x < y 
-                                      then
-                                        if y < x then x else y 
-                                      else 
-                                        y
+    let main (x:int) (y : int) :int = if x < 10 then x + 15 + y else x + y
     "
     )
-       
+
     let vsfg = t.getVSFG
 
     let inits = vsfg.InitialNodes
@@ -460,7 +500,7 @@ let main(arg : string[]) =
     let FU3 = BOOL("0", true)
     let FU4 = LT("in1", "in2t", "out1", true)
     let FU5 = DIV("in1", "in2t", "out1", true)
-    let TTA = new TTA([| (FU1, 5); (FU2, 5); (FU3, 2); (FU4, 2); (FU5, 1) |], 5)
+    let TTA = new TTA([| (FU1, 2); (FU2, 5); (FU3, 2); (FU4, 2); (FU5, 1) |], 3)
     
     TTA.SetFUAsNonFree(inits.[0].ResultAddr)
     TTA.SetFUAsNonFree(inits.[1].ResultAddr)
@@ -485,4 +525,3 @@ let main(arg : string[]) =
     file.Close()
     
     0
-*)

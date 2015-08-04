@@ -16,7 +16,6 @@ type Port () =
     interface INode
     member val Node = Unchecked.defaultof<Node> with get, set
     member val Index : int<port> = 0<port> with get, set
-    member val Name : string = "" with get, set
 
 and InPort (inputs : ResizeArray<OutPort>) =
     
@@ -70,9 +69,10 @@ and Node (inPorts : ResizeArray<InPort>, outPorts : ResizeArray<OutPort>, opType
     
     interface INode
 
-    member val inPortsCount = inPorts.Count with get, set
+    member val inPortsCount = outPorts.Count with get, set
     member val outPortsCount = outPorts.Count with get, set
 
+    member val NumValue = -1 with get, set //Just for elements with opType = CONST_TYPE
     member val Status = Unused with get, set
     member val ResultAddr = (-1<ln>, -1<col>) with get, set
     member val OpType = opType with get, set
@@ -155,7 +155,7 @@ type ConstNode =
     inherit Node
     val Value: int
     new(value: int) = 
-        {inherit Node(0,1, REGISTER_TYPE); Value = value}
+        {inherit Node(0,1, CONST_TYPE); Value = value}
     
 type UnaryNode (opType : OperationType) =
     inherit Node (1, 1, opType)
@@ -216,6 +216,10 @@ type VSFG (initialNodes : Node array, terminalNodes : Node array, constNodes : C
     static member AddEdge (outPort : OutPort) (inPort : InPort) =
         outPort.AddTarget inPort
         inPort.AddInputs outPort
+
+        inPort.Node.inPortsCount <- (inPort.Node.GetPrevNodes()).Count
+        outPort.Node.outPortsCount <- (outPort.Node.GetNextNodes()).Count
+
 
     static member AddEdgeByInd (outNode : Node) (outPortInd : int) (inNode : Node) (inPortInd : int) =
         VSFG.AddEdge outNode.OutPorts.[outPortInd] inNode.InPorts.[inPortInd]

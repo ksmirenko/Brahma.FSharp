@@ -4,7 +4,7 @@
 [<Measure>] type col
 [<Measure>] type port
 
-type OperationType = ADD_TYPE | SUB_TYPE | MUL_TYPE | DIV_TYPE | REGISTER_TYPE | EQ_TYPE | GT_TYPE | LT_TYPE | GEQ_TYPE | LEQ_TYPE | MULTIPLEXOR_TYPE
+type OperationType = ADD_TYPE | SUB_TYPE | MUL_TYPE | DIV_TYPE | REGISTER_TYPE | EQ_TYPE | GT_TYPE | LT_TYPE | GEQ_TYPE | LEQ_TYPE | MULTIPLEXOR_TYPE | CONST_TYPE
 
 (**
  * bool value = true, if FU is free
@@ -32,7 +32,7 @@ module FunctionUnit =
         | SUB(port0, port1, port2, _) -> "SUB" + c.ToString() + "." + (if p = 0<port> then port0 elif p = 1<port> then port1 elif p = 2<port> then port2 else "-1")
         | DIV(port0, port1, port2, _) -> "DIV" + c.ToString() + "." + (if p = 0<port> then port0 elif p = 1<port> then port1 elif p = 2<port> then port2 else "-1")
         | LT(port0, port1, port2, _) -> "LT" + c.ToString() + "." + (if p = 0<port> then port0 elif p = 1<port> then port1 elif p = 2<port> then port2 else "-1")
-        | REGISTER(port0, _) -> "RF" + c.ToString() + "." + (if p = 0<port> then port0 elif p = 1<port> then port0 else "-1")
+        | REGISTER(port0, _) -> "RF" + c.ToString() + "." + (if p = 0<port> then port0 elif p = 1<port> then port0 else "0")
         | BOOL(port0, _) -> "BOOL" + c.ToString() + "." + (if p = 0<port> then port0 else p.ToString())
 
     let isFree fu = 
