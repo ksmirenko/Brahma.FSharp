@@ -1,4 +1,4 @@
-﻿module Brahma.TTA.VSFGCompiler
+﻿namespace Brahma.TTA.VSFGCompiler
 
 open Brahma.TTA.VirtualTTA
 open Brahma.TTA.VSFG
@@ -476,6 +476,7 @@ let main(arg : string[]) =
     0
 *)
 
+(*
 [<EntryPoint>]
 let main(arg : string[]) = 
     
@@ -525,3 +526,4 @@ let main(arg : string[]) =
     file.Close()
     
     0
+*)
