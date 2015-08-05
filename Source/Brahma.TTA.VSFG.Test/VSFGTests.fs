@@ -47,9 +47,9 @@ let SmallGraph () =
             multiplexor :> Node, 0, terminal :> Node, 0;
         |]
 
-    checkNeighbours x 1 3
-    checkNeighbours y 1 3
-    checkNeighbours terminal 1 1
+    checkNeighbours x 0 3
+    checkNeighbours y 0 3
+    checkNeighbours terminal 1 0
     checkNeighbours plus 2 1
     checkNeighbours less 2 1
     checkNeighbours f 2 1
