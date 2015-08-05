@@ -239,4 +239,4 @@ type NestedVsfgNode =
             let ports = new ResizeArray<_> ()
             vsfg.TerminalNodes |> Array.iter (fun n -> ports.AddRange (n.OutPorts))
             ports
-        { inherit Node (inPorts, outPorts, VSFG_TYPE); Vsfg = vsfg}
+        { inherit Node (inPorts.Count, outPorts.Count, VSFG_TYPE); Vsfg = vsfg; }
