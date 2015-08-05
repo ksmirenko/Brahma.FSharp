@@ -4,7 +4,7 @@
 [<Measure>] type col
 [<Measure>] type port
 
-type OperationType = ADD_TYPE | SUB_TYPE | MUL_TYPE | DIV_TYPE | REGISTER_TYPE | EQ_TYPE | GT_TYPE | LT_TYPE | GEQ_TYPE | LEQ_TYPE | MULTIPLEXOR_TYPE | CONST_TYPE
+type OperationType = ADD_TYPE | SUB_TYPE | MUL_TYPE | DIV_TYPE | REGISTER_TYPE | EQ_TYPE | GT_TYPE | LT_TYPE | GEQ_TYPE | LEQ_TYPE | MULTIPLEXOR_TYPE | CONST_TYPE | VSFG_TYPE
 
 (**
  * bool value = true, if FU is free

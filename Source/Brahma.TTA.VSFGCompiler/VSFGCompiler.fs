@@ -10,7 +10,9 @@ type AsmType =
     | Mov of Addr * Addr
     | Mvc of int * Addr
     | IfTrue of Addr * Addr * Addr
+    | IfTrueConst of Addr * int * Addr
     | IfFalse of Addr * Addr * Addr
+    | IfFalseConst of Addr * int * Addr
 
 module Asm = 
     let emptyAddr = (-1<ln>, -1<col>, -1<port>)
@@ -26,7 +28,10 @@ module Asm =
         | Mov(src, dst) -> (addrToString (src, tta)) + " -> " + (addrToString (dst, tta))
         | Mvc(number, dst) -> number.ToString() + " -> " + (addrToString (dst, tta))
         | IfTrue(prd, src, dst) -> "?" + (addrToString (prd, tta)) + " " + (addrToString (src, tta)) + " -> " + (addrToString (dst, tta))
+        | IfTrueConst(prd, number, dst) -> "?" + (addrToString (prd, tta)) + " " + number.ToString() + " -> " + (addrToString (dst, tta))
         | IfFalse(prd, src, dst) -> "!" + (addrToString (prd, tta)) + " " + (addrToString (src, tta)) + " -> " + (addrToString (dst, tta))
+        | IfFalseConst(prd, number, dst) -> "!" + (addrToString (prd, tta)) + " " + number.ToString() + " -> " + (addrToString (dst, tta))
+
 
 type VSFGCompiler(vsfg : VSFG, tta : TTA) = 
     let asmCode = new ResizeArray<AsmType array>()
@@ -83,7 +88,7 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
                 let (dstLn : int<ln>, dstCol : int<col>) = dstNode.ResultAddr
                 let dstPort = edge.InPort.Index
 
-                let asmCommand = Mvc(srcNode.NumValue, (dstLn, dstCol, dstPort))
+                let asmCommand = Mvc((srcNode :?> ConstNode).Value, (dstLn, dstCol, dstPort))
                 asmCode.[!curGlobalComandIndex].[!curMicroComandIndex] <- asmCommand
 
                 curMicroComandIndex := !curMicroComandIndex + 1
@@ -106,18 +111,37 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
 
                 let (dstLn : int<ln>, dstCol : int<col>) = edge.DstNode.ResultAddr
 
-                let asmTrueCommand = IfTrue((srcLnPredicate, srcColPredicate, srcPortPredicate), (srcLnTrue, srcColTrue, srcPortTrue), (dstLn, dstCol, dstPort))
-                asmCode.[!curGlobalComandIndex].[!curMicroComandIndex] <- asmTrueCommand
+                let asmTrueCommand = ref (Mov(Asm.emptyAddr, Asm.emptyAddr))
+
+                if (srcNode.InPorts.[2].Inputs.[0].Node.OpType = CONST_TYPE)
+                then
+                    let constNode = (srcNode.InPorts.[2].Inputs.[0].Node :?> ConstNode)
+                    asmTrueCommand := IfTrueConst((srcLnPredicate, srcColPredicate, srcPortPredicate), constNode.Value, (dstLn, dstCol, dstPort))
+                else 
+                    asmTrueCommand := IfTrue((srcLnPredicate, srcColPredicate, srcPortPredicate), (srcLnTrue, srcColTrue, srcPortTrue), (dstLn, dstCol, dstPort))
+                    
+                asmCode.[!curGlobalComandIndex].[!curMicroComandIndex] <- !asmTrueCommand
+
 
                 curMicroComandIndex := !curMicroComandIndex + 1
                 this.Tta.TakeABus()
+
 
                 if (not (this.Tta.IsFreeBus()))
                 then
                     CheckEndOfInstruction()
 
-                let asmFalseCommand = IfFalse((srcLnPredicate, srcColPredicate, srcPortPredicate), (srcLnFalse, srcColFalse, srcPortFalse), (dstLn, dstCol, dstPort))
-                asmCode.[!curGlobalComandIndex].[!curMicroComandIndex] <- asmFalseCommand
+
+                let asmFalseCommand = ref (Mov(Asm.emptyAddr, Asm.emptyAddr))
+
+                if (srcNode.InPorts.[1].Inputs.[0].Node.OpType = CONST_TYPE)
+                then
+                    let constNode = (srcNode.InPorts.[1].Inputs.[0].Node :?> ConstNode)
+                    asmFalseCommand := IfFalseConst((srcLnPredicate, srcColPredicate, srcPortPredicate), constNode.Value, (dstLn, dstCol, dstPort))
+                else 
+                    asmFalseCommand := IfFalse((srcLnPredicate, srcColPredicate, srcPortPredicate), (srcLnFalse, srcColFalse, srcPortFalse), (dstLn, dstCol, dstPort))
+
+                asmCode.[!curGlobalComandIndex].[!curMicroComandIndex] <- !asmFalseCommand
 
                 curMicroComandIndex := !curMicroComandIndex + 1
 
@@ -180,7 +204,6 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
             for initNode in this.Vsfg.InitialNodes do
                 readyEdges.AddRange(initNode.GetNextEdges())
             for constNode in this.Vsfg.ConstNodes do
-                constNode.NumValue <- constNode.Value
                 readyEdges.AddRange(constNode.GetNextEdges())
             
 
@@ -209,7 +232,7 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
                                 dstNode.DecInPorts()
                                 srcNode.DecOutPorts()
 
-                                (* Когда будем обрабатывать хвостовую рекурсию, здесь пометим, что <> nested_vsfg *)
+                                (* Когда будем обрабатывать хвостовую рекурсию, здесь пометим, что <> VSFG_TYPE *)
                                 if dstNode <> ((this.Vsfg.TerminalNodes).[0])
                                 then 
                                     let index = this.Tta.GetFreeFU(dstNode.OpType)
@@ -483,7 +506,7 @@ let main(arg : string[]) =
     (*TODO: Fix bug with multiple if-then-else. Should compute before*)
     let t = VSFGConstructor("
 
-    let main (x:int) (y : int) :int = if x < 10 then x + 15 + y else x + y
+    let main (x:int) (y : int) :int = if x + y + 1 < 1 then 30 else 120
     "
     )
 

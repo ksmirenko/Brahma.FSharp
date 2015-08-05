@@ -72,7 +72,6 @@ and Node (inPorts : ResizeArray<InPort>, outPorts : ResizeArray<OutPort>, opType
     member val inPortsCount = outPorts.Count with get, set
     member val outPortsCount = outPorts.Count with get, set
 
-    member val NumValue = -1 with get, set //Just for elements with opType = CONST_TYPE
     member val Status = Unused with get, set
     member val ResultAddr = (-1<ln>, -1<col>) with get, set
     member val OpType = opType with get, set
@@ -240,4 +239,4 @@ type NestedVsfgNode =
             let ports = new ResizeArray<_> ()
             vsfg.TerminalNodes |> Array.iter (fun n -> ports.AddRange (n.OutPorts))
             ports
-        { inherit Node (inPorts, outPorts, REGISTER_TYPE); Vsfg = vsfg}
+        { inherit Node (inPorts, outPorts, VSFG_TYPE); Vsfg = vsfg}
