@@ -71,7 +71,9 @@ and Node (inPorts : ResizeArray<InPort>, outPorts : ResizeArray<OutPort>, opType
 
     member val inPortsCount = outPorts.Count with get, set
     member val outPortsCount = outPorts.Count with get, set
-
+    
+    
+    member val indexForDot = 0 with get, set
     member val Status = Unused with get, set
     member val ResultAddr = (-1<ln>, -1<col>) with get, set
     member val OpType = opType with get, set
@@ -145,10 +147,12 @@ and Node (inPorts : ResizeArray<InPort>, outPorts : ResizeArray<OutPort>, opType
 
 type InitialNode() =
     inherit Node (1, 1, REGISTER_TYPE)
+    member val Name = "" with get, set
     (* TODO: Add this.Status <- Ready *)
 
 type TerminalNode() =
     inherit Node (1, 1, REGISTER_TYPE)
+    member val Name = "" with get, set
 
 type ConstNode = 
     inherit Node
@@ -200,7 +204,7 @@ type VSFG (initialNodes : Node array, terminalNodes : Node array, constNodes : C
     let mutable _initialNodes = initialNodes
     let mutable _terminalNodes = terminalNodes
     let mutable _constNodes = constNodes
-
+    member val Name = "" with get, set
     member this.InitialNodes = _initialNodes
 
     member this.TerminalNodes = _terminalNodes
@@ -229,7 +233,9 @@ type VSFG (initialNodes : Node array, terminalNodes : Node array, constNodes : C
 
 type NestedVsfgNode = 
     inherit Node
-    val Vsfg : VSFG
+
+    val Vsfg : VSFG 
+
     new (vsfg : VSFG) =
         let inPorts = 
             let ports = new ResizeArray<_> ()
@@ -240,3 +246,4 @@ type NestedVsfgNode =
             vsfg.TerminalNodes |> Array.iter (fun n -> ports.AddRange (n.OutPorts))
             ports
         { inherit Node (inPorts.Count, outPorts.Count, VSFG_TYPE); Vsfg = vsfg; }
+
