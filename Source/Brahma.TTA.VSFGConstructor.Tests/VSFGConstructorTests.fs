@@ -32,7 +32,6 @@ let VSFGConstructorHelper() =
     let t = new TypedTreeGetter(input) 
     Assert.AreEqual (t.CountOfDecl, 1)
     Assert.AreEqual ((0 |> t.getFSharpArgs).Length, 2)
-
     let input2 = "
     open System
     let rec f x y z= 
@@ -59,8 +58,7 @@ let DeepNested() =
             
             123
         123 
-     
-
+   
     let rec f (x:int) (y:int) :int = 
         let g (x:int) (t:int) (y:int) = x 
         if x + 2 > y then
@@ -68,29 +66,149 @@ let DeepNested() =
         else 
             g x y 2
 
-    f (g x) x
+    f (g 2) 3
+
     ")
 
-    t.print (fun x -> printf "visit %A" x)
-
     let vsfg = t.getVSFG
-
+    VSFGConstructor.VSFGtoDot vsfg "vsfg_FAIL.txt"
     ()
 
 
 [<Test>]
 let IfTest() =  
     let t = VSFGConstructor("
-    let main (x:int) (y : int) :int = if x<y then x else y 
+    let main (x:int) (y : int) :int = 
+        if x < y then 
+            if x > 3 then
+                x
+            else y * x + 2
+        else y 
     ")
     let a = t.getVSFG
+    VSFGConstructor.VSFGtoDot a "IF.txt"
     ()
+
+[<Test>]
+let PlusTest() =  
+    let t = VSFGConstructor("
+    let main (x:int) (y : int) (z: int) :int = x + y + z + z + y + y + z + x + y
+    ")
+    let a = t.getVSFG
+    VSFGConstructor.VSFGtoDot a "BigXYZInput.txt"
+    let t = VSFGConstructor("
+    let main (x:int) (y : int) (z: int) :int = (((x + y) + (z + z)) + ((y + y) + (z + x))) + y
+    ")
+    let a = t.getVSFG
+    VSFGConstructor.VSFGtoDot a "BigXYZOutput.txt"
+
+
+    let t = VSFGConstructor("
+    let main (x:int) (y : int) :int = x + y  + x + y
+    ")
+    let a = t.getVSFG
+    VSFGConstructor.VSFGtoDot a "2plusXY.txt"
+
+    let t = VSFGConstructor("
+    let main (x:int) (y : int) :int = (x + y)  + (x + y)
+    ")
+    let a = t.getVSFG
+    VSFGConstructor.VSFGtoDot a "2plusXYBracket.txt"
+
+    let t = VSFGConstructor("
+    let main (x:int) (y : int) :int = (x + y)  + x + y
+    ")
+    let a = t.getVSFG
+    VSFGConstructor.VSFGtoDot a "plusXYXYBracket.txt"
+
+    let t = VSFGConstructor("
+    let main (x:int) (y : int) :int = (x + y)  + (x + y)  + x + y
+    ")
+    let a = t.getVSFG
+    VSFGConstructor.VSFGtoDot a "plusXYplusXY.txt"
+
+    let t = VSFGConstructor("
+    let main (x:int) (y : int) :int = (x + y)  + (x + y)  + (x + y)
+    ")
+    let a = t.getVSFG
+    VSFGConstructor.VSFGtoDot a "plusXYplusXY2.txt"
+
+
+
+    let t = VSFGConstructor("
+    let main (x:int) (y : int) :int = (x + y)  + (x + y)  + (x + y) + (x+y)
+    ")
+    let a = t.getVSFG
+    VSFGConstructor.VSFGtoDot a "doubleplusXYplusXY.txt"
+
+    
+    let t = VSFGConstructor("
+    let main (x:int) (y : int) :int = ((x + y)  + (x + y))  + ((x + y) + (x+y))
+    ")
+    let a = t.getVSFG
+    VSFGConstructor.VSFGtoDot a "doubleplusXYplusXY1.txt"
+
+    ()
+
+[<Test>]
+let Plus1Test() =  
+    let t = VSFGConstructor("
+    let main (x:int) (y : int) (z: int) :int =  x + y + z + y + x + z
+    ")
+    let a = t.getVSFG
+    VSFGConstructor.VSFGtoDot a "Plus3Inp.txt"
+
+    let t = VSFGConstructor("
+    let main (x:int) (y : int) (z: int) :int =  (x + y) + (z + y) + (x + z)
+    ")
+
+    let a = t.getVSFG
+    VSFGConstructor.VSFGtoDot a "Plus3Out.txt"
+    ()
+
+[<Test>]
+let Plus4Test() =  
+    let t = VSFGConstructor("
+    let main (x:int) (y : int) (z: int) :int = x + y + z + y + x + z + x + y
+    ")
+    let a = t.getVSFG
+    VSFGConstructor.VSFGtoDot a "plus4.txt"
+    ()
+
+[<Test>]
+let Plus5Test() =  
+    let t = VSFGConstructor("
+    let main (x:int) (y : int) (z: int) :int = ((x + y) + (z + y)) + ((x + z) + (x + y))
+    ")
+    let a = t.getVSFG
+    VSFGConstructor.VSFGtoDot a "Plus5.txt"
+    ()
+
+[<Test>]
+let Plus2Test() =  
+    let t = VSFGConstructor("
+    let main (x:int) (y : int) :int = ((x + y) + (x + y)) + ((x + y) + (x + y))
+    ")
+    let a = t.getVSFG
+    VSFGConstructor.VSFGtoDot a "Plus2TestOut.txt"
+
+    let t = VSFGConstructor("
+    let main (x:int) (y : int) :int = x + y + x + y + x + y + x + y
+    ")
+    let a = t.getVSFG
+    VSFGConstructor.VSFGtoDot a "Plus2TestInp.txt"
+
+    ()
+
 [<Test>] 
 let anotherTest() =
    let t = VSFGConstructor("
-    let main (x:int) (y: int) = (x + y) + x + (y + x)
+    let rec main (x:int) (y: int) = main (x + y) (y + x)
         ")
    let v = t.getVSFG
+   VSFGConstructor.VSFGtoDot v "mainRec.txt"
+   
+
    ()
 [<Test>]
 let WithoutRec() = 
@@ -107,13 +225,13 @@ let WithoutRec() =
     f x x
     ")
         
-        
-    t.print (fun x -> printfn "visit %A" x)
     let vsfg = t.getVSFG
+    VSFGConstructor.VSFGtoDot vsfg "WithoutRec.txt"
+
     ()
     
 [<Test>]
-let Recursion() = 
+let Rec() = 
     let t = VSFGConstructor("
 
    let main (x:int) :int =
@@ -126,4 +244,6 @@ let Recursion() =
         )
 
     let vsfg = t.getVSFG 
+    VSFGConstructor.VSFGtoDot vsfg "Rec.txt"
+
     ()
