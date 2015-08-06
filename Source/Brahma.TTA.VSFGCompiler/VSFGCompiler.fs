@@ -208,7 +208,7 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
                 if edge.SrcNode.Status = Used && not (edge.SrcNode.OpType = CONST_TYPE) && not (edge.SrcNode.IsHaveDstMUX())
                 then
                     this.Tta.SetFUAsFree(edge.SrcNode.ResultAddr)
-            
+             
             ignore(readyEdges.RemoveAll(fun x -> x.IsUsed = true))
 
         let AssociateNodePorts (node : Node) = 
