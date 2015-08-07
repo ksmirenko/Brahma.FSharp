@@ -3,6 +3,8 @@
 open Brahma.TTA.VSFG
 open Brahma.TTA.VSFGConstructorHelper
 open Brahma.TTA.VSFGConstructor
+open Brahma.TTA.VSFG.Visualization
+
 open System.Collections.Generic
 
 open NUnit.Framework
@@ -71,7 +73,7 @@ let DeepNested() =
     ")
 
     let vsfg = t.getVSFG
-    VSFGConstructor.VSFGtoDot vsfg "vsfg_FAIL.txt"
+
     ()
 
 
@@ -86,7 +88,7 @@ let IfTest() =
         else y 
     ")
     let a = t.getVSFG
-    VSFGConstructor.VSFGtoDot a "IF.txt"
+    Visualization.VSFGtoPNG a "IF"
     ()
 
 [<Test>]
@@ -95,43 +97,42 @@ let PlusTest() =
     let main (x:int) (y : int) (z: int) :int = x + y + z + z + y + y + z + x + y
     ")
     let a = t.getVSFG
-    VSFGConstructor.VSFGtoDot a "BigXYZInput.txt"
+    Visualization.VSFGtoPNG a "BigXYZInput1"
     let t = VSFGConstructor("
     let main (x:int) (y : int) (z: int) :int = (((x + y) + (z + z)) + ((y + y) + (z + x))) + y
     ")
     let a = t.getVSFG
-    VSFGConstructor.VSFGtoDot a "BigXYZOutput.txt"
-
-
     let t = VSFGConstructor("
     let main (x:int) (y : int) :int = x + y  + x + y
     ")
     let a = t.getVSFG
-    VSFGConstructor.VSFGtoDot a "2plusXY.txt"
+    Visualization.VSFGtoPNG a "BigXYZInput2"
 
     let t = VSFGConstructor("
     let main (x:int) (y : int) :int = (x + y)  + (x + y)
     ")
     let a = t.getVSFG
-    VSFGConstructor.VSFGtoDot a "2plusXYBracket.txt"
+    Visualization.VSFGtoPNG a "BigXYZInput2"
 
     let t = VSFGConstructor("
     let main (x:int) (y : int) :int = (x + y)  + x + y
     ")
     let a = t.getVSFG
-    VSFGConstructor.VSFGtoDot a "plusXYXYBracket.txt"
+    Visualization.VSFGtoPNG a "BigXYZInput2"
+
 
     let t = VSFGConstructor("
     let main (x:int) (y : int) :int = (x + y)  + (x + y)  + x + y
     ")
     let a = t.getVSFG
-    VSFGConstructor.VSFGtoDot a "plusXYplusXY.txt"
+    Visualization.VSFGtoPNG a "BigXYZInput2"
+
 
     let t = VSFGConstructor("
     let main (x:int) (y : int) :int = (x + y)  + (x + y)  + (x + y)
     ")
     let a = t.getVSFG
-    VSFGConstructor.VSFGtoDot a "plusXYplusXY2.txt"
+    Visualization.VSFGtoPNG a "BigXYZInput2"
 
 
 
@@ -139,14 +140,14 @@ let PlusTest() =
     let main (x:int) (y : int) :int = (x + y)  + (x + y)  + (x + y) + (x+y)
     ")
     let a = t.getVSFG
-    VSFGConstructor.VSFGtoDot a "doubleplusXYplusXY.txt"
+    Visualization.VSFGtoPNG a "BigXYZInput2"
 
     
     let t = VSFGConstructor("
     let main (x:int) (y : int) :int = ((x + y)  + (x + y))  + ((x + y) + (x+y))
     ")
     let a = t.getVSFG
-    VSFGConstructor.VSFGtoDot a "doubleplusXYplusXY1.txt"
+    Visualization.VSFGtoPNG a "BigXYZInput2"
 
     ()
 
@@ -156,14 +157,13 @@ let Plus1Test() =
     let main (x:int) (y : int) (z: int) :int =  x + y + z + y + x + z
     ")
     let a = t.getVSFG
-    VSFGConstructor.VSFGtoDot a "Plus3Inp.txt"
-
+    Visualization.VSFGtoPNG a "3VarIn"
     let t = VSFGConstructor("
     let main (x:int) (y : int) (z: int) :int =  (x + y) + (z + y) + (x + z)
     ")
 
     let a = t.getVSFG
-    VSFGConstructor.VSFGtoDot a "Plus3Out.txt"
+    Visualization.VSFGtoPNG a "3VarOut" 
     ()
 
 [<Test>]
@@ -172,7 +172,7 @@ let Plus4Test() =
     let main (x:int) (y : int) (z: int) :int = x + y + z + y + x + z + x + y
     ")
     let a = t.getVSFG
-    VSFGConstructor.VSFGtoDot a "plus4.txt"
+    Visualization.VSFGtoPNG a "plus4"
     ()
 
 [<Test>]
@@ -181,7 +181,7 @@ let Plus5Test() =
     let main (x:int) (y : int) (z: int) :int = ((x + y) + (z + y)) + ((x + z) + (x + y))
     ")
     let a = t.getVSFG
-    VSFGConstructor.VSFGtoDot a "Plus5.txt"
+    Visualization.VSFGtoPNG a "Plus5"
     ()
 
 [<Test>]
@@ -190,13 +190,13 @@ let Plus2Test() =
     let main (x:int) (y : int) :int = ((x + y) + (x + y)) + ((x + y) + (x + y))
     ")
     let a = t.getVSFG
-    VSFGConstructor.VSFGtoDot a "Plus2TestOut.txt"
+    Visualization.VSFGtoPNG a "Plus2TestOut"
 
     let t = VSFGConstructor("
     let main (x:int) (y : int) :int = x + y + x + y + x + y + x + y
     ")
     let a = t.getVSFG
-    VSFGConstructor.VSFGtoDot a "Plus2TestInp.txt"
+    //Visualization.VSFGtoPNG a "Plus2TestInp"
 
     ()
 
@@ -206,7 +206,7 @@ let anotherTest() =
     let rec main (x:int) (y: int) = main (x + y) (y + x)
         ")
    let v = t.getVSFG
-   VSFGConstructor.VSFGtoDot v "mainRec.txt"
+   Visualization.VSFGtoPNG v "mainRec"
    
 
    ()
@@ -226,7 +226,7 @@ let WithoutRec() =
     ")
         
     let vsfg = t.getVSFG
-    VSFGConstructor.VSFGtoDot vsfg "WithoutRec.txt"
+    Visualization.VSFGtoPNG vsfg "WithoutRec"
 
     ()
     
@@ -244,6 +244,6 @@ let Rec() =
         )
 
     let vsfg = t.getVSFG 
-    VSFGConstructor.VSFGtoDot vsfg "Rec.txt"
+    Visualization.VSFGtoPNG vsfg "Rec"
 
     ()
