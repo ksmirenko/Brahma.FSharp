@@ -72,7 +72,6 @@ and Node (inPorts : ResizeArray<InPort>, outPorts : ResizeArray<OutPort>, opType
     member val inPortsCount = outPorts.Count with get, set
     member val outPortsCount = outPorts.Count with get, set
     
-    
     member val indexForDot = 0 with get, set
     member val Status = Unused with get, set
     member val ResultAddr = (-1<ln>, -1<col>) with get, set
@@ -158,7 +157,7 @@ type ConstNode =
     inherit Node
     val Value: int
     new(value: int) = 
-        {inherit Node(0,1, CONST_TYPE); Value = value}
+        {inherit Node(0, 1, CONST_TYPE); Value = value}
     
 type UnaryNode (opType : OperationType) =
     inherit Node (1, 1, opType)
