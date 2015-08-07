@@ -33,9 +33,9 @@ module FunctionUnit =
         | SUB(port0, port1, port2, _) -> "SUB" + c.ToString() + "." + (if p = 0<port> then port0 elif p = 1<port> then port1 elif p = 2<port> then port2 else "-1")
         | DIV(port0, port1, port2, _) -> "DIV" + c.ToString() + "." + (if p = 0<port> then port0 elif p = 1<port> then port1 elif p = 2<port> then port2 else "-1")
         | LT(port0, port1, port2, _) -> "LT" + c.ToString() + "." + (if p = 0<port> then port0 elif p = 1<port> then port1 elif p = 2<port> then port2 else "-1")
-        | REGISTER(port0, _) -> "RF" + c.ToString() + "." + (if p = 0<port> then port0 elif p = 1<port> then port0 else "0")
-        | BOOL(port0, _) -> "BOOL" + c.ToString() + "." + (if p = 0<port> then port0 else p.ToString())
-        | PC(port0, _) -> "PC" + c.ToString() + "." + (if p = 0<port> then port0 else p.ToString())
+        | REGISTER(port0, _) -> "RF" + c.ToString() + "." + (port0.ToString())
+        | BOOL(port0, _) -> "BOOL" + c.ToString() + "." + (port0.ToString())
+        | PC(port0, _) -> "PC" + c.ToString() + "." + (port0.ToString())
 
     let isFree fu = 
         match fu with
