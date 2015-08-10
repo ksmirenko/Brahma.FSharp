@@ -165,7 +165,11 @@ let MoreComplexIfConstructions () =
 
     let main (x:int) (y:int) (z : int) :int = if x < y
                                               then
-                                                x
+                                                if x + y + z < 1
+                                                then
+                                                    x / z
+                                                else
+                                                    y / z
                                               else
                                                 z
     "
@@ -198,3 +202,89 @@ let MoreComplexIfConstructions () =
     let code = compiler.Compile()
 
     printCodeInFile(TTA, code, "Test5.txt")
+
+[<Test>]
+let SimpleRecursiveTest () = 
+    let t = VSFGConstructor("
+
+    let rec main (x : int) (y : int) : int = if x < y 
+                                             then
+                                                main (x + 1) (y - 2)
+                                             else
+                                                if x + y < y
+                                                then 
+                                                    x
+                                                else 
+                                                    y
+    "
+        )
+    let vsfg = t.getVSFG
+
+    let inits = vsfg.InitialNodes
+    inits.[0].ResultAddr <- (1<ln>, 0<col>)
+    inits.[1].ResultAddr <- (1<ln>, 1<col>)
+    (inits.[0] :?> InitialNode).ImmutableAddr <- (1<ln>, 0<col>)
+    (inits.[1] :?> InitialNode).ImmutableAddr <- (1<ln>, 1<col>)
+
+    let terminals = vsfg.TerminalNodes
+    terminals.[0].ResultAddr <- (1<ln>, 2<col>)
+
+    let FU1 = ADD("in1", "in2t", "out1", true)
+    let FU2 = REGISTER("0", true)
+    let FU3 = BOOL("0", true)
+    let FU4 = LT("in1", "in2t", "out1", true)
+    let FU5 = DIV("in1", "in2t", "out1", true)
+    let FU6 = PC("000", true)
+    let FU7 = SUB("in1", "in2t", "out1", true)
+    let TTA = new TTA([| (FU1, 7); (FU2, 10); (FU3, 5); (FU4, 5); (FU5, 3); (FU6, 1); (FU7, 1) |], 3)
+    
+    TTA.SetFUAsNonFree(inits.[0].ResultAddr)
+    TTA.SetFUAsNonFree(inits.[1].ResultAddr)
+    TTA.SetFUAsNonFree(terminals.[0].ResultAddr)
+    
+    let compiler = new VSFGCompiler(vsfg, TTA)
+
+    let code = compiler.Compile()
+
+    printCodeInFile(TTA, code, "Test6.txt")
+
+[<Test>]
+let MoreComplexRecursiveTest () = 
+    let t = VSFGConstructor("
+
+    let rec main (x : int) (y : int) : int = if x < y
+                                             then
+                                                main (x + 2) (y - 1)
+                                             else
+                                                x + y
+    "
+        )
+    let vsfg = t.getVSFG
+
+    let inits = vsfg.InitialNodes
+    inits.[0].ResultAddr <- (1<ln>, 0<col>)
+    inits.[1].ResultAddr <- (1<ln>, 1<col>)
+    (inits.[0] :?> InitialNode).ImmutableAddr <- (1<ln>, 0<col>)
+    (inits.[1] :?> InitialNode).ImmutableAddr <- (1<ln>, 1<col>)
+
+    let terminals = vsfg.TerminalNodes
+    terminals.[0].ResultAddr <- (1<ln>, 2<col>)
+
+    let FU1 = ADD("in1", "in2t", "out1", true)
+    let FU2 = REGISTER("0", true)
+    let FU3 = BOOL("0", true)
+    let FU4 = LT("in1", "in2t", "out1", true)
+    let FU5 = DIV("in1", "in2t", "out1", true)
+    let FU6 = PC("000", true)
+    let FU7 = SUB("in1", "in2t", "out1", true)
+    let TTA = new TTA([| (FU1, 7); (FU2, 10); (FU3, 5); (FU4, 5); (FU5, 3); (FU6, 1); (FU7, 2) |], 3)
+    
+    TTA.SetFUAsNonFree(inits.[0].ResultAddr)
+    TTA.SetFUAsNonFree(inits.[1].ResultAddr)
+    TTA.SetFUAsNonFree(terminals.[0].ResultAddr)
+    
+    let compiler = new VSFGCompiler(vsfg, TTA)
+
+    let code = compiler.Compile()
+
+    printCodeInFile(TTA, code, "Test7.txt")

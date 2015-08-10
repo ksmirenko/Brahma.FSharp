@@ -41,9 +41,24 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
     member this.Tta = tta
 
     member this.Compile() = 
-        //TODO: Modify 'comand' -> 'command'
-        let curGlobalComandIndex = ref 0
-        let curMicroComandIndex = ref 0
+        let curGlobalCommandIndex = ref 0
+        let curMicroCommandIndex = ref 0
+
+        let AddCommand(command : AsmType) = 
+            //TODO: Think about, is it necessary? May be should return bool value, if command generated
+            if (not (this.Tta.IsFreeBus()))
+            then
+                this.Tta.ReleaseAllBuses()
+                curMicroCommandIndex := 0
+                curGlobalCommandIndex := !curGlobalCommandIndex + 1
+                asmCode.Add(Array.init (this.Tta.BusCount()) (fun x -> Mov(Asm.emptyAddr, Asm.emptyAddr)))
+
+            asmCode.[!curGlobalCommandIndex].[!curMicroCommandIndex] <- command
+            curMicroCommandIndex := !curMicroCommandIndex + 1
+            this.Tta.TakeABus()
+
+        let findReadyNodeWithResultAddr(resAddr : int<ln> * int<col>) = 
+            readies.Find(fun x -> x.ResultAddr = resAddr)
 
         (**
          * Moves some node (if node with same type contains in unused nodes) with status = Ready to register
@@ -62,8 +77,7 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
                 for prevNode in prevNodes do
                    if nextNode.OpType = prevNode.OpType && not !isFound
                     then
-                        isFound := true
-                        ignore(SwapNodeWithRegister(prevNode))
+                        isFound := SwapNodeWithRegister(prevNode)
             !isFound
 
         (**
@@ -73,14 +87,14 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
         and CheckEndOfInstruction() =
             let isMoved = ref false
             
-            if !curMicroComandIndex = 0
+            if !curMicroCommandIndex = 0
             then
                 isMoved := TryToMoveReadyNodeToRegister()
 
-            if !isMoved || !curMicroComandIndex <> 0
+            if !isMoved || !curMicroCommandIndex <> 0
             then   
-                curMicroComandIndex := 0
-                curGlobalComandIndex := !curGlobalComandIndex + 1
+                curMicroCommandIndex := 0
+                curGlobalCommandIndex := !curGlobalCommandIndex + 1
                 this.Tta.ReleaseAllBuses()
                 asmCode.Add(Array.init (this.Tta.BusCount()) (fun x -> Mov(Asm.emptyAddr, Asm.emptyAddr)))
 
@@ -90,14 +104,34 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
                 then
                     readyEdges.[i].IsUsed <- true
 
+        //TODO: Remove case, when R1 -> R0; R0 -> R1
         and GenerateCommandToVsfgType(edge : Edge) = 
             let srcNode = edge.SrcNode
             let dstNode = edge.DstNode
 
             let nestedVsfgNode = (dstNode :?> NestedVsfgNode)
             let inPort = nestedVsfgNode.Vsfg.InitialNodes.[int edge.InPort.Index].InPorts.[0]
+            let initNode = (inPort.Node :?> InitialNode)
+
+            let newFixedNode = new InitialNode()
+
+            if not (this.Tta.IsFreeFU(fst initNode.ImmutableAddr, snd initNode.ImmutableAddr))
+            then
+                let targetNode = findReadyNodeWithResultAddr(fst initNode.ImmutableAddr, snd initNode.ImmutableAddr)
+                let isSwapped = SwapNodeWithRegister(targetNode)       
+
+                if isSwapped
+                then    
+                    this.Tta.SetFUAsNonFree(fst initNode.ImmutableAddr, snd initNode.ImmutableAddr)
+                    newFixedNode.ResultAddr <- initNode.ImmutableAddr
+                else
+                    printfn "ERROR SWAPPING"
+            else
+                this.Tta.SetFUAsNonFree(fst initNode.ImmutableAddr, snd initNode.ImmutableAddr)
+                newFixedNode.ResultAddr <- initNode.ImmutableAddr
+
             //Here we can add checking if necessary RF.i is free
-            GenerateCommand(Edge(edge.OutPort, inPort))
+            GenerateCommand(Edge(edge.OutPort, newFixedNode.InPorts.[0]))
 
         and GenerateCommandFromConstType(edge : Edge) = 
             let srcNode = edge.SrcNode
@@ -107,9 +141,7 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
             let dstPort = edge.InPort.Index
 
             let asmCommand = Mvc((srcNode :?> ConstNode).Value, (dstLn, dstCol, dstPort))
-            asmCode.[!curGlobalComandIndex].[!curMicroComandIndex] <- asmCommand
-
-            curMicroComandIndex := !curMicroComandIndex + 1
+            AddCommand(asmCommand)
 
         and GenerateCommandFromMultiplexorType(edge : Edge) = 
             let srcNode = edge.SrcNode
@@ -135,7 +167,8 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
 
             if (srcNode.InPorts.[2].Inputs.[0].Node.OpType = VSFG_TYPE)
             then
-                asmTrueCommand := IfTrueConst((srcLnPredicate, srcColPredicate, srcPortPredicate), 0, (srcLnTrue, srcColTrue, srcPortTrue))  
+                let difference = min 3 !curGlobalCommandIndex
+                asmTrueCommand := IfTrueConst((srcLnPredicate, srcColPredicate, srcPortPredicate), difference, (srcLnTrue, srcColTrue, srcPortTrue))  
             elif (srcNode.InPorts.[2].Inputs.[0].Node.OpType = CONST_TYPE)
             then
                 let constNode = (srcNode.InPorts.[2].Inputs.[0].Node :?> ConstNode)
@@ -143,31 +176,41 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
             else 
                 asmTrueCommand := IfTrue((srcLnPredicate, srcColPredicate, srcPortPredicate), (srcLnTrue, srcColTrue, srcPortTrue), (dstLn, dstCol, dstPort))
                     
-            asmCode.[!curGlobalComandIndex].[!curMicroComandIndex] <- !asmTrueCommand
+            
+            AddCommand(!asmTrueCommand)
 
-            curMicroComandIndex := !curMicroComandIndex + 1
-            this.Tta.TakeABus()
 
             if (srcNode.InPorts.[2].Inputs.[0].Node.OpType = VSFG_TYPE)
             then    
-                asmCode.Add(Array.init (this.Tta.BusCount()) (fun x -> Mov(Asm.emptyAddr, Asm.emptyAddr)))
-                asmCode.Add(Array.init (this.Tta.BusCount()) (fun x -> Mov(Asm.emptyAddr, Asm.emptyAddr)))
-                asmCode.Add(Array.init (this.Tta.BusCount()) (fun x -> Mov(Asm.emptyAddr, Asm.emptyAddr)))     
-                curMicroComandIndex := 0
-                curGlobalComandIndex := !curGlobalComandIndex + 4
+                let difference = min 3 !curGlobalCommandIndex
+
+                for i in [0..difference - 1] do
+
+                    let curCommand = (Array.init (this.Tta.BusCount()) (fun x -> Mov(Asm.emptyAddr, Asm.emptyAddr)))
+                    for j in [0..asmCode.[i].Length - 1] do
+                        let curInstr = asmCode.[i].[j]
+                        curCommand.[j] <- match curInstr with
+                                         | Mov(x, y) -> IfTrue((srcLnPredicate, srcColPredicate, srcPortPredicate), x, y)
+                                         | Mvc(x, y) -> IfTrueConst((srcLnPredicate, srcColPredicate, srcPortPredicate), x, y)
+                        
+
+                    asmCode.Add(curCommand)
+
+                for i in [0..2 - difference] do
+                    asmCode.Add(Array.init (this.Tta.BusCount()) (fun x -> Mov(Asm.emptyAddr, Asm.emptyAddr)))
+                      
+                curMicroCommandIndex := 0
+                curGlobalCommandIndex := !curGlobalCommandIndex + 4
                 asmCode.Add(Array.init (this.Tta.BusCount()) (fun x -> Mov(Asm.emptyAddr, Asm.emptyAddr)))     
                 this.Tta.ReleaseAllBuses()
-
-            if (not (this.Tta.IsFreeBus()))
-            then
-                CheckEndOfInstruction()
 
 
             let asmFalseCommand = ref (Mov(Asm.emptyAddr, Asm.emptyAddr))
 
             if (srcNode.InPorts.[1].Inputs.[0].Node.OpType = VSFG_TYPE)
             then
-                asmFalseCommand := IfFalseConst((srcLnPredicate, srcColPredicate, srcPortPredicate), 0, (srcLnFalse, srcColFalse, srcPortFalse))  
+                let difference = min 3 !curGlobalCommandIndex
+                asmFalseCommand := IfFalseConst((srcLnPredicate, srcColPredicate, srcPortPredicate), difference, (srcLnFalse, srcColFalse, srcPortFalse))  
             elif (srcNode.InPorts.[1].Inputs.[0].Node.OpType = CONST_TYPE)
             then
                 let constNode = (srcNode.InPorts.[1].Inputs.[0].Node :?> ConstNode)
@@ -175,19 +218,32 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
             else 
                 asmFalseCommand := IfFalse((srcLnPredicate, srcColPredicate, srcPortPredicate), (srcLnFalse, srcColFalse, srcPortFalse), (dstLn, dstCol, dstPort))
 
-            asmCode.[!curGlobalComandIndex].[!curMicroComandIndex] <- !asmFalseCommand
+            AddCommand(!asmFalseCommand)
 
-            curMicroComandIndex := !curMicroComandIndex + 1
 
             if (srcNode.InPorts.[1].Inputs.[0].Node.OpType = VSFG_TYPE)
             then    
-                asmCode.Add(Array.init (this.Tta.BusCount()) (fun x -> Mov(Asm.emptyAddr, Asm.emptyAddr)))
-                asmCode.Add(Array.init (this.Tta.BusCount()) (fun x -> Mov(Asm.emptyAddr, Asm.emptyAddr)))
-                asmCode.Add(Array.init (this.Tta.BusCount()) (fun x -> Mov(Asm.emptyAddr, Asm.emptyAddr)))     
-                curMicroComandIndex := 0
-                curGlobalComandIndex := !curGlobalComandIndex + 4
+                let difference = min 3 !curGlobalCommandIndex
+
+                for i in [0..difference - 1] do
+                    let curCommand = (Array.init (this.Tta.BusCount()) (fun x -> Mov(Asm.emptyAddr, Asm.emptyAddr)))
+                    for j in [0..asmCode.[i].Length - 1] do
+                        let curInstr = asmCode.[i].[j]
+                        curCommand.[j] <- match curInstr with
+                                         | Mov(x, y) -> IfFalse((srcLnPredicate, srcColPredicate, srcPortPredicate), x, y)
+                                         | Mvc(x, y) -> IfFalseConst((srcLnPredicate, srcColPredicate, srcPortPredicate), x, y)
+                        
+
+                    asmCode.Add(curCommand)
+
+                for i in [0..2 - difference] do
+                    asmCode.Add(Array.init (this.Tta.BusCount()) (fun x -> Mov(Asm.emptyAddr, Asm.emptyAddr)))
+ 
+                curMicroCommandIndex := 0
+                curGlobalCommandIndex := !curGlobalCommandIndex + 4
                 asmCode.Add(Array.init (this.Tta.BusCount()) (fun x -> Mov(Asm.emptyAddr, Asm.emptyAddr)))     
                 this.Tta.ReleaseAllBuses()
+
 
         and GenerateCommandFromOperation(edge : Edge) = 
             let srcNode = edge.SrcNode
@@ -199,9 +255,7 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
             let dstPort = edge.InPort.Index
 
             let asmCommand = Mov((srcLn, srcCol, srcPort), (dstLn, dstCol, dstPort))
-            asmCode.[!curGlobalComandIndex].[!curMicroComandIndex] <- asmCommand
-
-            curMicroComandIndex := !curMicroComandIndex + 1
+            AddCommand(asmCommand)
 
         and GenerateCommand(edge : Edge) = 
             let srcNode = edge.SrcNode
@@ -228,9 +282,23 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
             if isFreeRegister
             then
                 let index = this.Tta.GetFreeFU(REGISTER_TYPE)
-                let initNode = new InitialNode()
-                initNode.ResultAddr <- index
-                GenerateCommand(Edge(node.OutPorts.[0], initNode.InPorts.[0]))
+                let tmpNode = new InitialNode()
+                tmpNode.ResultAddr <- index
+                GenerateCommand(Edge(node.OutPorts.[0], tmpNode.InPorts.[0]))
+                this.Tta.SetFUAsNonFree(index)
+                this.Tta.SetFUAsFree(node.ResultAddr)
+                node.ResultAddr <- index
+                node.OpType <- REGISTER_TYPE
+            
+            isFreeRegister
+        and SwapNodeWithCertainRegister(node : Node, registerAddr : int<ln> * int<col>) = 
+            let isFreeRegister = this.Tta.IsFreeFU(fst registerAddr, snd registerAddr)
+            if isFreeRegister
+            then
+                let index = registerAddr
+                let tmpNode = new InitialNode()
+                tmpNode.ResultAddr <- index
+                GenerateCommand(Edge(node.OutPorts.[0], tmpNode.InPorts.[0]))
                 this.Tta.SetFUAsNonFree(index)
                 this.Tta.SetFUAsFree(node.ResultAddr)
                 node.ResultAddr <- index
@@ -246,6 +314,7 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
                 if edge.SrcNode.Status = Used && not (edge.SrcNode.OpType = CONST_TYPE) && not (edge.SrcNode.IsHaveDstMUX())
                 then
                     this.Tta.SetFUAsFree(edge.SrcNode.ResultAddr)
+                    ignore(readies.Remove(edge.SrcNode))
              
             ignore(readyEdges.RemoveAll(fun x -> x.IsUsed = true))
 
@@ -273,6 +342,7 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
             
             for initNode in this.Vsfg.InitialNodes do
                 readyEdges.AddRange(initNode.GetNextEdges())
+                readies.Add(initNode)
             for constNode in this.Vsfg.ConstNodes do
                 readyEdges.AddRange(constNode.GetNextEdges())
 
@@ -314,6 +384,7 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
                                     if dstNode.Status = Ready
                                     then    
                                         readyEdges.AddRange(dstNode.GetNextEdges())
+                                        readies.Add(dstNode)
                             
                                 SetEdgeAsUsed(curEdge)
 
@@ -323,7 +394,6 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
                                 if (dstNode.OpType <> MULTIPLEXOR_TYPE || curEdge.InPort.Index = 0<port>)
                                 then
                                     GenerateCommand(curEdge)
-                                    this.Tta.TakeABus()
 
                         elif (dstNode.Status = Preparing)
                         then
@@ -342,7 +412,6 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
                             if (dstNode.OpType <> MULTIPLEXOR_TYPE || curEdge.InPort.Index = 0<port>)
                             then
                                 GenerateCommand(curEdge)
-                                this.Tta.TakeABus()
 
                         else
                             printfn "ERROR OCCURRED"
@@ -352,106 +421,3 @@ type VSFGCompiler(vsfg : VSFG, tta : TTA) =
 
         asmCode.RemoveAt(asmCode.Count - 1)
         asmCode
-
-(*
-[<EntryPoint>]
-let main(arg : string[]) = 
-    let t = VSFGConstructor("
-
-    let main (x:int) (y:int) (z : int) :int = (x + y) + z + x + x + y + z + x + y + z / x + y / z + (x + y) + z + x + x + y + z + x + y + z / x + y / z + (x + y) + z + x + x + y + z + x + y + z / x + y / z + (x + y) + z + x + x + y + z + x + y + z / x + y / z
-    "
-        )
-    let vsfg = t.getVSFG
-
-    let inits = vsfg.InitialNodes
-    inits.[0].ResultAddr <- (1<ln>, 0<col>)
-    inits.[1].ResultAddr <- (1<ln>, 1<col>)
-    inits.[2].ResultAddr <- (1<ln>, 2<col>)
-
-    let terminals = vsfg.TerminalNodes
-    terminals.[0].ResultAddr <- (1<ln>, 3<col>)
-
-    let FU1 = ADD("in1", "in2t", "out1", true)
-    let FU2 = REGISTER("0", true)
-    let FU3 = SUB("in1", "in2t", "out1", true)
-    let FU4 = DIV("in1", "in2t", "out1", true)
-    let TTA = new TTA([| (FU1, 5); (FU2, 5); (FU3, 5); (FU4, 5) |], 3)
-
-    let compiler = new VSFGCompiler(vsfg, TTA)
-
-    let code = compiler.Compile()
-
-    let file = new System.IO.StreamWriter(@"C:\Users\User\Documents\Workspace\test.txt")
-
-    code.ForEach( 
-        fun x -> 
-        ( 
-            //printf "("
-            Array.iter( fun y -> file.Write(Asm.toString(y, TTA)); file.Write("; ")) x
-            file.WriteLine()
-            //printfn ")"
-        ) 
-    )
-
-    file.Close()
-    
-    0
-*)
-
-(*
-[<EntryPoint>]
-let main(arg : string[]) = 
-
-    let t = VSFGConstructor("
-
-    let main (x:int) (y:int) (z : int) :int = if x < y + z
-                                              then
-                                                x + y / 1
-                                              else
-                                                x + y + z
-                                              
-    "
-        )
-    let vsfg = t.getVSFG
-
-    let inits = vsfg.InitialNodes
-    inits.[0].ResultAddr <- (1<ln>, 0<col>)
-    inits.[1].ResultAddr <- (1<ln>, 1<col>)
-    inits.[2].ResultAddr <- (1<ln>, 2<col>)
-
-    let terminals = vsfg.TerminalNodes
-    terminals.[0].ResultAddr <- (1<ln>, 3<col>)
-
-    let FU1 = ADD("in1", "in2t", "out1", true)
-    let FU2 = REGISTER("0", true)
-    let FU3 = BOOL("0", true)
-    let FU4 = LT("in1", "in2t", "out1", true)
-    let FU5 = DIV("in1", "in2t", "out1", true)
-    let FU6 = PC("000", true)
-    let TTA = new TTA([| (FU1, 2); (FU2, 10); (FU3, 5); (FU4, 5); (FU5, 1); (FU6, 1) |], 3)
-    
-    TTA.SetFUAsNonFree(inits.[0].ResultAddr)
-    TTA.SetFUAsNonFree(inits.[1].ResultAddr)
-    TTA.SetFUAsNonFree(inits.[2].ResultAddr)
-    TTA.SetFUAsNonFree(terminals.[0].ResultAddr)
-    
-    let compiler = new VSFGCompiler(vsfg, TTA)
-
-    let code = compiler.Compile()
-
-    let file = new System.IO.StreamWriter(@"C:\Users\User\Documents\Workspace\test.txt")
-
-    code.ForEach( 
-        fun x -> 
-        ( 
-            //printf "("
-            Array.iter( fun y -> file.Write(Asm.toString(y, TTA)); file.Write("; ")) x
-            file.WriteLine()
-            //printfn ")"
-        ) 
-    )
-
-    file.Close()
-    
-    0
-*)

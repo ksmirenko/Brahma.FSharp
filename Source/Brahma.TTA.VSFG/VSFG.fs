@@ -147,9 +147,10 @@ and Node (inPorts : ResizeArray<InPort>, outPorts : ResizeArray<OutPort>, opType
 type InitialNode() =
     inherit Node (1, 1, REGISTER_TYPE)
     member val Name = "" with get, set
+    member val ImmutableAddr = (1<ln>,4<col>) with get, set
     (* TODO: Add this.Status <- Ready *)
 
-type TerminalNode() =
+type TerminalNode() =    
     inherit Node (1, 1, REGISTER_TYPE)
     member val Name = "" with get, set
 
@@ -240,9 +241,13 @@ type NestedVsfgNode =
             let ports = new ResizeArray<_> ()
             vsfg.InitialNodes |> Array.iter (fun n -> ports.AddRange (n.InPorts))
             ports
+
         let outPorts =
             let ports = new ResizeArray<_> ()
             vsfg.TerminalNodes |> Array.iter (fun n -> ports.AddRange (n.OutPorts))
             ports
-        { inherit Node (inPorts.Count, outPorts.Count, VSFG_TYPE); Vsfg = vsfg; }
+        {
+            inherit Node (inPorts.Count, outPorts.Count, VSFG_TYPE); 
+            Vsfg = vsfg; 
+        }
 

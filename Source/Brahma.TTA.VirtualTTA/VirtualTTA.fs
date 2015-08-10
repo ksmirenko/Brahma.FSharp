@@ -151,6 +151,9 @@ type TTA(FUs : array<FunctionUnitType * int>, countOfBuses : int) =
 
         !resultIndex
 
+    member this.IsFreeFU (i : int<ln>, j : int<col>) = 
+        FunctionUnit.isFree board.[int i].[int j]
+
     member this.IsFreeFU (opType : OperationType) = 
         let isHaveFreeFU = ref false
 
