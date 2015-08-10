@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="VSFG.fs" />
+    <Compile Include="Visualization.fs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Brahma.TTA.VirtualTTA\Brahma.TTA.VirtualTTA.fsproj">
