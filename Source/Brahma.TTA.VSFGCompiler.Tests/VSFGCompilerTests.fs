@@ -12,10 +12,8 @@ let printCodeInFile(tta : TTA, code : ResizeArray<AsmType array>, filePath : str
     code.ForEach( 
         fun x -> 
         ( 
-            //printf "("
             Array.iter( fun y -> file.Write(Asm.toString(y, tta)); file.Write("; ")) x
             file.WriteLine()
-            //printfn ")"
         ) 
     )
 
@@ -50,9 +48,7 @@ let SimpleCompilingFromFSharpToAsm() =
 
     let code = compiler.Compile()
 
-    ()
-
-    //printCodeInFile(TTA, code, @"C:\Users\User\Documents\Workspace\test.txt")
+    printCodeInFile(TTA, code, "Test1.txt")
 
 [<Test>]
 let SimpleCompilingFromFSharpToAsm2() = 
@@ -85,8 +81,7 @@ let SimpleCompilingFromFSharpToAsm2() =
 
     let code = compiler.Compile()
 
-    ()
-    //printCodeInFile(TTA, code, @"C:\Users\User\Documents\Workspace\test.txt")
+    printCodeInFile(TTA, code, "Test2.txt")
 
 
 [<Test>]
@@ -121,8 +116,7 @@ let MoreComplexCompilingFromFSharpToAsm() =
 
     let code = compiler.Compile()
 
-    ()
-    //printCodeInFile(TTA, code, @"C:\Users\User\Documents\Workspace\test.txt")
+    printCodeInFile(TTA, code, "Test3.txt")
 
 [<Test>]
 let SimpleIfConstructions () = 
@@ -163,8 +157,7 @@ let SimpleIfConstructions () =
 
     let code = compiler.Compile()
 
-    ()
-    //printCodeInFile(TTA, code, @"C:\Users\User\Documents\Workspace\test.txt")
+    printCodeInFile(TTA, code, "Test4.txt")
 
 [<Test>]
 let MoreComplexIfConstructions () = 
@@ -204,5 +197,4 @@ let MoreComplexIfConstructions () =
 
     let code = compiler.Compile()
 
-    ()
-    //printCodeInFile(TTA, code, @"C:\Users\User\Documents\Workspace\test.txt")
+    printCodeInFile(TTA, code, "Test5.txt")

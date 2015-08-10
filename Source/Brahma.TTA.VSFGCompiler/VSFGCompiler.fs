@@ -15,7 +15,7 @@ type AsmType =
     | IfFalseConst of Addr * int * Addr
 
 module Asm = 
-    let emptyAddr = (-1<ln>, -1<col>, -1<port>)
+    let emptyAddr : Addr = (-1<ln>, -1<col>, -1<port>)
     
     let addrToString (addr : Addr, tta : TTA) = 
         match addr with
@@ -31,7 +31,6 @@ module Asm =
         | IfTrueConst(prd, number, dst) -> "?" + (addrToString (prd, tta)) + " " + number.ToString() + " -> " + (addrToString (dst, tta))
         | IfFalse(prd, src, dst) -> "!" + (addrToString (prd, tta)) + " " + (addrToString (src, tta)) + " -> " + (addrToString (dst, tta))
         | IfFalseConst(prd, number, dst) -> "!" + (addrToString (prd, tta)) + " " + number.ToString() + " -> " + (addrToString (dst, tta))
-
 
 type VSFGCompiler(vsfg : VSFG, tta : TTA) = 
     let asmCode = new ResizeArray<AsmType array>()
