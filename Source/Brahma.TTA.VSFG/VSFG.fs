@@ -37,6 +37,10 @@ and InPort (inputs : ResizeArray<OutPort>) =
         this.Inputs.Add outPort
         this.PrevNodes.Add outPort.Node
 
+    member this.RemoveInputs outPort = 
+        this.Inputs.Remove outPort |> ignore
+        this.PrevNodes.Remove outPort.Node |> ignore
+
     member val IsTrigger = false with get, set
 
     new () = InPort (new ResizeArray<_>())
@@ -52,6 +56,10 @@ and OutPort (targets : ResizeArray<InPort>) =
     member this.AddTarget inPort = 
         this.Targets.Add inPort
         this.NextNodes.Add inPort.Node
+
+    member this.RemoveTarget inPort = 
+        this.Targets.Remove inPort |> ignore
+        this.NextNodes.Remove inPort.Node |> ignore
 
     new () = OutPort (new ResizeArray<_>())
     new (x : InPort) = OutPort (new ResizeArray<_>([|x|]))
@@ -223,6 +231,13 @@ type VSFG (initialNodes : Node array, terminalNodes : Node array, constNodes : C
     static member AddEdge (outPort : OutPort) (inPort : InPort) =
         outPort.AddTarget inPort
         inPort.AddInputs outPort
+
+        inPort.Node.inPortsCount <- (inPort.Node.GetPrevNodes()).Count
+        outPort.Node.outPortsCount <- (outPort.Node.GetNextNodes()).Count
+
+    static member RemoveEdge (outPort : OutPort) (inPort : InPort) =
+        outPort.RemoveTarget inPort
+        inPort.RemoveInputs outPort
 
         inPort.Node.inPortsCount <- (inPort.Node.GetPrevNodes()).Count
         outPort.Node.outPortsCount <- (outPort.Node.GetNextNodes()).Count

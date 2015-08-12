@@ -172,7 +172,7 @@ type VSFGConstructor (input: string) =
                     call.rightBalance <- 0
 
                     AddNodeBuf.Add call
-                    if (prev.OpType = ADD_TYPE) then
+                    if (prev.OpType <> ADD_TYPE) then
                         vsfg.AddNodeReady.Add call
 
                     VSFG.AddEdgeByInd (call :> Node) (0) (prev) (inputN)

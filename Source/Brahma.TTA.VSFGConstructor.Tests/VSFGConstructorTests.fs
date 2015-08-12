@@ -4,6 +4,7 @@ open Brahma.TTA.VSFG
 open Brahma.TTA.VSFGConstructorHelper
 open Brahma.TTA.VSFGConstructor
 open Brahma.TTA.VSFG.Visualization
+open Brahma.TTA.VSFG.Optimize
 
 open System.Collections.Generic
 
@@ -98,6 +99,9 @@ let PlusTest() =
     ")
     let a = t.getVSFG
     Visualization.VSFGtoPNG a "BigXYZInput1"
+    rebuildPlus a
+    Visualization.VSFGtoPNG a "BigXYZInputTest"
+
     let t = VSFGConstructor("
     let main (x:int) (y : int) (z: int) :int = (((x + y) + (z + z)) + ((y + y) + (z + x))) + y
     ")
