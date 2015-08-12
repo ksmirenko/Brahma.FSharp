@@ -11,7 +11,7 @@ let VSFGtoDot (vsfg: VSFG) (file: string) =
         use file = new StreamWriter(inp) 
 
         let used = new ResizeArray<bool>()
-        for i = 0 to 1000 do
+        for i = 0 to 100000 do
             used.Add false
         let Q = new Queue<VSFG>()
         Q.Enqueue(vsfg)
@@ -30,7 +30,8 @@ let VSFGtoDot (vsfg: VSFG) (file: string) =
          and NameForNode (n: Node) =
             match n.OpType with 
             | ADD_TYPE -> 
-                "+" + n.indexForDot.ToString()
+                (sprintf "+ %A LEFT: %A RIGHT: %A" n.indexForDot n.leftBalance n.rightBalance)
+                //"+" + n.indexForDot.ToString()
             | SUB_TYPE ->
                 "-" + n.indexForDot.ToString()
             | DIV_TYPE ->

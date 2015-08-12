@@ -46,9 +46,99 @@ type VSFGConstructor (input: string) =
     let visitor = visitExpr
     let index = ref 0
     let initialsDEBUG = new Dictionary<string, Node>()
-    
+    let AddNodeBuf = new List<Node>()
+
     new(input) = VSFGConstructor(input)
-    
+    member private this.balanceADD =
+        let usedL = new ResizeArray<bool>()
+        let usedR = new ResizeArray<bool>()
+
+        for i = 0 to 100000 do
+            usedL.Add false
+            usedR.Add false
+
+        let getDownNode (n: Node) = n.GetNextNodes().[0] 
+        let getUpLeftNode (n: Node) = n.GetPrevNodes().[0] 
+        let getUpRightNode (n: Node) = n.GetPrevNodes().[1] 
+
+        let tryDown (n: Node) = 
+            if (n.GetNextNodes().Count = 0 || n.GetNextNodes().[0].OpType <> ADD_TYPE) then 
+                false 
+            else 
+                true
+
+        let tryUpLeft (n: Node) = 
+            if (n.GetPrevNodes().Count = 0 || n.GetPrevNodes().[0].OpType <> ADD_TYPE) then 
+                false 
+            else 
+                true
+
+        let tryUpRight (n: Node) = 
+            if (n.GetPrevNodes().Count = 0 || n.GetPrevNodes().[1].OpType <> ADD_TYPE) then 
+                false 
+            else 
+                true
+
+        let leftBalance (n: Node) = 
+            let rec getLeftMaxUP (n: Node) = 
+                if tryUpLeft n then
+                    getLeftMaxUP (getUpLeftNode n)
+                else 
+                    n
+
+            let rec siftLeftDown (n: Node) (t: Node) balance = 
+                if n.indexForDot <> t.indexForDot then
+                    n.leftBalance <- balance
+                    usedR.[n.indexForDot] <- true
+                    if tryDown n then
+                        let downNode = (getDownNode n)
+                        if downNode.indexForDot <> t.indexForDot then
+                            siftLeftDown (n |> getDownNode) t (balance + 1)
+                        else 
+                            t.leftBalance <- balance + 1
+                            usedL.[t.indexForDot] <- true
+                ()
+
+            let index = n.indexForDot
+            if usedL.[index] <> true then
+                usedL.[index] <- true
+                siftLeftDown (n |> getLeftMaxUP) n 0
+                ()
+
+        let rightBalance (n: Node) = 
+            let rec getRightMaxUP (n: Node) = 
+                if tryUpRight n then
+                    getRightMaxUP (getUpRightNode n)
+                else 
+                    n
+
+            let rec siftRightDown (n: Node) (t: Node) balance = 
+                if n.indexForDot <> t.indexForDot then
+                    n.rightBalance <- balance
+                    usedR.[n.indexForDot] <- true
+                    if tryDown n then
+                        let downNode = (getDownNode n)
+                        if downNode.indexForDot <> t.indexForDot then
+                            siftRightDown (n |> getDownNode) t (balance + 1)
+                        else 
+                            t.rightBalance <- balance + 1
+                            usedR.[t.indexForDot] <- true
+                ()
+
+            let index = n.indexForDot
+            if usedR.[index] <> true then
+                siftRightDown (n |> getRightMaxUP) n 0
+                ()
+
+        for e in AddNodeBuf do
+            leftBalance e
+            rightBalance e
+
+                
+
+
+
+
     member private this.getVSFG2 (e:FSharpExpr) (name: string) (functionMap: Dictionary<string, VSFG>)  = 
         let vsfg = functionMap.[name]
 
@@ -70,7 +160,6 @@ type VSFGConstructor (input: string) =
             vsfg.SetInitialNodes(initials.Values |> Seq.toArray)
 
         let consts = new Dictionary<int, ConstNode>()
-        
         let rec f (prev: Node) inputN (e:FSharpExpr) =  
             match e with 
             | BasicPatterns.Call(objExprOpt, memberOrFunc, typeArgs1, typeArgs2, argExprs) ->  
@@ -79,6 +168,13 @@ type VSFGConstructor (input: string) =
                     let call = new AddNode()
                     call.indexForDot <-index.Value
                     incr index
+                    call.leftBalance <- 0
+                    call.rightBalance <- 0
+
+                    AddNodeBuf.Add call
+                    if (prev.OpType = ADD_TYPE) then
+                        vsfg.AddNodeReady.Add call
+
                     VSFG.AddEdgeByInd (call :> Node) (0) (prev) (inputN)
                     visitArgs (call) 0  argExprs 
                     ()
@@ -309,7 +405,9 @@ type VSFGConstructor (input: string) =
            
         let functionMap = new Dictionary<string, VSFG>()
         functionMap.Add (name, vsfg)
-        this.getVSFG2 (helper.getFSharpExpr 0) name functionMap
+        let vsfg = this.getVSFG2 (helper.getFSharpExpr 0) name functionMap
+        this.balanceADD
+        vsfg
 
     member this.print f = 
         (helper.getFSharpExpr 0) |> visitor f
