@@ -62,10 +62,12 @@ let rebuildPlus (vsfg: VSFG) =
         if count = 0 then
             n
         else getLeftNode (getUpLeftNode n) (count - 1)
+
     and getRightNode (n:Node) count =
-        if count = 1 then
+        if count = 0 then
             n
         else getRightNode (getUpRightNode n) (count - 1)
+
     and fixLeftBalance (n: Node) (t: Node) = 
         let t2 = getDownNode n
         let t3 = getDownNode t2
@@ -113,8 +115,10 @@ let rebuildPlus (vsfg: VSFG) =
          if tryDown n && n.indexForDot <> t.indexForDot then
             let temp = (getDownNode n)
             temp.rightBalance <- temp.rightBalance - 1
-            siftLeftBalance temp t
+            siftRightBalance temp t
 
     for e in vsfg.AddNodeReady do
         balance e
+
+    vsfg
 

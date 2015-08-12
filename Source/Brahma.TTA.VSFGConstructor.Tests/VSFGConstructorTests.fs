@@ -21,6 +21,141 @@ let checkNeighbours (node : Node) prevCount nextCount =
     Assert.NotNull(nextNodes)
     Assert.AreEqual(nextCount, nextNodes.Count)
 
+[<TestFixture>]
+(*
+    We learn to draw VSFG and to simplify it
+*)
+type PlusRebuildTester () = 
+    [<Test>]
+    member this.PlusTest() =  
+        let t = VSFGConstructor("
+        let main (x:int) (y : int) (z: int) :int = x + y + z + z + y + y + z + x + y
+        ")
+        let a = t.getVSFG
+        Visualization.VSFGtoPNG a "XYZ_inp"
+        rebuildPlus a
+        Visualization.VSFGtoPNG a "XYZ_optimize"
+
+        let t = VSFGConstructor("
+        let main (x:int) (y : int) (z: int) :int = (((x + y) + (z + z)) + ((y + y) + (z + x))) + y
+        ")
+        let a = t.getVSFG
+        Visualization.VSFGtoPNG a "XYZ_Answer"
+        
+    [<Test>]
+    member this.OneVarTest() =  
+        let t = VSFGConstructor("
+        let main (x:int) (y : int) (z: int) :int =  x + x + x + x + x + x + x + x + x + x + x + x + x
+        ")
+        let a = t.getVSFG
+        Visualization.VSFGtoPNG a "OneVar_Inp"
+        rebuildPlus a 
+        Visualization.VSFGtoPNG a "OneVar_Optimize"
+
+        let t = VSFGConstructor("
+        let main (x:int) (y : int) (z: int) :int =  (((x + x) + (x + x)) + ((x + x) + (x + x))) + ((x + x) + (x + x)) + x
+        ")
+
+        let a = t.getVSFG
+        Visualization.VSFGtoPNG a "OneVar_Ans" 
+        ()
+
+    [<Test>]
+    member this.bigbigbig() =  
+        let t = VSFGConstructor("
+        let main (x:int) (y : int) (z: int) :int = 
+            x + y + z + y + x + z + x + y + x + z + x + y + x + z + x + y + x + z + x + y + x + z + x + y + x + z + x + y + x + z + x + y + x + z + x + y
+
+        ")
+        let a = t.getVSFG
+        Visualization.VSFGtoPNG a "bigbigbig_Inp"
+        rebuildPlus a
+        Visualization.VSFGtoPNG a "bigbigbig_Optimize"
+
+        let t = VSFGConstructor("
+        let main (x:int) (y : int) (z: int) :int = 
+            ((((x + y) + (z + y)) + ((x + z) + (x + y))) + (((x + z) + (x + y)) + ((x + z) + (x + y)))) + ((((x + z) + (x + y)) + ((x + z) + (x + y))) + (((x + z) + (x + y)) + ((x + z) + (x + y)))) + ((x + z) + (x + y))
+
+        ")
+        let a = t.getVSFG
+        Visualization.VSFGtoPNG a "bigbigbig_Ans"
+
+
+        ()
+
+    [<Test>]
+    member this.Simple() =  
+        let t = VSFGConstructor("
+        let main (x:int) (y : int) (z: int) :int = x + y + y + x + y + x + x + y
+        ")
+        let a = t.getVSFG
+        Visualization.VSFGtoPNG a "Simple_Inp"
+        rebuildPlus a
+        Visualization.VSFGtoPNG a "Simple_Optimize"
+
+        let t = VSFGConstructor("
+        let main (x:int) (y : int) (z: int) :int = ((x + y) + (y + x)) + ((y + x) + (x + y))
+        ")
+        let a = t.getVSFG
+        Visualization.VSFGtoPNG a "Simple_Ans"
+
+
+        ()
+
+    [<Test>]
+    member this.double() =  
+        let t = VSFGConstructor("
+        let main (x:int) (y : int) :int = (x + y + x + y) * (x + y + x + y)
+        ")
+        let a = t.getVSFG
+        Visualization.VSFGtoPNG a "double_Inp"
+        rebuildPlus a
+        Visualization.VSFGtoPNG a "double_Optimize"
+
+        let t = VSFGConstructor("
+        let main (x:int) (y : int) :int = ((x + y) + (x + y)) * ((x + y) + (x + y))
+        ")
+        let a = t.getVSFG
+        Visualization.VSFGtoPNG a "double_ans"
+
+        ()
+
+    [<Test>]
+    member this.RightSideBuild() =  
+        let t = VSFGConstructor("
+        let main (x:int) (y : int) :int = (x + (y + (x + (y + (x + (y + (x + y)))))))
+        ")
+        let a = t.getVSFG
+        Visualization.VSFGtoPNG a "right_Inp"
+        rebuildPlus a
+        Visualization.VSFGtoPNG a "right_Optimize"
+
+        let t = VSFGConstructor("
+        let main (x:int) (y : int) :int = ((x + y) + (x + y)) + ((x + y) + (x + y))
+        ")
+        let a = t.getVSFG
+        Visualization.VSFGtoPNG a "right_ans"
+
+        ()
+    [<Test>]
+    member this.Dream() =  
+        let t = VSFGConstructor("
+        let main (x:int) (y : int) :int = x + y + x + y + (x + y) + x + y
+                ")
+        let a = t.getVSFG
+        Visualization.VSFGtoPNG a "dream_Inp"
+        rebuildPlus a
+        Visualization.VSFGtoPNG a "dream_Optimize"
+
+        let t = VSFGConstructor("
+        let main (x:int) (y : int) :int = ((x + y) + (x + y)) + ((x + y) + (x + y))
+                ")
+        let a = t.getVSFG
+        Visualization.VSFGtoPNG a "dream_Ans"
+        
+
+
+
 [<Test>]
 let VSFGConstructorHelper() = 
     let input = "
@@ -92,117 +227,6 @@ let IfTest() =
     Visualization.VSFGtoPNG a "IF"
     ()
 
-[<Test>]
-let PlusTest() =  
-    let t = VSFGConstructor("
-    let main (x:int) (y : int) (z: int) :int = x + y + z + z + y + y + z + x + y
-    ")
-    let a = t.getVSFG
-    Visualization.VSFGtoPNG a "BigXYZInput1"
-    rebuildPlus a
-    Visualization.VSFGtoPNG a "BigXYZInputTest"
-
-    let t = VSFGConstructor("
-    let main (x:int) (y : int) (z: int) :int = (((x + y) + (z + z)) + ((y + y) + (z + x))) + y
-    ")
-    let a = t.getVSFG
-    let t = VSFGConstructor("
-    let main (x:int) (y : int) :int = x + y  + x + y
-    ")
-    let a = t.getVSFG
-    Visualization.VSFGtoPNG a "BigXYZInput2"
-
-    let t = VSFGConstructor("
-    let main (x:int) (y : int) :int = (x + y)  + (x + y)
-    ")
-    let a = t.getVSFG
-    Visualization.VSFGtoPNG a "BigXYZInput2"
-
-    let t = VSFGConstructor("
-    let main (x:int) (y : int) :int = (x + y)  + x + y
-    ")
-    let a = t.getVSFG
-    Visualization.VSFGtoPNG a "BigXYZInput2"
-
-
-    let t = VSFGConstructor("
-    let main (x:int) (y : int) :int = (x + y)  + (x + y)  + x + y
-    ")
-    let a = t.getVSFG
-    Visualization.VSFGtoPNG a "BigXYZInput2"
-
-
-    let t = VSFGConstructor("
-    let main (x:int) (y : int) :int = (x + y)  + (x + y)  + (x + y)
-    ")
-    let a = t.getVSFG
-    Visualization.VSFGtoPNG a "BigXYZInput2"
-
-
-
-    let t = VSFGConstructor("
-    let main (x:int) (y : int) :int = (x + y)  + (x + y)  + (x + y) + (x+y)
-    ")
-    let a = t.getVSFG
-    Visualization.VSFGtoPNG a "BigXYZInput2"
-
-    
-    let t = VSFGConstructor("
-    let main (x:int) (y : int) :int = ((x + y)  + (x + y))  + ((x + y) + (x+y))
-    ")
-    let a = t.getVSFG
-    Visualization.VSFGtoPNG a "BigXYZInput2"
-
-    ()
-
-[<Test>]
-let Plus1Test() =  
-    let t = VSFGConstructor("
-    let main (x:int) (y : int) (z: int) :int =  x + y + z + y + x + z
-    ")
-    let a = t.getVSFG
-    Visualization.VSFGtoPNG a "3VarIn"
-    let t = VSFGConstructor("
-    let main (x:int) (y : int) (z: int) :int =  (x + y) + (z + y) + (x + z)
-    ")
-
-    let a = t.getVSFG
-    Visualization.VSFGtoPNG a "3VarOut" 
-    ()
-
-[<Test>]
-let Plus4Test() =  
-    let t = VSFGConstructor("
-    let main (x:int) (y : int) (z: int) :int = x + y + z + y + x + z + x + y
-    ")
-    let a = t.getVSFG
-    Visualization.VSFGtoPNG a "plus4"
-    ()
-
-[<Test>]
-let Plus5Test() =  
-    let t = VSFGConstructor("
-    let main (x:int) (y : int) (z: int) :int = ((x + y) + (z + y)) + ((x + z) + (x + y))
-    ")
-    let a = t.getVSFG
-    Visualization.VSFGtoPNG a "Plus5"
-    ()
-
-[<Test>]
-let Plus2Test() =  
-    let t = VSFGConstructor("
-    let main (x:int) (y : int) :int = ((x + y) + (x + y)) + ((x + y) + (x + y))
-    ")
-    let a = t.getVSFG
-    Visualization.VSFGtoPNG a "Plus2TestOut"
-
-    let t = VSFGConstructor("
-    let main (x:int) (y : int) :int = x + y + x + y + x + y + x + y
-    ")
-    let a = t.getVSFG
-    //Visualization.VSFGtoPNG a "Plus2TestInp"
-
-    ()
 
 [<Test>] 
 let anotherTest() =
