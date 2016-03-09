@@ -80,10 +80,10 @@ do
     // RUN IT!!!
     // Note. To read using system API this application should be run with Admin privileges (Run as Administrator). 
     let dId = ref 0
-    let commandLineSpecs =
-        ["-drc", ArgType.Int (fun i -> dId := i), "Disk id to process. You can get it by using \"list disk\" command of DiskPart tool."
-        ] |> List.map (fun (shortcut, argtype, description) -> ArgInfo(shortcut, argtype, description))
-    ArgParser.Parse commandLineSpecs
+//    let commandLineSpecs =
+//        ["-drc", ArgType.Int (fun i -> dId := i), "Disk id to process. You can get it by using \"list disk\" command of DiskPart tool."
+//        ] |> List.map (fun (shortcut, argtype, description) -> ArgInfo(shortcut, argtype, description))
+//    ArgParser.Parse commandLineSpecs
 
     let res =
         matcher.RabinKarp (!dId, (Array.append(Array.append first templates) additional))
