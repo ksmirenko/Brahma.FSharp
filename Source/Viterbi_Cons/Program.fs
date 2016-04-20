@@ -1,16 +1,16 @@
 ﻿module Viterbi_Cons
 
 let viterbi (observSpace: int[]) (stateSpace: int[]) (startProbs : double[])  (observSeq : int[]) (transitionProbs : double[][]) (emissionProbs : double[][]) =
-    let mutable X = [|0..observSeq.Length - 1|]
-    let mutable Z = [|0..observSeq.Length - 1|]
+    let X = [|0..observSeq.Length - 1|]
+    let Z = [|0..observSeq.Length - 1|]
 
     let T1 = [|for i in stateSpace -> 
-                            [|for j in 0..observSeq.Length - 1 ->
-                                    if j = 0
-                                    then startProbs.[i] * emissionProbs.[i].[observSeq.[0]]
-                                    else 0.0|]|]
+                   [|for j in 0..observSeq.Length - 1 ->
+                         if j = 0
+                         then startProbs.[i] * emissionProbs.[i].[observSeq.[0]]
+                         else 0.0|] |]
     let T2 = [|for i in stateSpace -> 
-                            [|for j in 0..observSeq.Length - 1 -> 0|]|]
+                   [|for j in 0..observSeq.Length - 1 -> 0|] |]
     for i in 1..observSeq.Length - 1 do
         for j in stateSpace do
             T1.[j].[i] <- Array.max([|for k in stateSpace -> 
