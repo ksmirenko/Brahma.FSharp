@@ -1,4 +1,4 @@
-﻿module ArrayFunc
+﻿module ArrayGPU
 
 open Brahma.Helpers
 open OpenCL.Net
@@ -30,23 +30,25 @@ let init (inArr: array<_>) =
     let t = provider, commandQueue, length, localWorkSize
     t    
 
+let compile (provider: ComputeProvider) (commandQueue: CommandQueue) length localWorkSize command inArr =
+    let outArr = Array.zeroCreate length  
+    let kernel, kernelPrepare, kernelRun = provider.Compile command 
+    let d = new _1D(length, localWorkSize)
+    kernelPrepare d inArr outArr 
+    let _ = commandQueue.Add(kernelRun()) 
+    outArr 
 
-let arrayMap func (inArr: array<_>) ((provider: ComputeProvider), (commandQueue: CommandQueue), length, localWorkSize) =
-    let outArr = Array.zeroCreate length 
+let Map func (inArr: array<_>) ((provider: ComputeProvider), (commandQueue: CommandQueue), length, localWorkSize) =
     let command = 
          <@
             fun (rng: _1D) (a: array<_>) (b: array<_>) ->
                 let r = rng.GlobalID0 
                 b.[r] <- (%func) a.[r]                                 
          @>
-    let kernel, kernelPrepare, kernelRun = provider.Compile command 
-    let d = new _1D(length, localWorkSize)    
-    kernelPrepare d inArr outArr
-    let _ = commandQueue.Add(kernelRun()) 
+    let outArr = compile (provider: ComputeProvider) (commandQueue: CommandQueue) length localWorkSize command inArr
     outArr
 
-let arrayMapi func (inArr: array<_>) ((provider: ComputeProvider), (commandQueue: CommandQueue), length, localWorkSize) = 
-    let outArr = Array.zeroCreate length  
+let Mapi func (inArr: array<_>) ((provider: ComputeProvider), (commandQueue: CommandQueue), length, localWorkSize) =  
     let command = 
         <@
             fun (rng: _1D) (a: array<_>) (b: array<_>) ->
@@ -54,13 +56,10 @@ let arrayMapi func (inArr: array<_>) ((provider: ComputeProvider), (commandQueue
                 let i = r
                 b.[r] <- (%func) i a.[i]                               
         @>
-    let kernel, kernelPrepare, kernelRun = provider.Compile command
-    let d = new _1D(length, localWorkSize)
-    kernelPrepare d inArr outArr
-    let _ = commandQueue.Add(kernelRun()).Finish()
+    let outArr = compile (provider: ComputeProvider) (commandQueue: CommandQueue) length localWorkSize command inArr
     outArr
 
-let arrayMap2 func (inArr1: array<_>) (inArr2: array<_>) ((provider: ComputeProvider), (commandQueue: CommandQueue), length, localWorkSize) = 
+let Map2 func (inArr1: array<_>) (inArr2: array<_>) ((provider: ComputeProvider), (commandQueue: CommandQueue), length, localWorkSize) = 
     if inArr1.Length <> inArr2.Length then failwith "Arrays must have the same lengths"
     let outArr = Array.zeroCreate length 
     let command = 
@@ -75,7 +74,7 @@ let arrayMap2 func (inArr1: array<_>) (inArr2: array<_>) ((provider: ComputeProv
     let _ = commandQueue.Add(kernelRun()).Finish()
     outArr
 
-let arrayReverse (inArr: array<_>) ((provider: ComputeProvider), (commandQueue: CommandQueue), length, localWorkSize) = 
+let Reverse (inArr: array<_>) ((provider: ComputeProvider), (commandQueue: CommandQueue), length, localWorkSize) = 
     let outArr = Array.zeroCreate length   
     let command =
         <@
