@@ -83,22 +83,22 @@ let conclCYK (matrix : string array [][]) (start : string) =
 
 let CYK (rules : (string*string) []) (str : string) (start : string) = 
     let n = str.Length
-    if n > 1 
+    if n <> 0 
     then
         let matrix  : string array [][] =  [| for i in 0 .. n - 1 do yield [| for j in 0 .. n - 1 do yield [|""|] |] |]
         let matrCYK = matrixCYK rules str n matrix
         conclCYK matrCYK start
     else "The string's lenght < 1. "
  
-let mainCYK = 
+let mainCYK() = 
     printfn "%s" "Enter a context-free grammar in Chomsky normal form ('S' is a start symbol): \n"
     printfn "%s" "Enter a start symbol of the grammar:  "
     let s = Console.ReadLine()
     let rules = rulesInput()
     printfn "%s" "Enter a string for the CYK algorithm: \n"
     let str = Console.ReadLine()
-    CYK rules str s
-    
-printfn "%s" mainCYK
+    printfn "%s" (CYK rules str s)
+    Console.ReadKey(true) |> ignore
 
-let rk = Console.ReadKey(true)
+mainCYK()
+
