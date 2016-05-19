@@ -1,9 +1,8 @@
 ﻿module AlgorithmCYK
 open System
 
-let rulesInput = 
+let rulesInput() = 
     let array = [||]
-    printfn "%s" "Enter a context-free grammar in Chomsky normal form ('S' is a start symbol): \n"
     let rec rulesInput array =
         printfn "%s" "Enter a left part of the rule:  "
         let lp = Console.ReadLine()
@@ -22,9 +21,9 @@ let oneRuleCheck ((ch : string),(str: string)) (comp : string) =
     else [||]
 
 let allRulesCheck (rules : array<string * string>) (comp : string array) = 
-    let len = Array.length(comp)
+    let len = comp.Length
     let arr = ResizeArray<string>()
-    let n = Array.length(rules)
+    let n = rules.Length
     for j in 0..len - 1 do
         for i in 0..n - 1 do
            arr.AddRange(oneRuleCheck rules.[i] comp.[j])
@@ -34,7 +33,7 @@ let deleteEqual (arr : array<'t>) =
     match arr with 
     | [||] -> arr
     | _ ->   
-        let n = Array.length(arr)
+        let n = arr.Length
         let res = ResizeArray<'t>()
         res.Add(arr.[0])
         for i = 1 to n - 1 do
@@ -50,8 +49,8 @@ let deleteEqual (arr : array<'t>) =
 
 let decMultiply (arr1 : array<string>) (arr2 : array<string>) =
     let res = ResizeArray<string>()
-    let n1 = Array.length(arr1)
-    let n2 = Array.length(arr2)
+    let n1 = arr1.Length
+    let n2 = arr2.Length
     match n1, n2 with
     | 0, n2 -> arr2
     | n1, 0 -> arr1
@@ -72,33 +71,33 @@ let matrixCYK (rules : array<string * string>) (str: string) (n: int) (matrix  :
                 dm.Clear()
     matrix
  
-let conclCYK (matrix : string array [][]) = 
-    let rec concCYK (arr : string array) (f : bool) (i : int) = 
-        match f with 
-        | true -> "The string can be generated. "
-        | false -> 
-                    if i <> Array.length(arr) 
-                    then
-                        if arr.[i] = "S" 
-                        then concCYK arr true i
-                        else concCYK arr f (i + 1)
-                    else "The string cannot be generated. "
-    concCYK matrix.[0].[0] false 0
+let conclCYK (matrix : string array [][]) (start : string) = 
+    let rec concCYK (arr : string array) (i : int) = 
+        if i <> Array.length(arr) 
+        then
+            if arr.[i] = start 
+            then "The string can be generated. "
+            else concCYK arr (i + 1)
+        else "The string cannot be generated. "
+    concCYK matrix.[0].[0] 0
 
-let CYK (rules : (string*string) []) (str : string) = 
+let CYK (rules : (string*string) []) (str : string) (start : string) = 
     let n = str.Length
     if n > 1 
     then
         let matrix  : string array [][] =  [| for i in 0 .. n - 1 do yield [| for j in 0 .. n - 1 do yield [|""|] |] |]
         let matrCYK = matrixCYK rules str n matrix
-        conclCYK matrCYK
+        conclCYK matrCYK start
     else "The string's lenght < 1. "
  
 let mainCYK = 
-    let rules = rulesInput
+    printfn "%s" "Enter a context-free grammar in Chomsky normal form ('S' is a start symbol): \n"
+    printfn "%s" "Enter a start symbol of the grammar:  "
+    let s = Console.ReadLine()
+    let rules = rulesInput()
     printfn "%s" "Enter a string for the CYK algorithm: \n"
     let str = Console.ReadLine()
-    CYK rules str
+    CYK rules str s
     
 printfn "%s" mainCYK
 
