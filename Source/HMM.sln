@@ -9,6 +9,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{837538B0
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Viterbi_Cons.Tests", "HMM.Tests\Viterbi_Cons.Tests\Viterbi_Cons.Tests.fsproj", "{6FB627CA-96FB-41AD-B9A3-E4F7D770D097}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Viterbi_Parallel_CPU", "Viterbi_Parallel_CPU\Viterbi_Parallel_CPU\Viterbi_Parallel_CPU.fsproj", "{749A58D2-2E37-403E-ADFB-9F3BC50A1D7F}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Viterbi_Parallel_CPU.Tests", "HMM.Tests\Viterbi_Parallel_CPU.Tests\Viterbi_Parallel_CPU.Tests\Viterbi_Parallel_CPU.Tests.fsproj", "{DC096EBE-4B6D-4D9A-A99E-6D0F62D20D70}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,11 +27,20 @@ Global
 		{6FB627CA-96FB-41AD-B9A3-E4F7D770D097}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6FB627CA-96FB-41AD-B9A3-E4F7D770D097}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6FB627CA-96FB-41AD-B9A3-E4F7D770D097}.Release|Any CPU.Build.0 = Release|Any CPU
+		{749A58D2-2E37-403E-ADFB-9F3BC50A1D7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{749A58D2-2E37-403E-ADFB-9F3BC50A1D7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{749A58D2-2E37-403E-ADFB-9F3BC50A1D7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{749A58D2-2E37-403E-ADFB-9F3BC50A1D7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DC096EBE-4B6D-4D9A-A99E-6D0F62D20D70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DC096EBE-4B6D-4D9A-A99E-6D0F62D20D70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DC096EBE-4B6D-4D9A-A99E-6D0F62D20D70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DC096EBE-4B6D-4D9A-A99E-6D0F62D20D70}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{6FB627CA-96FB-41AD-B9A3-E4F7D770D097} = {837538B0-821D-4C22-A29F-2C4A7D636902}
+		{DC096EBE-4B6D-4D9A-A99E-6D0F62D20D70} = {837538B0-821D-4C22-A29F-2C4A7D636902}
 	EndGlobalSection
 EndGlobal

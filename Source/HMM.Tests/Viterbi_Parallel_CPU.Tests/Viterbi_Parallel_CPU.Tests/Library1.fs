@@ -1,6 +1,6 @@
-﻿module Viterbi_Cons.Tests
+﻿module Viterbi_Parallel_CPU.Tests
 
-open Viterbi_Cons
+open Viterbi_Parallel_CPU
 open NUnit.Framework
 
 
