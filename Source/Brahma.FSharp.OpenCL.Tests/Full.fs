@@ -47,6 +47,7 @@ type Translator() =
             Assert.AreEqual(expected, r)
             provider.CloseAllBuffers()
         kernelPrepareF,check
+  
 
     [<Test>]
     member this.``Array item set``() = 
@@ -1235,9 +1236,77 @@ type Translator() =
         run _1d intInArr        
         check intInArr [|2;3;6;7|]
 
-let x = 
+(*let x = 
     let d = ref 0
     fun y ->
         let r = !d
         d := !d + y
-        r
+        r*)
+
+    [<Test>]
+    member this.``matrix add``() =
+        let create r c func = 
+            let a = Array.init (r * c) func
+            a
+        let command = 
+            <@ fun (range:_2D) (a1:int[]) (a2:int[]) (res:int[]) ->                    
+                    let i = range.GlobalID0
+                    let j = range.GlobalID1
+                    res.[i*j] <- a1.[i*j] + a2.[i*j]
+            @>
+        let a1 = create 5 5 (fun i -> i)
+        let a2 = create 5 5 (fun i -> i)
+        let res = Array.zeroCreate(5*5)   
+        let run,check = checkResult command
+        run _2d a1 a2 res    
+        //check intInArr [|2;3;6;7|]
+    [<Test>]
+    member this.``2 matrix sum``() = 
+        let matrixToArray (m: array<int array>) = 
+            let lines = m.Length
+            let cols =  (m.[0]).Length
+            let arr = Array.zeroCreate (lines * cols)
+            let s =  seq {for i in 0..cols - 1 -> m.[i]}
+            let arr = Array.concat s
+            arr   
+        let command = 
+            <@ 
+                 fun (rng:_1D) (m1: int array) (m2: int array) (res: int array) ->                    
+                    let r = rng.GlobalID0
+                    res.[r] <- m1.[r] + m2.[r]
+            @>
+        let arrayToMatrix (arr: int array) lines cols = 
+            let matrix = Array.zeroCreate (lines)
+            for i in 0..lines - 1 do
+                matrix.[i] <- (Array.sub arr (i * cols) cols)
+            matrix
+        let res = Array.zeroCreate 4
+        let m1 = [|[|1; 2|]; [|3; 4|]|]
+        let m2 = [|[|1; 2|]; [|3; 4|]|]
+        let rng = new _1D(4, 1)
+        let run,check = checkResult command
+        run rng  (matrixToArray m1) (matrixToArray m2) res     
+        check res [|2; 4; 6; 8|]
+      
+    [<Test>]
+    member this.``matrix sum of el``() =
+        let matrixToArray (m: array<int array>) = 
+            let lines = m.Length
+            let cols =  (m.[0]).Length
+            let arr = Array.zeroCreate (lines * cols)
+            let s =  seq { for i in 0..cols - 1 -> m.[i]}
+            let arr = Array.concat s
+            arr 
+        let command = 
+            <@ fun (rng:_1D) (m: int array) (res: int array)->                    
+                    let r = rng.GlobalID0
+                    res.[0] <! res.[0] + m.[r]
+            @>
+        let m = [|[|1; 2; 3|]; [|1; 1; 1|]; [|4; 5; 3|]|]
+        let res = [|0|]
+        let rng = new _1D(9, 1)
+        let run, check = checkResult command
+        run rng (matrixToArray m) res
+        check res [|21|]
+        
+             
