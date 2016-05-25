@@ -45,3 +45,16 @@ let ``Mapi (Map2) test``() =
   let t = ArrayGPU.init arr1
   let outarr = ArrayGPU.getResult (ArrayGPU.Mapi (<@ fun x i -> x * i @>) (ArrayGPU.Map2 (<@ fun x1 x2 -> x1 - x2 @>) arr1 arr2 t) t) t
   Assert.AreEqual ([|0; 0; 0; 0; 0|], outarr)
+
+[<Test>]
+let ``Exception test 1``() =
+  let arr = [||]
+  Assert.That((fun _ -> ArrayGPU.init arr), Throws.Exception) 
+
+[<Test>]
+let ``Exception test 2``() =
+  let arr1 = [|1; 2; 3; 4; 5|]
+  let arr2 = [|1; 2; 3; 4; 5; 6; 7|]
+  let t = ArrayGPU.init arr1
+  Assert.That((fun _ -> ArrayGPU.Map2 (<@ fun x1 x2 -> x1 - x2 @>) arr1 arr2 t), Throws.Exception)
+
