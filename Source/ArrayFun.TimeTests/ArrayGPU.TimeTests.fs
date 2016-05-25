@@ -4,7 +4,7 @@ open System.Drawing
 open System.Windows.Forms
 
 
-(*let diagram f i = 
+let diagram f i = 
     let arr1 = [|for j in 1..i -> j|]
     let time1 = System.DateTime.Now
     let t = ArrayGPU.init arr1
@@ -16,7 +16,7 @@ open System.Windows.Forms
     let d = Chart.Pie ["initialization", (time2 - time1).TotalMilliseconds; "function", (time3 - time2).TotalMilliseconds; "getting result", (time4 - time3).TotalMilliseconds]
     do System.Windows.Forms.Application.Run (d.ShowChart())
 
-diagram (ArrayGPU.Map <@ fun x -> x + 1 @>) 10000000 |> ignore*)
+diagram (ArrayGPU.Map <@ fun x -> x + 1 @>) 10000000 |> ignore
 
 
 let timer1 f i n = //for Array and Array.Parallel
@@ -55,5 +55,5 @@ let main lowBound skip highBound =
          Chart.Line ([for i in lowBound..skip..highBound -> (i, timer1 (Array.Parallel.map (fun x -> sin(float(x)))) i n)], Name = "Parallel", Color = System.Drawing.Color.Blue)
          Chart.Line ([for i in lowBound..skip..highBound -> (i, timer2 (ArrayGPU.Map <@ fun x -> sin(float(x)) @>) i n)], Name = "GPU", Color = System.Drawing.Color.Red)]
          )
-do System.Windows.Forms.Application.Run ((main 0 500000 10000000).ShowChart())
+do System.Windows.Forms.Application.Run ((main 500000 500000 10000000).ShowChart())
 
