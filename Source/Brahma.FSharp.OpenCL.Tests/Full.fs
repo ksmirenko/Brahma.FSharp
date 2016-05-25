@@ -1244,23 +1244,6 @@ type Translator() =
         r*)
 
     [<Test>]
-    member this.``matrix add``() =
-        let create r c func = 
-            let a = Array.init (r * c) func
-            a
-        let command = 
-            <@ fun (range:_2D) (a1:int[]) (a2:int[]) (res:int[]) ->                    
-                    let i = range.GlobalID0
-                    let j = range.GlobalID1
-                    res.[i*j] <- a1.[i*j] + a2.[i*j]
-            @>
-        let a1 = create 5 5 (fun i -> i)
-        let a2 = create 5 5 (fun i -> i)
-        let res = Array.zeroCreate(5*5)   
-        let run,check = checkResult command
-        run _2d a1 a2 res    
-        //check intInArr [|2;3;6;7|]
-    [<Test>]
     member this.``2 matrix sum``() = 
         let matrixToArray (m: array<int array>) = 
             let lines = m.Length
