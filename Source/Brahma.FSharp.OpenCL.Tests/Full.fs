@@ -1264,14 +1264,14 @@ type Translator() =
     member this.``2 matrix sum``() = 
         let matrixToArray (m: array<int array>) = 
             let lines = m.Length
-            let cols =  (m.[0]).Length
+            let cols = (m.[0]).Length
             let arr = Array.zeroCreate (lines * cols)
-            let s =  seq {for i in 0..cols - 1 -> m.[i]}
+            let s = seq {for i in 0..cols - 1 -> m.[i]}
             let arr = Array.concat s
             arr   
         let command = 
             <@ 
-                 fun (rng:_1D) (m1: int array) (m2: int array) (res: int array) ->                    
+                 fun (rng: _1D) (m1: int array) (m2: int array) (res: int array) ->                    
                     let r = rng.GlobalID0
                     res.[r] <- m1.[r] + m2.[r]
             @>
@@ -1284,21 +1284,21 @@ type Translator() =
         let m1 = [|[|1; 2|]; [|3; 4|]|]
         let m2 = [|[|1; 2|]; [|3; 4|]|]
         let rng = new _1D(4, 1)
-        let run,check = checkResult command
-        run rng  (matrixToArray m1) (matrixToArray m2) res     
+        let run, check = checkResult command
+        run rng (matrixToArray m1) (matrixToArray m2) res     
         check res [|2; 4; 6; 8|]
       
     [<Test>]
     member this.``matrix sum of el``() =
         let matrixToArray (m: array<int array>) = 
             let lines = m.Length
-            let cols =  (m.[0]).Length
+            let cols = (m.[0]).Length
             let arr = Array.zeroCreate (lines * cols)
-            let s =  seq { for i in 0..cols - 1 -> m.[i]}
+            let s = seq {for i in 0..cols - 1 -> m.[i]}
             let arr = Array.concat s
             arr 
         let command = 
-            <@ fun (rng:_1D) (m: int array) (res: int array)->                    
+            <@ fun (rng:_1D) (m: int array) (res: int array) ->                    
                     let r = rng.GlobalID0
                     res.[0] <! res.[0] + m.[r]
             @>
