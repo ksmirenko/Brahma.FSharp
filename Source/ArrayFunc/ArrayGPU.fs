@@ -89,19 +89,12 @@ let Reverse (inArr: array<_>) ((provider: ComputeProvider), (commandQueue: Comma
     let _ = commandQueue.Add(kernelRun()).Finish()
     outArr
 
-
 let getResult (outArr: array<_>) ((provider: ComputeProvider), (commandQueue: CommandQueue), length, localWorkSize) = 
     let _ = commandQueue.Add(outArr.ToHost provider).Finish()
     commandQueue.Dispose()
     provider.Dispose()
     provider.CloseAllBuffers()
     outArr
-
-
-
-
-
-
 
 
 

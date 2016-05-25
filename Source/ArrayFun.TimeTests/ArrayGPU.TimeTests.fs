@@ -44,10 +44,10 @@ let timer2 f i = //for ArrayGPU
         ArrayGPU.getResult (f arr1 (*arr2*) t) t |>ignore
         res
 
-let main = 
+let main lowBound skip highBound = 
     Chart.Combine (
-        [Chart.Line ([for i in 1000000..500000..10000000 -> (i, timer1 (Array.map (fun x -> sin(float(x)))) i)], Name = "Array", Color = System.Drawing.Color.Green)
-         Chart.Line ([for i in 1000000..500000..10000000 -> (i, timer1 (Array.Parallel.map (fun x -> sin(float(x)))) i)], Name = "Parallel", Color = System.Drawing.Color.Blue)
-         Chart.Line ([for i in 1000000..500000..10000000 -> (i, timer2 (ArrayGPU.Map <@ fun x -> sin(float(x)) @>) i)], Name = "GPU", Color = System.Drawing.Color.Red)]
+        [Chart.Line ([for i in lowBound..skip..highBound -> (i, timer1 (Array.map (fun x -> sin(float(x)))) i)], Name = "Array", Color = System.Drawing.Color.Green)
+         Chart.Line ([for i in lowBound..skip..highBound -> (i, timer1 (Array.Parallel.map (fun x -> sin(float(x)))) i)], Name = "Parallel", Color = System.Drawing.Color.Blue)
+         Chart.Line ([for i in lowBound..skip..highBound -> (i, timer2 (ArrayGPU.Map <@ fun x -> sin(float(x)) @>) i)], Name = "GPU", Color = System.Drawing.Color.Red)]
          )
-do System.Windows.Forms.Application.Run (main.ShowChart())
+do System.Windows.Forms.Application.Run ((main 1000000 500000 10000000).ShowChart())
