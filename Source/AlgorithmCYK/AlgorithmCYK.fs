@@ -11,7 +11,7 @@ let oneRuleCheck ((ch : string), (str : string)) (nonterm : string array) (ntgn 
 let allRulesCheck (rules : list<string * string>) (nonterm : string array) (ntgn : int array) (comp : string array) = 
     for i = 0 to comp.Length - 1 do
         for j = 0 to rules.Length - 1 do
-            oneRuleCheck rules.[j] nonterm ntgn  comp.[i]
+            oneRuleCheck rules.[j] nonterm ntgn comp.[i]
 
 let compCreate (nonterm : string array) (ntgen1 : int array) (ntgen2 : int array) =
     let comp = ResizeArray<string>() 
@@ -41,12 +41,11 @@ let conclCYK (matrix : int array [][]) (nonterm : string array) (start : string)
     then true
     else false
 
-let CYK (rules : list<string*string>) (nonterm : string array) (str : string) (start : string) = 
+let CYK (rules : list<string * string>) (nonterm : string array) (str : string) (start : string) = 
     if str = ""
     then true
     else 
         let n = str.Length 
-        let matrix  : int array [][] =  [|for i in 0..n - 1 -> [|for j in 0..n - 1 -> Array.zeroCreate (nonterm.Length)|]|]
-        printfn "%A" matrix
+        let matrix =  [|for i in 0..n - 1 -> [|for j in 0..n - 1 -> Array.zeroCreate (nonterm.Length)|]|]
         let matrCYK = matrixCYK rules nonterm str n matrix
         conclCYK matrCYK nonterm start

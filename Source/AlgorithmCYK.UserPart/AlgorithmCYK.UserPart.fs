@@ -1,5 +1,4 @@
 ﻿module AlgorithmCYK.UserPart
-
 open AlgorithmCYK
 open System
 
@@ -13,7 +12,7 @@ let rulesInput() =
         let rp = Console.ReadLine()
         printfn "%s" "Press ENTER to continue or SPACE to end."
         let rk = Console.ReadKey()
-        if (rk.Key).ToString() = "Spacebar"
+        if rk.Key = ConsoleKey.Spacebar
         then (lp,rp) :: list, set
         else rulesInput ((lp,rp) :: list) set
     rulesInput [] Set.empty   
@@ -27,7 +26,7 @@ let mainCYK() =
     let str = Console.ReadLine()
     if str.Length = 0 
     then printfn "%s" "The string's lenght < 1. "
-    elif (CYK rul (Set.toArray(nonterm)) str s)
+    elif CYK rul (Set.toArray(nonterm)) str s
     then printfn "%s" "The string can be generated. "
     else printfn "%s" "The string cannot be generated. "
     Console.ReadKey(true) |> ignore
