@@ -84,6 +84,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "AlgorithmCYK", "AlgorithmCY
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "AlgorithmCYK.Tests", "AlgorithmCYK.Tests\AlgorithmCYK.Tests.fsproj", "{644B1F24-6C8C-4BE7-8EB5-4AB229DF9FD8}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "AlgorithmCYK.UserPart", "AlgorithmCYK.UserPart\AlgorithmCYK.UserPart.fsproj", "{B1415FFE-83EC-4239-8467-772CC3A7E440}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -448,6 +450,18 @@ Global
 		{644B1F24-6C8C-4BE7-8EB5-4AB229DF9FD8}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{644B1F24-6C8C-4BE7-8EB5-4AB229DF9FD8}.Release|x64.ActiveCfg = Release|Any CPU
 		{644B1F24-6C8C-4BE7-8EB5-4AB229DF9FD8}.Release|x86.ActiveCfg = Release|Any CPU
+		{B1415FFE-83EC-4239-8467-772CC3A7E440}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1415FFE-83EC-4239-8467-772CC3A7E440}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1415FFE-83EC-4239-8467-772CC3A7E440}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{B1415FFE-83EC-4239-8467-772CC3A7E440}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{B1415FFE-83EC-4239-8467-772CC3A7E440}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{B1415FFE-83EC-4239-8467-772CC3A7E440}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{B1415FFE-83EC-4239-8467-772CC3A7E440}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1415FFE-83EC-4239-8467-772CC3A7E440}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1415FFE-83EC-4239-8467-772CC3A7E440}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{B1415FFE-83EC-4239-8467-772CC3A7E440}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{B1415FFE-83EC-4239-8467-772CC3A7E440}.Release|x64.ActiveCfg = Release|Any CPU
+		{B1415FFE-83EC-4239-8467-772CC3A7E440}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -483,5 +497,6 @@ Global
 		{89C75587-E3FF-4CDA-93C4-9725081766ED} = {4F9245AA-3415-412D-AF1B-536538C36D84}
 		{F7EFCD46-BA39-4DBF-A1EE-D274B08CB995} = {12742F24-B04C-492A-9A4E-4C0D6D93DC59}
 		{644B1F24-6C8C-4BE7-8EB5-4AB229DF9FD8} = {12742F24-B04C-492A-9A4E-4C0D6D93DC59}
+		{B1415FFE-83EC-4239-8467-772CC3A7E440} = {12742F24-B04C-492A-9A4E-4C0D6D93DC59}
 	EndGlobalSection
 EndGlobal
