@@ -47,7 +47,18 @@ type Translator() =
             Assert.AreEqual(expected, r)
             provider.CloseAllBuffers()
         kernelPrepareF,check
-    
+
+    let returnResult command =
+        let kernel, kernelPrepareF, kernelRunF = provider.Compile command    
+        let commandQueue = new CommandQueue(provider, provider.Devices |> Seq.head)            
+        let getresult (outArray: array<'a>) =
+            let cq = commandQueue.Add(kernelRunF()).Finish()
+            let cq2 = commandQueue.Add(outArray.ToHost provider).Finish()
+            commandQueue.Dispose()
+            provider.CloseAllBuffers()
+            outArray
+        kernelPrepareF, getresult
+          
     let matrixToArray (m: array<int array>) = 
         let lines = m.Length
         let cols = (m.[0]).Length 
@@ -73,9 +84,9 @@ type Translator() =
             @>
         let res = Array.zeroCreate (lines * cols)
         let rng = new _1D(lines * cols, 1)
-        let run, check = checkResult command
+        let run, getresult = returnResult command
         run rng (matrixToArray m1) (matrixToArray m2) res
-        check, res
+        arrayToMatrix (getresult res) lines cols
 
     let sumEl (m: array<int array>) = 
         let lines = m.Length
@@ -83,13 +94,13 @@ type Translator() =
         let command = 
             <@ fun (rng:_1D) (m: int array) (res: int array) ->                    
                     let r = rng.GlobalID0
-                    res.[0] <! res.[0] + m.[r]
+                    res.[0] <!+ m.[r]
             @>
-        let res = [|0|]
+        let res = Array.zeroCreate 1
         let rng = new _1D(lines * cols, 1)
-        let run, check = checkResult command
+        let run, getresult = returnResult command
         run rng (matrixToArray m) res
-        check, res
+        getresult res
    
     [<Test>]
     member this.``Array item set``() = 
@@ -1289,25 +1300,31 @@ type Translator() =
     member this.``matrixSum``() =
         let m1 = [|[|1; 2|]; [|3; 4|]|]
         let m2 = [|[|1; 2|]; [|3; 4|]|]
-        let check, res = sumMatr m1 m2
-        check res [|2; 4; 6; 8|]
-      
+        Assert.AreEqual (sumMatr m1 m2, [|[|2; 4|]; [|6; 8|]|])
+
     [<Test>]
-    member this. ``matrixElSum``() =
+    member this.``matrixSum 2``() =
+        let m1 = [|[|1; 2|]; [|3; 4|]|]
+        let m2 = [|[|1; 2|]; [|3; 4|]|]
+        let m3 = [|[|1; 2|]; [|3; 4|]|]
+        let m4 = [|[|1; 2|]; [|3; 4|]|]
+        let matrixArr = [|(m1, m2); (m3, m4)|]
+        let sumArr = Array.map (fun (m1, m2) -> sumMatr m1 m2) matrixArr 
+        Assert.AreEqual (sumArr, [|[|[|2; 4|]; [|6; 8|]|]; [|[|2; 4|]; [|6; 8|]|]|])
+                
+    [<Test>]
+    member this.``matrixElSum``() =
         let m = [|[|1; 2; 3|]; [|1; 1; 1|]; [|4; 5; 3|]|]
-        let check, res = sumEl m
-        check res [|21|]
+        Assert.AreEqual (sumEl m, [|21|])
 
     [<Test>]
-    member this. ``matrixElSum 2``() =
+    member this.``matrixElSum 2``() =
         let matrixArr = [|[|[|1; 2|]; [|3; 4|]|]; [|[|5; 6|]; [|7; 8|]|]; [|[|9; 10|]; [|11; 12|]|]|]
-        let s = seq {for i in 0..matrixArr.Length - 1 -> matrixArr.[i]}
-        let check, res = sumEl (Array.concat s)
-        check res [|78|]
+        let sumArr = Array.map (fun m -> sumEl m) matrixArr
+        Assert.AreEqual (sumArr, [|[|10|]; [|26|]; [|42|]|])
 
-   (* [<Test>]
-    member this. ``matrixSum 2``() =
-        let matrixArr = [|[|[|1; 2|]; [|3; 4|]|];[|[|1; 2|]; [|3; 4|]|]|]*)
+
+        
 
 
                  
