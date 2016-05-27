@@ -46,6 +46,6 @@ let CYK (rules : list<string * string>) (nonterm : string array) (str : string) 
     then true
     else 
         let n = str.Length 
-        let matrix =  [|for i in 0..n - 1 -> [|for j in 0..n - 1 -> Array.zeroCreate (nonterm.Length)|]|]
+        let matrix =  [|for i in 0..n - 1 -> [|for j in 0..n - 1 -> Array.zeroCreate nonterm.Length|]|]
         let matrCYK = matrixCYK rules nonterm str n matrix
         conclCYK matrCYK nonterm start
