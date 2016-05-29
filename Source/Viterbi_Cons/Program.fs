@@ -8,8 +8,6 @@ let maxFun (arr : array<double>) =
         then 
             mx <- arr.[i]
             num <- i
-        else
-            do()
     (mx, num)    
 
 let viterbi (observSpace: int[]) stateCount (startProbs : double[])  (observSeq : int[]) (transitionProbs : double[][]) (emissionProbs : double[][]) =
@@ -24,10 +22,9 @@ let viterbi (observSpace: int[]) stateCount (startProbs : double[])  (observSeq 
     let tableArgMax = Array.init stateCount (fun _ -> Array.zeroCreate observSeq.Length)
     for i in 1..observSeq.Length - 1 do
         for j in 0..stateCount - 1 do
-            match maxFun [|for k in 0..stateCount - 1 -> tableMax.[k].[i - 1] * transitionProbs.[k].[j] * emissionProbs.[j].[observSeq.[i]]|] with
-            |(maxVal, maxNum) ->
-                tableMax.[j].[i] <- maxVal
-                tableArgMax.[j].[i] <- maxNum
+            let (maxVal, maxNum) = maxFun [|for k in 0..stateCount - 1 -> tableMax.[k].[i - 1] * transitionProbs.[k].[j] * emissionProbs.[j].[observSeq.[i]]|]
+            tableMax.[j].[i] <- maxVal
+            tableArgMax.[j].[i] <- maxNum
     z.[observSeq.Length - 1] <- Array.maxBy (fun k -> tableMax.[k].[observSeq.Length - 1]) [|0..stateCount - 1|]
     hiddenStateSeq.[observSeq.Length - 1] <- z.[observSeq.Length - 1]
     for i in 1..(observSeq.Length - 1) do

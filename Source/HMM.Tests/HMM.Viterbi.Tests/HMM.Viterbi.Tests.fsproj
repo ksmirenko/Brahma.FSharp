@@ -5,13 +5,14 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>6d386b8f-7f48-4dd0-b4bf-a8552d34d5c4</ProjectGuid>
+    <ProjectGuid>66c08645-2a77-41b0-a1fd-2aa04a40d1b1</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Viterbi_Parallel_GPGPU.Tests</RootNamespace>
-    <AssemblyName>Viterbi_Parallel_GPGPU.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
-    <Name>Viterbi_Parallel_GPGPU.Tests</Name>
+    <RootNamespace>HMM.Viterbi.Tests</RootNamespace>
+    <AssemblyName>HMM.Viterbi.Tests</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFSharpCoreVersion>4.3.0.0</TargetFSharpCoreVersion>
+    <Name>HMM.Viterbi.Tests</Name>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -20,8 +21,8 @@
     <Tailcalls>false</Tailcalls>
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Debug\Viterbi_Parallel_GPGPU.Tests.XML</DocumentationFile>
+    <WarningLevel>0</WarningLevel>
+    <DocumentationFile>bin\Debug\HMM.Viterbi.Tests.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -30,7 +31,7 @@
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Release\Viterbi_Parallel_GPGPU.Tests.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\HMM.Viterbi.Tests.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
@@ -45,10 +46,24 @@
     <Reference Include="System.Numerics" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Library1.fs" />
+    <Compile Include="Tests.fs" />
+    <Compile Include="Cons.fs" />
+    <Compile Include="CPU.fs" />
+    <Compile Include="GPGPU.fs" />
     <None Include="Script.fsx" />
+    <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Viterbi_Cons\Viterbi_Cons.fsproj">
+      <Name>Viterbi_Cons</Name>
+      <Project>{0e723dc9-77fa-4355-89e5-120cc4336e90}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Viterbi_Parallel_CPU\Viterbi_Parallel_CPU\Viterbi_Parallel_CPU.fsproj">
+      <Name>Viterbi_Parallel_CPU</Name>
+      <Project>{749a58d2-2e37-403e-adfb-9f3bc50a1d7f}</Project>
+      <Private>True</Private>
+    </ProjectReference>
     <ProjectReference Include="..\..\Viterbi_Parallel_GPGPU\Viterbi_Parallel_GPGPU.fsproj">
       <Name>Viterbi_Parallel_GPGPU</Name>
       <Project>{45da7da3-d0ad-4d74-92a8-625f6cd3facb}</Project>

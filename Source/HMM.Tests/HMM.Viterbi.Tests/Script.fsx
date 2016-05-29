@@ -2,7 +2,7 @@
 // for more guidance on F# programming.
 
 #load "Library1.fs"
-open Viterbi_Parallel_CPU.Tests
+open HMM.Viterbi.Tests
 
 // Define your library scripting code here
 

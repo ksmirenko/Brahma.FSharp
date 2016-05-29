@@ -11,7 +11,7 @@ open System
 open System.Threading
 
 let tableToLine row col (a : 'T [][]) = 
-    Array.init (row * col) (fun i -> a.[i % row].[i / row])
+    Array.init (row * col) (fun i -> a.[i / col].[i % col])
 
 let lineToTable row col (a : array<_>) = 
     Array2D.init row col (fun i j -> a.[j + i * row])
@@ -26,30 +26,28 @@ let Parallel (tableMax : array<_>) (tableArgMax : array<_>) stateCount (transiti
     let mutable commandQueue = new CommandQueue(provider, provider.Devices |> Seq.head)
     let command = 
         <@
-            fun (r:_2D) rows (tableMax : array<_>) (tableArgMax : array<_>) stateCount (transitionProbs : array<_>) (emissionProbs : array<_>) (observSeq : array<_>) -> 
-                let maxFun (arr : array<double>) =
-                    let mutable mx = 0.0
-                    let mutable num = 0
-                    for i in 0..arr.Length - 1 do
-                        if mx < arr.[i]
-                        then 
-                            mx <- arr.[i]
-                            num <- i
-                        else
-                            do()
-                    (mx, num)
-                let column = r.GlobalID0
+            fun (r:_2D) rowCount rowLen (tableMax : array<_>) (tableArgMax : array<_>) stateCount (transitionProbs : array<_>) (emissionProbs : array<_>) (observSeq : array<_>) -> 
+                let col = r.GlobalID0
                 let row = r.GlobalID1
-                for i in 1..observSeq.Length - 1 do
-                     match maxFun [|for k in 0..stateCount - 1 -> tableMax.[k * rows + (i - 1)] * transitionProbs.[k * rows + row] * emissionProbs.[row * rows + observSeq.[i]]|] with
-                     |(maxVal, maxNum) ->
-                        tableMax.[row * rows + i] <- maxVal
-                        tableArgMax.[row * rows + i] <- maxNum
+                let mutable mx = 0.0
+                let mutable num = 0
+                for i in 1..rowLen - 1 do
+                    mx <- 0.0
+                    num <- 0
+                    for k in 0..rowCount - 1 do
+                        let el = tableMax.[k * rowLen + (i - 1)] * transitionProbs.[k * rowCount + row] * emissionProbs.[row * rowLen + observSeq.[i]]
+                        if mx < el
+                        then
+                            mx <- el
+                            num <- k
+                    tableMax.[row * rowCount + i] <- mx
+                    tableArgMax.[row * rowCount + i] <- num
+                    
         @>
 
     let kernel, kernelPrepare, kernelRun = provider.Compile command
     let d =(new _2D(stateCount, observSeq.Length))
-    kernelPrepare d stateCount tableMax tableArgMax stateCount transitionProbs emissionProbs observSeq
+    kernelPrepare d stateCount observSeq.Length tableMax tableArgMax stateCount transitionProbs emissionProbs observSeq
     let _ = commandQueue.Add(kernelRun()).Finish()            
     let _ = commandQueue.Add(tableMax.ToHost provider).Finish()
     let _ = commandQueue.Add(tableArgMax.ToHost provider).Finish()
@@ -74,8 +72,9 @@ let viterbi (observSpace: int[]) stateCount (startProbs : double[])  (observSeq 
     |(max, argMax) ->
         for i in 1..observSeq.Length - 1 do
             for j in 0..stateCount - 1 do
-                tableMax.[i].[j] <- max.[i,j]
-                tableArgMax.[i].[j] <- argMax.[i,j]
+                tableMax.[j].[i] <- max.[j,i]
+                tableArgMax.[j].[i] <- argMax.[j,i]
+
     z.[observSeq.Length - 1] <- Array.maxBy (fun k -> tableMax.[k].[observSeq.Length - 1]) [|0..stateCount - 1|]
     hiddenStateSeq.[observSeq.Length - 1] <- z.[observSeq.Length - 1]
     for i in 1..(observSeq.Length - 1) do
