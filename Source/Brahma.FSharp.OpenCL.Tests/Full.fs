@@ -51,7 +51,7 @@ type Translator() =
     let returnResult command =
         let kernel, kernelPrepareF, kernelRunF = provider.Compile command    
         let commandQueue = new CommandQueue(provider, provider.Devices |> Seq.head)            
-        let getresult (outArray: array<'a>) =
+        let getresult (outArray: array<_>) =
             let cq = commandQueue.Add(kernelRunF()).Finish()
             let cq2 = commandQueue.Add(outArray.ToHost provider).Finish()
             commandQueue.Dispose()
@@ -59,26 +59,26 @@ type Translator() =
             outArray
         kernelPrepareF, getresult
           
-    let matrixToArray (m: array<int array>) = 
+    let matrixToArray (m: array<array<_>>) = 
         let lines = m.Length
-        let cols = (m.[0]).Length 
+        let cols = m.[0].Length 
         let arr = Array.zeroCreate (lines * cols)
         let s = seq {for i in 0..lines - 1 -> m.[i]}
         let arr = Array.concat s
         arr 
     
-    let arrayToMatrix (arr: int array) lines cols = 
+    let arrayToMatrix (arr: array<_>) lines cols = 
         let matrix = Array.zeroCreate (lines)
         for i in 0..lines - 1 do
             matrix.[i] <- (Array.sub arr (i * cols) cols)
         matrix
     
-    let sumMatr (m1: array<int array>) (m2: array<int array>) = 
+    let sumMatr (m1: array<array<_>>) (m2: array<array<_>>) = 
         let lines = m1.Length
-        let cols = (m1.[0]).Length 
+        let cols = m1.[0].Length 
         let command = 
             <@ 
-                 fun (rng: _1D) (m1: int array) (m2: int array) (res: int array) ->                    
+                 fun (rng: _1D) (m1: array<_>) (m2: array<_>) (res: array<_>) ->                    
                     let r = rng.GlobalID0
                     res.[r] <- m1.[r] + m2.[r]
             @>
@@ -88,11 +88,11 @@ type Translator() =
         run rng (matrixToArray m1) (matrixToArray m2) res
         arrayToMatrix (getresult res) lines cols
 
-    let sumEl (m: array<int array>) = 
+    let sumEl (m: array<array<_>>) = 
         let lines = m.Length
-        let cols = (m.[0]).Length 
+        let cols = m.[0].Length 
         let command = 
-            <@ fun (rng:_1D) (m: int array) (res: int array) ->                    
+            <@ fun (rng:_1D) (m: array<_>) (res: array<_>) ->                    
                     let r = rng.GlobalID0
                     res.[0] <!+ m.[r]
             @>
@@ -1320,7 +1320,7 @@ type Translator() =
     [<Test>]
     member this.``matrixElSum 2``() =
         let matrixArr = [|[|[|1; 2|]; [|3; 4|]|]; [|[|5; 6|]; [|7; 8|]|]; [|[|9; 10|]; [|11; 12|]|]|]
-        let sumArr = Array.map (fun m -> sumEl m) matrixArr
+        let sumArr = Array.map sumEl matrixArr
         Assert.AreEqual (sumArr, [|[|10|]; [|26|]; [|42|]|])
 
 
