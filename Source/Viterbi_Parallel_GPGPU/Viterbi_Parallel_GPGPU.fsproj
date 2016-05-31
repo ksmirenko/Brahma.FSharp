@@ -75,6 +75,13 @@
     <Compile Include="Program.fs" />
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Viterbi_Cons\Viterbi_Cons.fsproj">
+      <Name>Viterbi_Cons</Name>
+      <Project>{0e723dc9-77fa-4355-89e5-120cc4336e90}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
   </PropertyGroup>

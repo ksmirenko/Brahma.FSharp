@@ -48,6 +48,11 @@ type Translator() =
             provider.CloseAllBuffers()
         kernelPrepareF,check
 
+    let tableToLine row col (a : 'T [][]) = 
+        Array.init (row * col) (fun i -> a.[i % row].[i / row])
+    let lineToTable row col (a : array<_>) = 
+        Array2D.init row col (fun i j -> a.[j + i * row])
+
     [<Test>]
     member this.``Array item set``() = 
         let command = 
@@ -1236,10 +1241,6 @@ type Translator() =
         check intInArr [|2;3;6;7|]
     [<Test>]
     member this.``MatrixSum``() = 
-        let tableToLine row col (a : 'T [][]) = 
-            Array.init (row * col) (fun i -> a.[i % row].[i / row])
-        let lineToTable row col (a : array<_>) = 
-            Array2D.init row col (fun i j -> a.[j + i * row])
         let command = 
             <@ 
                 fun (range : _2D) rows (m1 : array<_>) (m2 : array<_>) (buf : array<_>) ->
@@ -1258,10 +1259,6 @@ type Translator() =
 
     [<Test>]
     member this.``ElemSum``() = 
-        let tableToLine row col (a : 'T [][]) = 
-            Array.init (row * col) (fun i -> a.[i % row].[i / row])
-        let lineToTable row col (a : array<_>) = 
-            Array2D.init row col (fun i j -> a.[j + i * row])
         let command = 
             <@ 
                 fun (range : _2D) rows (m : array<_>) (buf : array<_>) ->

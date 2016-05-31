@@ -9,6 +9,7 @@ open Microsoft.FSharp.Quotations
 open Brahma.FSharp.OpenCL.Extensions
 open System
 open System.Threading
+open Viterbi_Cons
 
 let tableToLine row col (a : 'T [][]) = 
     Array.init (row * col) (fun i -> a.[i / col].[i % col])
@@ -56,28 +57,13 @@ let Parallel (tableMax : array<_>) (tableArgMax : array<_>) stateCount (transiti
     provider.CloseAllBuffers()
     (lineToTable stateCount observSeq.Length tableMax, lineToTable stateCount observSeq.Length tableArgMax)
 
+let viterbiGpgpu (observSpace: int[]) (tableMax : double[][]) (tableArgMax : int[][]) stateCount  (observSeq : int[]) (transitionProbs : double[][]) (emissionProbs : double[][]) =
+    let (max, argMax) = Parallel (tableToLine stateCount observSeq.Length tableMax) (tableToLine stateCount observSeq.Length tableArgMax) stateCount (tableToLine stateCount stateCount transitionProbs) (tableToLine stateCount observSpace.Length emissionProbs) observSeq
+    for i in 1..observSeq.Length - 1 do
+        for j in 0..stateCount - 1 do
+            tableMax.[j].[i] <- max.[j,i]
+            tableArgMax.[j].[i] <- argMax.[j,i]
+    (tableMax, tableArgMax)
 
 let viterbi (observSpace: int[]) stateCount (startProbs : double[])  (observSeq : int[]) (transitionProbs : double[][]) (emissionProbs : double[][]) =
-    let hiddenStateSeq = [|0..observSeq.Length - 1|]
-    let z = [|0..observSeq.Length - 1|]
-
-    let tableMax = [|for i in 0..stateCount - 1 -> 
-                       [|for j in 0..observSeq.Length - 1 ->
-                           if j = 0
-                           then startProbs.[i] * emissionProbs.[i].[observSeq.[0]]
-                           else 0.0|] |]
-    let tableArgMax = Array.init stateCount (fun _ -> Array.zeroCreate observSeq.Length)
-    
-    match (Parallel (tableToLine stateCount observSeq.Length tableMax) (tableToLine stateCount observSeq.Length tableArgMax) stateCount (tableToLine stateCount stateCount transitionProbs) (tableToLine stateCount observSpace.Length emissionProbs) observSeq) with
-    |(max, argMax) ->
-        for i in 1..observSeq.Length - 1 do
-            for j in 0..stateCount - 1 do
-                tableMax.[j].[i] <- max.[j,i]
-                tableArgMax.[j].[i] <- argMax.[j,i]
-
-    z.[observSeq.Length - 1] <- Array.maxBy (fun k -> tableMax.[k].[observSeq.Length - 1]) [|0..stateCount - 1|]
-    hiddenStateSeq.[observSeq.Length - 1] <- z.[observSeq.Length - 1]
-    for i in 1..(observSeq.Length - 1) do
-        z.[observSeq.Length - i - 1] <- tableArgMax.[z.[observSeq.Length - i]].[observSeq.Length - i]
-        hiddenStateSeq.[observSeq.Length - i - 1] <- z.[observSeq.Length - i - 1]
-    hiddenStateSeq
+    Viterbi_Cons.mainPart viterbiGpgpu (observSpace: int[]) stateCount (startProbs : double[])  (observSeq : int[]) (transitionProbs : double[][]) (emissionProbs : double[][])
