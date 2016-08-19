@@ -36,5 +36,3 @@ let viterbiCpu (observSpace: int[]) (tableMax : double[][]) (tableArgMax : int[]
 
 let viterbi (observSpace: int[]) stateCount (startProbs : double[])  (observSeq : int[]) (transitionProbs : double[][]) (emissionProbs : double[][]) =
     Viterbi_Cons.mainPart viterbiCpu (observSpace: int[]) stateCount (startProbs : double[])  (observSeq : int[]) (transitionProbs : double[][]) (emissionProbs : double[][])
-
-    

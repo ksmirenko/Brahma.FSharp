@@ -15,7 +15,7 @@ let tableToLine row col (a : 'T [][]) =
     Array.init (row * col) (fun i -> a.[i / col].[i % col])
 
 let lineToTable row col (a : array<_>) = 
-    Array2D.init row col (fun i j -> a.[j + i * row])
+    Array2D.init row col (fun i j -> a.[i * col + j])
 
 let Parallel (tableMax : array<_>) (tableArgMax : array<_>) stateCount (transitionProbs : array<_>) (emissionProbs : array<_>) (observSeq : array<_>) =
     let platformName = "*"
@@ -27,12 +27,13 @@ let Parallel (tableMax : array<_>) (tableArgMax : array<_>) stateCount (transiti
     let mutable commandQueue = new CommandQueue(provider, provider.Devices |> Seq.head)
     let command = 
         <@
-            fun (r:_2D) rowCount rowLen (tableMax : array<_>) (tableArgMax : array<_>) stateCount (transitionProbs : array<_>) (emissionProbs : array<_>) (observSeq : array<_>) -> 
-                let col = r.GlobalID0
-                let row = r.GlobalID1
+            fun (r:_1D) rowCount rowLen (tableMax : array<_>) (tableArgMax : array<_>) stateCount (transitionProbs : array<_>) (emissionProbs : array<_>) (observSeq : array<_>) -> 
+                let row = r.GlobalID0
                 let mutable mx = 0.0
                 let mutable num = 0
+                let mutable buf = 0
                 for i in 1..rowLen - 1 do
+                    buf <- 0
                     mx <- 0.0
                     num <- 0
                     for k in 0..rowCount - 1 do
@@ -41,13 +42,13 @@ let Parallel (tableMax : array<_>) (tableArgMax : array<_>) stateCount (transiti
                         then
                             mx <- el
                             num <- k
-                    tableMax.[row * rowCount + i] <- mx
-                    tableArgMax.[row * rowCount + i] <- num
-                    
+                    tableMax.[row * rowLen + i] <- mx
+                    tableArgMax.[row * rowLen + i] <! num
+                    while (buf < 100000000) do(buf <- buf + 1)
         @>
 
     let kernel, kernelPrepare, kernelRun = provider.Compile command
-    let d =(new _2D(stateCount, observSeq.Length))
+    let d =(new _1D(stateCount) )
     kernelPrepare d stateCount observSeq.Length tableMax tableArgMax stateCount transitionProbs emissionProbs observSeq
     let _ = commandQueue.Add(kernelRun()).Finish()            
     let _ = commandQueue.Add(tableMax.ToHost provider).Finish()
