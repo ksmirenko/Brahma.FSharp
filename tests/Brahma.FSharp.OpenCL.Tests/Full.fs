@@ -47,8 +47,8 @@ type Translator() =
             Assert.AreEqual(expected, r)
             provider.CloseAllBuffers()
         kernelPrepareF,check
-	
-	let tableToLine row col (a : 'T [][]) = 
+
+    let tableToLine row col (a : 'T [][]) = 
         Array.init (row * col) (fun i -> a.[i % row].[i / row])
 
     let lineToTable row col (a : array<_>) = 
@@ -1295,8 +1295,8 @@ type Translator() =
         let run,check = checkResult command
         run _1d intInArr        
         check intInArr [|2;3;6;7|]
-		
-	    [<Test>]
+
+    [<Test>]
     member this.``MatrixSum``() = 
         let command = 
             <@ 
@@ -1364,4 +1364,3 @@ let x =
         let r = !d
         d := !d + y
         r
->>>>>>> 56e816d304ca38baa0ee8d0f7ce1fc00f98ffc15:tests/Brahma.FSharp.OpenCL.Tests/Full.fs
