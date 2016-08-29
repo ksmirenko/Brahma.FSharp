@@ -21,8 +21,7 @@ let viterbiCpu (observSpace: int[]) (tableMax : double[][]) (tableArgMax : int[]
                             return! loop n
                        | Continue ->
                             return! loop n
-                       | End -> 
-                            ()
+                       | End -> ()
                        }
             loop 0)
     

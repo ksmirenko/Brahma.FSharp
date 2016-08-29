@@ -14,12 +14,11 @@ open Viterbi.Cons
 let findBigNum (num : float) =
     let mutable mx = 1.0
     let mutable i = 1.0
-    while i < sqrt(num) do
+    while i < sqrt num do
         if num % i = 0.0
         then mx <- i
-        else ()
         i <- i + 1.0
-    (int)mx
+    int mx
 
 let lineToTable fs sc (a : array<_>) = 
     Array2D.init fs sc (fun i j -> a.[i * sc + j])
@@ -54,11 +53,12 @@ let Parallel (tableMax : array<_>) (tableArgMax : array<_>) stateCount (transiti
     kernelPrepare d stateCount observSeq.Length obsSpaceLen index tableMax tableArgMax transitionProbs emissionProbs observSeq
     for i in 1..observSeq.Length do
         index.[0] <- i
-        let _ = commandQueue.Add(index.ToGpu provider)
-        commandQueue.Add(kernelRun()).Finish()
+        commandQueue.Add(index.ToGpu provider) |> ignore
+        commandQueue.Add(kernelRun()) |> ignore
         
-    let _ = commandQueue.Add(tableMax.ToHost provider).Finish()
-    let _ = commandQueue.Add(tableArgMax.ToHost provider).Finish()       
+    commandQueue.Add(tableMax.ToHost provider) |> ignore
+    commandQueue.Add(tableArgMax.ToHost provider) |> ignore
+    commandQueue.Finish() |> ignore
     
     commandQueue.Dispose()
     provider.Dispose()
