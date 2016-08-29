@@ -11,9 +11,15 @@ open System
 open System.Threading
 open Viterbi.Cons
 
-let tableToLine fs sc (a : 'T [][]) = 
-    //Array.init (fs * sc) (fun i -> a.[i / sc].[i % sc])
-    Array.concat a
+let findBigNum (num : float) =
+    let mutable mx = 1.0
+    let mutable i = 1.0
+    while i < sqrt(num) do
+        if num % i = 0.0
+        then mx <- i
+        else ()
+        i <- i + 1.0
+    (int)mx
 
 let lineToTable fs sc (a : array<_>) = 
     Array2D.init fs sc (fun i j -> a.[i * sc + j])
@@ -43,12 +49,12 @@ let Parallel (tableMax : array<_>) (tableArgMax : array<_>) stateCount (transiti
         @>
 
     let kernel, kernelPrepare, kernelRun = provider.Compile command
-    let d =(new _1D(stateCount, 1))
+    let d =(new _1D(stateCount, max (stateCount / findBigNum((float)stateCount)) 1))
     let index = [|1|]
     kernelPrepare d stateCount observSeq.Length obsSpaceLen index tableMax tableArgMax transitionProbs emissionProbs observSeq
     for i in 1..observSeq.Length do
         index.[0] <- i
-        let _ = commandQueue.Add(index.ToGpu provider).Finish()
+        let _ = commandQueue.Add(index.ToGpu provider)
         commandQueue.Add(kernelRun()).Finish()
         
     let _ = commandQueue.Add(tableMax.ToHost provider).Finish()

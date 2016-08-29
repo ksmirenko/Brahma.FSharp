@@ -5,7 +5,7 @@ open HMM.Viterbi.Tests.RF01315
 open HMM.Viterbi.Tests.RF02468
 open HMM.Viterbi.Tests.RF00038
 
-let ``first`` fn =
+let small fn =
     let observSpace = [|"normal"; "cold"; "dizzy"|]
     let stateSpace = [|"Healthy"; "Fever"|]
     let startProbs = [|0.6; 0.4|]
@@ -21,7 +21,7 @@ let ``first`` fn =
                  <| emissionProbs
     Assert.AreEqual(stateSeq, [|for i in res -> stateSpace.[i]|])
 
-let ``hmmTestRF02468`` fn =
+let hmmTestRF02468 fn =
     let observSpace = RF02468.observSpace
     let stateSpace = RF02468.stateSpace
     let startProbs = RF02468.startProbs
@@ -37,7 +37,7 @@ let ``hmmTestRF02468`` fn =
                  <| emissionProbs
     Assert.AreEqual(stateSeq, [|for i in res -> stateSpace.[i]|])
 
-let ``hmmTestRF01315`` fn =
+let hmmTestRF01315 fn =
     let observSpace = RF01315.observSpace
     let stateSpace = RF01315.stateSpace
     let startProbs = RF01315.startProbs
@@ -53,7 +53,7 @@ let ``hmmTestRF01315`` fn =
                  <| emissionProbs
     Assert.AreEqual(stateSeq, [|for i in res -> stateSpace.[i]|])
 
-let ``hmmTestRF00038`` fn =
+let hmmTestRF00038 fn =
     let observSpace = RF00038.observSpace
     let stateSpace = RF00038.stateSpace
     let startProbs = RF00038.startProbs
@@ -69,7 +69,7 @@ let ``hmmTestRF00038`` fn =
                  <| emissionProbs
     Assert.AreEqual(stateSeq, [|for i in res -> stateSpace.[i]|])
 
-let ``hmmTestRF01123`` fn =
+let hmmTestRF01123 fn =
     let observSpace = RF01123.observSpace
     let stateSpace = RF01123.stateSpace
     let startProbs = RF01123.startProbs
@@ -86,7 +86,7 @@ let ``hmmTestRF01123`` fn =
     Assert.AreEqual(stateSeq, [|for i in res -> stateSpace.[i]|])
 
 
-let ``hmmTestRF02468_1`` fn =
+let hmmTestRF02468_1 fn =
     let observSpace = RF02468.observSpace
     let stateSpace = RF02468.stateSpace
     let startProbs = RF02468.startProbs

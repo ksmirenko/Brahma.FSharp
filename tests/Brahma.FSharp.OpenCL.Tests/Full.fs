@@ -1318,13 +1318,13 @@ type Translator() =
         run _1d intInArr        
         check intInArr [|2;3;6;7|]
 
-    [<Test>]//Kochetov Kirill
+    [<Test>]
     member this.``MatrixSum``() = 
         let m1 = [|[|1; 2; 3|]; [|4; 5; 6|]; [|7; 8; 9|]|]
         let m2 = [|[|9; 8; 7|]; [|6; 5; 4|]; [|3; 2; 1|]|]
         Assert.AreEqual (matrSum m1 m2, Array.concat [|[|10; 10; 10|]; [|10; 10; 10|]; [|10; 10; 10|]|])
 
-    [<Test>]//Kochetov Kirill
+    [<Test>]
     member this.``MatrixSumPairs``() = 
         let m1 = [|[|1; 2; 3|]; [|4; 5; 6|]; [|7; 8; 9|]|]
         let m2 = [|[|9; 8; 7|]; [|6; 5; 4|]; [|3; 2; 1|]|]
@@ -1337,12 +1337,12 @@ type Translator() =
         Assert.AreEqual (res, Array.concat [|[|[|10; 10; 10|]; [|10; 10; 10|]; [|10; 10; 10|]|]; [|[|20; 20; 20|]; [|20; 20; 20|]; [|20; 20; 20|]|]; [|[|5; 5|]; [|5; 5|]|]|])
 
 
-    [<Test>]//Kochetov Kirill
+    [<Test>]
     member this.``ElemSum``() = 
         let m = [|[|1; 2; 3|]; [|4; 5; 6|]; [|7; 8; 9|]|]
         Assert.AreEqual (elemSum m, [|45|])
 
-    [<Test>]//Kochetov Kirill
+    [<Test>]
     member this.``ElemSumArrays``() = 
         let m1 = [|[|1; 2; 3|]; [|4; 5; 6|]; [|7; 8; 9|]|]
         let m2 = [|[|2; 4; 6|]; [|8; 10; 12|]; [|14; 16; 18|]|]

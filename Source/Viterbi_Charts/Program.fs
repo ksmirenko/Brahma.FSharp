@@ -23,9 +23,9 @@ let getArgs i fn  =
     let observSeq = getArLn i
     fn [|0..observSpace.Length - 1|] stateSpace.Length startProbs [|for i in observSeq -> Array.findIndex ((=)i) observSpace|] transitionProbs emissionProbs
 
-(getArgs 10 Viterbi.Cons.viterbi) |> ignore
-(getArgs 10 Viterbi.Parallel.viterbi) |> ignore
-(getArgs 10 Viterbi.GPGPU.viterbi) |> ignore
+getArgs 10 Viterbi.Cons.viterbi |> ignore
+getArgs 10 Viterbi.Parallel.viterbi |> ignore
+getArgs 10 Viterbi.GPGPU.viterbi |> ignore
 
 let gch =     
     Chart.Combine
