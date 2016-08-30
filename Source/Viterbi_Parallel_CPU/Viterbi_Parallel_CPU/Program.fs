@@ -34,14 +34,14 @@ let viterbiCpu (observSpace: int[]) (tableMax : double[][]) (tableArgMax : int[]
         
     for i in 1..observSeq.Length - 1 do
         for j in 0..stateCount - 1 do
-            (streams.[j]).Post (Data (i, j))
+            (streams.[j]).Post(Data(i, j))
         for j in 0..stateCount - 1 do
-            (streams.[j]).Post (Continue)
-        while !(streamsHaveDone (ref 0)) <> 0 do()
+            (streams.[j]).Post(Continue)
+        while !(streamsHaveDone(ref 0)) <> 0 do()
 
-     
     for i in 0..stateCount - 1 do
         (streams.[i]).Post End
+
     (tableMax, tableArgMax)
 
 let viterbi (observSpace: int[]) stateCount (startProbs : double[])  (observSeq : int[]) (transitionProbs : double[][]) (emissionProbs : double[][]) =

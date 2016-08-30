@@ -40,22 +40,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Brahma">
-      <HintPath>..\..\Bin\v40\Brahma.dll</HintPath>
+      <HintPath>..\..\Bin\Brahma\Brahma.dll</HintPath>
     </Reference>
     <Reference Include="Brahma.FSharp.OpenCL.Core">
-      <HintPath>..\..\Bin\v40\Brahma.FSharp.OpenCL.Core.dll</HintPath>
+      <HintPath>..\..\Bin\Brahma.FSharp.OpenCL.Core\Brahma.FSharp.OpenCL.Core.dll</HintPath>
     </Reference>
     <Reference Include="Brahma.FSharp.OpenCL.Extensions">
-      <HintPath>..\..\Bin\v40\Brahma.FSharp.OpenCL.Extensions.dll</HintPath>
+      <HintPath>..\..\Bin\Brahma.FSharp.OpenCL.Core\Brahma.FSharp.OpenCL.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Brahma.FSharp.OpenCL.Translator">
-      <HintPath>..\..\Bin\v40\Brahma.FSharp.OpenCL.Translator.dll</HintPath>
-    </Reference>
-    <Reference Include="Brahma.Helpers">
-      <HintPath>..\..\Bin\v40\Brahma.Helpers.dll</HintPath>
+      <HintPath>..\..\Bin\Brahma.FSharp.OpenCL.Core\Brahma.FSharp.OpenCL.Translator.dll</HintPath>
     </Reference>
     <Reference Include="Brahma.OpenCL">
-      <HintPath>..\..\Bin\v40\Brahma.OpenCL.dll</HintPath>
+      <HintPath>..\..\Bin\Brahma.FSharp.OpenCL.Core\Brahma.OpenCL.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -65,7 +62,7 @@
       <HintPath>..\..\..\edu\2015\143\KochetovKirill\packages\NUnit\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="OpenCL.Net">
-      <HintPath>..\..\Bin\v40\OpenCL.Net.dll</HintPath>
+      <HintPath>..\..\Bin\Brahma.FSharp.OpenCL.Core\OpenCL.Net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
