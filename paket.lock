@@ -7,7 +7,7 @@ NUGET
     FSharpx.Collections (1.15.1)
       FSharp.Core
     NuGet.CommandLine (3.4.3)
-    NUnit (2.6.3)
+    NUnit (3.4.1)
     OpenCL.Net (2.2.9)
     YC.PrettyPrinter (0.0.5)
       FSharp.Core

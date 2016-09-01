@@ -11,7 +11,7 @@
     <AssemblyName>Viterbi_Charts</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <TargetFSharpCoreVersion>4.3.1.0</TargetFSharpCoreVersion>
+    <TargetFSharpCoreVersion>4.3.0.0</TargetFSharpCoreVersion>
     <Name>Viterbi.Charts</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -55,11 +55,6 @@
     <None Include="paket.references" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\HMM.Tests\HMM.Viterbi.Tests\HMM.Viterbi.Tests.fsproj">
-      <Name>HMM.Viterbi.Tests</Name>
-      <Project>{66c08645-2a77-41b0-a1fd-2aa04a40d1b1}</Project>
-      <Private>True</Private>
-    </ProjectReference>
     <ProjectReference Include="..\Viterbi_Cons\Viterbi.Cons.fsproj">
       <Name>Viterbi.Cons</Name>
       <Project>{0e723dc9-77fa-4355-89e5-120cc4336e90}</Project>

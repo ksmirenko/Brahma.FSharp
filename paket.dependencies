@@ -6,7 +6,7 @@ nuget FSharp.Core redirects: force
 nuget FSharp.Quotations.Evaluator
 nuget FSharpx.Collections
 nuget NuGet.CommandLine
-nuget NUnit 2.6.3
+nuget nunit
 nuget OpenCL.Net 2.2.9.0
 nuget YC.PrettyPrinter
 

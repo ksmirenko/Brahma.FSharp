@@ -9,7 +9,7 @@
     <OutputType>Exe</OutputType>
     <RootNamespace>Viterbi_Parallel_GPGPU</RootNamespace>
     <AssemblyName>Viterbi_Parallel_GPGPU</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <TargetFSharpCoreVersion>4.3.0.0</TargetFSharpCoreVersion>
     <Name>Viterbi.GPGPU</Name>
@@ -40,19 +40,19 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Brahma">
-      <HintPath>..\..\Bin\Brahma\Brahma.dll</HintPath>
+      <HintPath>..\..\src\Brahma\bin\Debug\Brahma.dll</HintPath>
     </Reference>
     <Reference Include="Brahma.FSharp.OpenCL.Core">
-      <HintPath>..\..\Bin\Brahma.FSharp.OpenCL.Core\Brahma.FSharp.OpenCL.Core.dll</HintPath>
+      <HintPath>..\..\src\Brahma.FSharp.OpenCL.Core\bin\Debug\Brahma.FSharp.OpenCL.Core.dll</HintPath>
     </Reference>
     <Reference Include="Brahma.FSharp.OpenCL.Extensions">
-      <HintPath>..\..\Bin\Brahma.FSharp.OpenCL.Core\Brahma.FSharp.OpenCL.Extensions.dll</HintPath>
+      <HintPath>..\..\src\Brahma.FSharp.OpenCL.Extensions\bin\Debug\Brahma.FSharp.OpenCL.Extensions.dll</HintPath>
     </Reference>
     <Reference Include="Brahma.FSharp.OpenCL.Translator">
-      <HintPath>..\..\Bin\Brahma.FSharp.OpenCL.Core\Brahma.FSharp.OpenCL.Translator.dll</HintPath>
+      <HintPath>..\..\src\Brahma.FSharp.OpenCL.Translator\bin\Debug\Brahma.FSharp.OpenCL.Translator.dll</HintPath>
     </Reference>
     <Reference Include="Brahma.OpenCL">
-      <HintPath>..\..\Bin\Brahma.FSharp.OpenCL.Core\Brahma.OpenCL.dll</HintPath>
+      <HintPath>..\..\src\Brahma.OpenCL\bin\Debug\Brahma.OpenCL.dll</HintPath>
     </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
@@ -62,7 +62,7 @@
       <HintPath>..\..\..\edu\2015\143\KochetovKirill\packages\NUnit\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="OpenCL.Net">
-      <HintPath>..\..\Bin\Brahma.FSharp.OpenCL.Core\OpenCL.Net.dll</HintPath>
+      <HintPath>..\..\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
