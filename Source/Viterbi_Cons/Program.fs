@@ -20,7 +20,7 @@ let mainPart tableFun (observSpace: int[]) stateCount (startProbs : double[])  (
                            else 0.0|] |]
     let tableArgMax = Array.init stateCount (fun _ -> Array.zeroCreate observSeq.Length)
 
-    (tableMax, tableArgMax) = tableFun observSpace tableMax tableArgMax stateCount  observSeq transitionProbs emissionProbs
+    (tableMax, tableArgMax) = tableFun observSpace tableMax tableArgMax stateCount  observSeq transitionProbs emissionProbs |> ignore
 
     z.[observSeq.Length - 1] <- Array.maxBy (fun k -> tableMax.[k].[observSeq.Length - 1]) [|0..stateCount - 1|]
     hiddenStateSeq.[observSeq.Length - 1] <- z.[observSeq.Length - 1]
