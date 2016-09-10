@@ -49,13 +49,7 @@ type Translator() =
         kernelPrepareF,check
     
     let mtrxToArr (mtrx : 't [][]) = 
-        let arr = ResizeArray<'t>()
-        let rows = mtrx.Length
-        let cols = mtrx.[0].Length
-        for i = 0 to rows - 1 do
-           for j = 0 to cols - 1 do 
-            arr.Add(mtrx.[i].[j])
-        arr.ToArray()
+        Array.concat (Array.toSeq(mtrx))
     
     [<Test>]
     member this.``MatrixSum``() = 
