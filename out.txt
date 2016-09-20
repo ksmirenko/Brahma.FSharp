@@ -1,0 +1,1512 @@
+Checking Paket version (downloading latest stable)...
+Paket.exe 3.19.4 is up to date.
+Paket version 3.19.4.0
+1 second - ready.
+Building project with version: LocalBuild
+Shortened DependencyGraph for Target All:
+<== All
+   <== GenerateDocs
+      <== GenerateReferenceDocs
+         <== RunTests
+            <== CopyBinaries
+               <== Build
+                  <== AssemblyInfo
+                     <== Clean
+         <== GenerateHelp
+            <== CleanDocs
+
+The resulting target order is:
+ - Clean
+ - AssemblyInfo
+ - Build
+ - CopyBinaries
+ - RunTests
+ - CleanDocs
+ - GenerateHelp
+ - GenerateReferenceDocs
+ - GenerateDocs
+ - All
+Starting Target: Clean 
+Deleting contents of bin
+Deleting contents of temp
+Finished Target: Clean
+Starting Target: AssemblyInfo (==> Clean)
+Created AssemblyInfo file "C:\Brahma.FSharp\src\ArraySum\AssemblyInfo.fs".
+Created AssemblyInfo file "C:\Brahma.FSharp\src\BlackScholes\AssemblyInfo.fs".
+Created AssemblyInfo file "C:\Brahma.FSharp\src\Brahma\Properties\AssemblyInfo.cs".
+Created AssemblyInfo file "C:\Brahma.FSharp\src\Brahma.Agents\AssemblyInfo.fs".
+Created AssemblyInfo file "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\AssemblyInfo.fs".
+Created AssemblyInfo file "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\AssemblyInfo.fs".
+Created AssemblyInfo file "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\AssemblyInfo.fs".
+Created AssemblyInfo file "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\AssemblyInfo.fs".
+Created AssemblyInfo file "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\AssemblyInfo.fs".
+Created AssemblyInfo file "C:\Brahma.FSharp\src\Brahma.Helpers\Properties\AssemblyInfo.cs".
+Created AssemblyInfo file "C:\Brahma.FSharp\src\Brahma.OpenCL\Properties\AssemblyInfo.cs".
+Created AssemblyInfo file "C:\Brahma.FSharp\src\Brahman.Runner\AssemblyInfo.fs".
+Created AssemblyInfo file "C:\Brahma.FSharp\src\Brahman.Runner.CS\Properties\AssemblyInfo.cs".
+Created AssemblyInfo file "C:\Brahma.FSharp\src\Brahman.Substrings\AssemblyInfo.fs".
+Created AssemblyInfo file "C:\Brahma.FSharp\src\MatrixMultiply\AssemblyInfo.fs".
+Finished Target: AssemblyInfo
+Starting Target: Build (==> AssemblyInfo)
+Building project: C:\Brahma.FSharp\Brahma.FSharp.sln
+  C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe  C:\Brahma.FSharp\Brahma.FSharp.sln /t:Rebuild /m      /p:RestorePackages="False" /p:Configuration="Release" /logger:Fake.MsBuildLogger+ErrorLogger,"C:\Brahma.FSharp\packages\build\FAKE\tools\FakeLib.dll"
+C:\Program Files (x86)\MSBuild\14.0\Bin\MSBuild.exe  C:\Brahma.FSharp\Brahma.FSharp.sln /t:Rebuild /m      /p:RestorePackages="False" /p:Configuration="Release" /logger:Fake.MsBuildLogger+ErrorLogger,"C:\Brahma.FSharp\packages\build\FAKE\tools\FakeLib.dll"
+Microsoft (R) Build Engine версии 14.0.25420.1
+(C) Корпорация Майкрософт (Microsoft Corporation). Все права защищены.
+
+Сборка начата 18.09.2016 18:46:59.
+     1>Проект "C:\Brahma.FSharp\Brahma.FSharp.sln" в узле 1 (целевые объекты Rebuild).
+     1>ValidateSolutionConfiguration:
+         Создание конфигурации решения "Release|Any CPU".
+     1>Проект "C:\Brahma.FSharp\Brahma.FSharp.sln" (1) выполняет сборку "C:\Brahma.FSharp\tests\Brahman.Tests\Brahman.Test.fsproj" (2) в узле 2 (целевые объекты Rebuild).
+     2>CoreClean:
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahman.Tests.dll.config" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahman.Test.XML" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahman.Tests.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahman.Tests.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahman.Substrings.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\FSharp.Core.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\nunit.framework.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.OpenCL.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\OpenCL.Net.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.Agents.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.FSharp.OpenCL.Translator.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.FSharp.OpenCL.Core.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.Helpers.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\FSharpx.Collections.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll" удаляется.
+     1>Проект "C:\Brahma.FSharp\Brahma.FSharp.sln" (1) выполняет сборку "C:\Brahma.FSharp\src\Brahma\Brahma.csproj" (3) в узле 3 (целевые объекты Rebuild).
+     3>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.XML" удаляется.
+     2>CoreClean:
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.FSharp.OpenCL.AST.dll" удаляется.
+     3>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.dll" удаляется.
+     2>CoreClean:
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.FSharp.OpenCL.Printer.dll" удаляется.
+     3>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.pdb" удаляется.
+     2>CoreClean:
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\FSharp.Quotations.Evaluator.dll" удаляется.
+     3>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma\bin\Release\OpenCL.Net.dll" удаляется.
+     2>CoreClean:
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\YC.PrettyPrinter.dll" удаляется.
+     3>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma\obj\Release\Brahma.dll" удаляется.
+     2>CoreClean:
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahman.Substrings.pdb" удаляется.
+     3>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma\obj\Release\Brahma.pdb" удаляется.
+     2>CoreClean:
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahman.Substrings.xml" удаляется.
+     3>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma\obj\Release\Brahma.csprojResolveAssemblyReference.cache" удаляется.
+     2>CoreClean:
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\FSharp.Core.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\nunit.framework.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.OpenCL.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.OpenCL.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.Agents.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.Agents.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.FSharp.OpenCL.Translator.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.FSharp.OpenCL.Translator.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.FSharp.OpenCL.Core.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.FSharp.OpenCL.Core.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.Helpers.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.Helpers.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\FSharpx.Collections.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.FSharp.OpenCL.Extensions.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.FSharp.OpenCL.AST.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.FSharp.OpenCL.Printer.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahma.FSharp.OpenCL.Printer.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\FSharp.Quotations.Evaluator.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\FSharp.Quotations.Evaluator.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\YC.PrettyPrinter.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\obj\Release\Brahman.Test.fsprojResolveAssemblyReference.cache" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\obj\Release\Brahman.Tests.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahman.Tests\obj\Release\Brahman.Tests.pdb" удаляется.
+     1>Проект "C:\Brahma.FSharp\Brahma.FSharp.sln" (1) выполняет сборку "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\Brahma.FSharp.OpenCL.Tests.fsproj" (5) в узле 1 (целевые объекты Rebuild).
+     5>CoreClean:
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.FSharp.OpenCL.Tests.dll.config" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.FSharp.OpenCL.Tests.XML" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.FSharp.OpenCL.Tests.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.FSharp.OpenCL.Tests.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.FSharp.OpenCL.AST.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.FSharp.OpenCL.Core.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.FSharp.OpenCL.Printer.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.FSharp.OpenCL.Translator.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.Helpers.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.OpenCL.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\FSharp.Core.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\nunit.framework.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\OpenCL.Net.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\FSharp.Quotations.Evaluator.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\YC.PrettyPrinter.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\FSharpx.Collections.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.FSharp.OpenCL.AST.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.FSharp.OpenCL.Core.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.FSharp.OpenCL.Core.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.FSharp.OpenCL.Extensions.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.FSharp.OpenCL.Printer.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.FSharp.OpenCL.Printer.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.FSharp.OpenCL.Translator.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.FSharp.OpenCL.Translator.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.Helpers.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.Helpers.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.OpenCL.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.OpenCL.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\FSharp.Core.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\nunit.framework.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\FSharp.Quotations.Evaluator.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\FSharp.Quotations.Evaluator.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\YC.PrettyPrinter.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\FSharpx.Collections.xml" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\obj\Release\Brahma.FSharp.OpenCL.Tests.fsprojResolveAssemblyReference.cache" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\obj\Release\Brahma.FSharp.OpenCL.Tests.dll" удаляется.
+         Файл "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\obj\Release\Brahma.FSharp.OpenCL.Tests.pdb" удаляется.
+     2>Проект "C:\Brahma.FSharp\tests\Brahman.Tests\Brahman.Test.fsproj" (2) выполняет сборку "C:\Brahma.FSharp\src\Brahman.Substrings\Brahman.Substrings.fsproj" (6) в узле 2 (целевые объекты Clean).
+     6>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahman.Substrings.dll.config" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahman.Substrings.XML" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahman.Substrings.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahman.Substrings.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.Agents.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.AST.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Core.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Printer.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Translator.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.Helpers.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.OpenCL.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\FSharp.Core.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\FSharpx.Collections.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\OpenCL.Net.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\FSharp.Quotations.Evaluator.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\YC.PrettyPrinter.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.Agents.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.Agents.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.AST.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Core.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Core.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Extensions.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Printer.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Printer.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Translator.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Translator.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.Helpers.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.Helpers.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.OpenCL.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.OpenCL.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\FSharp.Core.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\FSharpx.Collections.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\FSharp.Quotations.Evaluator.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\FSharp.Quotations.Evaluator.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\YC.PrettyPrinter.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\obj\Release\Brahman.Substrings.fsprojResolveAssemblyReference.cache" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\obj\Release\Brahman.Substrings.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Substrings\obj\Release\Brahman.Substrings.pdb" удаляется.
+     1>Проект "C:\Brahma.FSharp\Brahma.FSharp.sln" (1) выполняет сборку "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\Brahma.FSharp.OpenCL.AST.fsproj" (4) в узле 4 (целевые объекты Rebuild).
+     4>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.XML" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\FSharp.Core.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\OpenCL.Net.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\FSharp.Core.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\obj\Release\Brahma.FSharp.OpenCL.AST.dll" удаляется.
+     3>GenerateTargetFrameworkMonikerAttribute:
+       Целевой объект "GenerateTargetFrameworkMonikerAttribute" пропускается, так как все выходные файлы актуальны по отношению к входным.
+     4>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\obj\Release\Brahma.FSharp.OpenCL.AST.pdb" удаляется.
+     3>Kernel:
+       Целевой объект "Kernel" пропускается из-за отсутствия выходных файлов.
+       CoreCompile:
+         C:\Program Files (x86)\MSBuild\14.0\bin\csc.exe /noconfig /nowarn:1701,1702 /nostdlib+ /warn:3 /doc:bin\Release\Brahma.XML /define:TRACE /highentropyva+ /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /reference:C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Core.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Data.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.dll" /debug:pdbonly /filealign:512 /optimize+ /out:obj\Release\Brahma.dll /ruleset:"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\\Rule Sets\MinimumRecommendedRules.ruleset" /subsystemversion:6.00 /target:library /utf8output CommandQueue.cs Commands\Command.cs Buffer.cs ComputeProvider.cs Image2D.cs Image3D.cs ImageFormat.cs Kernel.cs KernelCallableAttribute.cs Mem.cs NDRange.cs NDRangeDimension.cs Properties\AssemblyInfo.cs Commands\Run.cs TypeExtensions.cs Commands\WaitFor.cs "C:\Users\Пользователь\AppData\Local\Temp\.NETFramework,Version=v4.5.AssemblyAttributes.cs"
+         Using shared compilation with compiler from directory: C:\Program Files (x86)\MSBuild\14.0\Bin
+     4>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\obj\Release\Brahma.FSharp.OpenCL.AST.fsprojResolveAssemblyReference.cache" удаляется.
+     6>Проект "C:\Brahma.FSharp\src\Brahman.Substrings\Brahman.Substrings.fsproj" (6) выполняет сборку "C:\Brahma.FSharp\src\Brahma.Agents\Brahma.Agents.fsproj" (7) в узле 2 (целевые объекты Clean).
+     7>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.Agents.XML" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.Agents.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.Agents.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.FSharp.OpenCL.AST.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.FSharp.OpenCL.Core.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.FSharp.OpenCL.Printer.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.FSharp.OpenCL.Translator.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.Helpers.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.OpenCL.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\FSharp.Core.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\OpenCL.Net.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\FSharp.Quotations.Evaluator.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\YC.PrettyPrinter.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\FSharpx.Collections.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.FSharp.OpenCL.AST.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.FSharp.OpenCL.Core.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.FSharp.OpenCL.Core.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.FSharp.OpenCL.Extensions.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.FSharp.OpenCL.Printer.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.FSharp.OpenCL.Printer.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.FSharp.OpenCL.Translator.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.FSharp.OpenCL.Translator.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.Helpers.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.Helpers.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.OpenCL.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.OpenCL.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\FSharp.Core.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\FSharp.Quotations.Evaluator.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\FSharp.Quotations.Evaluator.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\YC.PrettyPrinter.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\FSharpx.Collections.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\obj\Release\Brahma.Agents.fsprojResolveAssemblyReference.cache" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\obj\Release\Brahma.Agents.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Agents\obj\Release\Brahma.Agents.pdb" удаляется.
+     3>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll" в "bin\Release\OpenCL.Net.dll".
+       CopyFilesToOutputDirectory:
+         Копирование файла из "obj\Release\Brahma.dll" в "bin\Release\Brahma.dll".
+         Brahma -> C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.dll
+         Копирование файла из "obj\Release\Brahma.pdb" в "bin\Release\Brahma.pdb".
+     3>Сборка проекта "C:\Brahma.FSharp\src\Brahma\Brahma.csproj" завершена (целевые объекты Rebuild).
+     5>Проект "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\Brahma.FSharp.OpenCL.Tests.fsproj" (5) выполняет сборку "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\Brahma.FSharp.OpenCL.Core.fsproj" (8) в узле 1 (целевые объекты Clean).
+     8>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.XML" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.AST.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Printer.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Translator.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.OpenCL.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\FSharp.Core.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\FSharp.Quotations.Evaluator.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\OpenCL.Net.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\YC.PrettyPrinter.dll" удаляется.
+     7>Проект "C:\Brahma.FSharp\src\Brahma.Agents\Brahma.Agents.fsproj" (7) выполняет сборку "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\Brahma.FSharp.OpenCL.Extensions.fsproj" (9) в узле 2 (целевые объекты Clean).
+     9>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.XML" удаляется.
+     7>Проект "C:\Brahma.FSharp\src\Brahma.Agents\Brahma.Agents.fsproj" (7) выполняет сборку "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\Brahma.FSharp.OpenCL.Printer.fsproj" (10) в узле 3 (целевые объекты Clean).
+    10>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.XML" удаляется.
+     4>GenerateTargetFrameworkMonikerAttribute:
+       Целевой объект "GenerateTargetFrameworkMonikerAttribute" пропускается, так как все выходные файлы актуальны по отношению к входным.
+       Kernel:
+       Целевой объект "Kernel" пропускается из-за отсутствия выходных файлов.
+       CoreCompile:
+         C:\Program Files (x86)\Microsoft SDKs\F#\4.0\Framework\v4.0\fsc.exe -o:obj\Release\Brahma.FSharp.OpenCL.AST.dll --debug:pdbonly --noframework --define:TRACE --doc:bin\Release\Brahma.FSharp.OpenCL.AST.XML --optimize+ -r:C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" -r:C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Core.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Numerics.dll" --target:library --warn:3 --warnaserror:76 --fullpaths --flaterrors --subsystemversion:6.00 --highentropyva+ "C:\Users\Пользователь\AppData\Local\Temp\.NETFramework,Version=v4.5.AssemblyAttributes.fs" Common.fs Pragmas.fs Types.fs Expressions.fs Statements.fs FunDecl.fs AST.fs 
+     8>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\FSharpx.Collections.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" удаляется.
+    10>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.dll" удаляется.
+     8>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.AST.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb" удаляется.
+     9>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.dll" удаляется.
+    10>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.AST.dll" удаляется.
+     9>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.OpenCL.dll" удаляется.
+     8>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Extensions.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Printer.pdb" удаляется.
+     9>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\FSharp.Core.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\OpenCL.Net.dll" удаляется.
+    10>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\FSharp.Core.dll" удаляется.
+     9>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.OpenCL.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.OpenCL.xml" удаляется.
+     8>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Printer.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Translator.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Translator.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.OpenCL.pdb" удаляется.
+     9>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\FSharp.Core.xml" удаляется.
+    10>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\FSharpx.Collections.dll" удаляется.
+     8>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.OpenCL.xml" удаляется.
+    10>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\OpenCL.Net.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\YC.PrettyPrinter.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" удаляется.
+     9>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\obj\Release\Brahma.FSharp.OpenCL.Extensions.fsprojResolveAssemblyReference.cache" удаляется.
+    10>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.AST.xml" удаляется.
+     9>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\obj\Release\Brahma.FSharp.OpenCL.Extensions.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\obj\Release\Brahma.FSharp.OpenCL.Extensions.pdb" удаляется.
+    10>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\FSharp.Core.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\FSharpx.Collections.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\YC.PrettyPrinter.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\obj\Release\Brahma.FSharp.OpenCL.Printer.fsprojResolveAssemblyReference.cache" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\obj\Release\Brahma.FSharp.OpenCL.Printer.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\obj\Release\Brahma.FSharp.OpenCL.Printer.pdb" удаляется.
+     8>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\FSharp.Core.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\FSharp.Quotations.Evaluator.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\FSharp.Quotations.Evaluator.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\YC.PrettyPrinter.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\FSharpx.Collections.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\obj\Release\Brahma.FSharp.OpenCL.Core.fsprojResolveAssemblyReference.cache" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\obj\Release\Brahma.FSharp.OpenCL.Core.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\obj\Release\Brahma.FSharp.OpenCL.Core.pdb" удаляется.
+     7>Проект "C:\Brahma.FSharp\src\Brahma.Agents\Brahma.Agents.fsproj" (7) выполняет сборку "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\Brahma.FSharp.OpenCL.Translator.fsproj" (11) в узле 4 (целевые объекты Clean).
+    11>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.XML" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.AST.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\FSharp.Core.dll" удаляется.
+    10>Сборка проекта "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\Brahma.FSharp.OpenCL.Printer.fsproj" завершена (целевые объекты Clean).
+    11>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\FSharpx.Collections.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\OpenCL.Net.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.AST.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\FSharp.Core.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\FSharpx.Collections.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\obj\Release\Brahma.FSharp.OpenCL.Translator.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\obj\Release\Brahma.FSharp.OpenCL.Translator.pdb" удаляется.
+    11>Сборка проекта "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\Brahma.FSharp.OpenCL.Translator.fsproj" завершена (целевые объекты Clean).
+     9>Проект "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\Brahma.FSharp.OpenCL.Extensions.fsproj" (9) выполняет сборку "C:\Brahma.FSharp\src\Brahma.OpenCL\Brahma.OpenCL.csproj" (12) в узле 2 (целевые объекты Clean).
+    12>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.XML" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\OpenCL.Net.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.OpenCL\obj\Release\Brahma.OpenCL.csprojResolveAssemblyReference.cache" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.OpenCL\obj\Release\Brahma.OpenCL.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.OpenCL\obj\Release\Brahma.OpenCL.pdb" удаляется.
+     7>Проект "C:\Brahma.FSharp\src\Brahma.Agents\Brahma.Agents.fsproj" (7) выполняет сборку "C:\Brahma.FSharp\src\Brahma.Helpers\Brahma.Helpers.csproj" (13) в узле 3 (целевые объекты Clean).
+    13>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.XML" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.dll" удаляется.
+    12>Сборка проекта "C:\Brahma.FSharp\src\Brahma.OpenCL\Brahma.OpenCL.csproj" завершена (целевые объекты Clean).
+    13>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\OpenCL.Net.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Helpers\obj\Release\Brahma.Helpers.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Helpers\obj\Release\Brahma.Helpers.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahma.Helpers\obj\Release\Brahma.Helpers.csprojResolveAssemblyReference.cache" удаляется.
+    13>Сборка проекта "C:\Brahma.FSharp\src\Brahma.Helpers\Brahma.Helpers.csproj" завершена (целевые объекты Clean).
+     9>Сборка проекта "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\Brahma.FSharp.OpenCL.Extensions.fsproj" завершена (целевые объекты Clean).
+     1>Проект "C:\Brahma.FSharp\Brahma.FSharp.sln" (1) выполняет сборку "C:\Brahma.FSharp\src\Brahman.Runner\Brahman.Runner.fsproj" (14) в узле 4 (целевые объекты Rebuild).
+    14>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahman.Runner.exe.config" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahman.Runner.XML" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahman.Runner.exe" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahman.Runner.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Argu.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahman.Substrings.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\FSharp.Core.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.OpenCL.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\OpenCL.Net.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.Agents.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.FSharp.OpenCL.Translator.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.FSharp.OpenCL.Core.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.Helpers.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\FSharpx.Collections.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.FSharp.OpenCL.AST.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.FSharp.OpenCL.Printer.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\FSharp.Quotations.Evaluator.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\YC.PrettyPrinter.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahman.Substrings.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahman.Substrings.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Argu.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Argu.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\FSharp.Core.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.OpenCL.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.OpenCL.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.Agents.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.Agents.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.FSharp.OpenCL.Translator.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.FSharp.OpenCL.Translator.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.FSharp.OpenCL.Core.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.FSharp.OpenCL.Core.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.Helpers.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.Helpers.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\FSharpx.Collections.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.FSharp.OpenCL.Extensions.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.FSharp.OpenCL.AST.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.FSharp.OpenCL.Printer.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahma.FSharp.OpenCL.Printer.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\FSharp.Quotations.Evaluator.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\FSharp.Quotations.Evaluator.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\YC.PrettyPrinter.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\obj\Release\Brahman.Runner.fsprojResolveAssemblyReference.cache" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\obj\Release\Brahman.Runner.exe" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner\obj\Release\Brahman.Runner.pdb" удаляется.
+     1>Проект "C:\Brahma.FSharp\Brahma.FSharp.sln" (1) выполняет сборку "C:\Brahma.FSharp\src\Brahma.Helpers\Brahma.Helpers.csproj" (13:4) в узле 3 (целевые объекты Rebuild).
+    13>GenerateTargetFrameworkMonikerAttribute:
+       Целевой объект "GenerateTargetFrameworkMonikerAttribute" пропускается, так как все выходные файлы актуальны по отношению к входным.
+       Kernel:
+       Целевой объект "Kernel" пропускается из-за отсутствия выходных файлов.
+       CoreCompile:
+         C:\Program Files (x86)\MSBuild\14.0\bin\csc.exe /noconfig /nowarn:1591,1701,1702 /nostdlib+ /errorreport:prompt /warn:4 /doc:bin\Release\Brahma.Helpers.XML /define:TRACE /highentropyva+ /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Microsoft.CSharp.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /reference:C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Core.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Data.DataSetExtensions.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Data.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.Linq.dll" /debug:pdbonly /filealign:512 /optimize+ /out:obj\Release\Brahma.Helpers.dll /ruleset:"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\\Rule Sets\MinimumRecommendedRules.ruleset" /subsystemversion:6.00 /target:library /utf8output RandomExtensions.cs Timer.cs Properties\AssemblyInfo.cs "C:\Users\Пользователь\AppData\Local\Temp\.NETFramework,Version=v4.5.AssemblyAttributes.cs"
+         Using shared compilation with compiler from directory: C:\Program Files (x86)\MSBuild\14.0\Bin
+     1>Проект "C:\Brahma.FSharp\Brahma.FSharp.sln" (1) выполняет сборку "C:\Brahma.FSharp\src\BlackScholes\BlackScholes.fsproj" (15) в узле 4 (целевые объекты Rebuild).
+    15>CoreClean:
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\BlackScholes.exe.config" удаляется.
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\BlackScholes.XML" удаляется.
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\BlackScholes.exe" удаляется.
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\BlackScholes.pdb" удаляется.
+     1>Проект "C:\Brahma.FSharp\Brahma.FSharp.sln" (1) выполняет сборку "C:\Brahma.FSharp\src\Brahman.Runner.CS\Brahman.Runner.CS.csproj" (16) в узле 2 (целевые объекты Rebuild).
+    16>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahman.Runner.CS.exe.config" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahman.Runner.CS.XML" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahman.Runner.CS.exe" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahman.Runner.CS.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahman.Substrings.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\FSharp.Core.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.OpenCL.dll" удаляется.
+    15>CoreClean:
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\Brahma.dll" удаляется.
+    16>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\OpenCL.Net.dll" удаляется.
+    15>CoreClean:
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\Brahma.FSharp.OpenCL.AST.dll" удаляется.
+    16>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.Agents.dll" удаляется.
+    15>CoreClean:
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\Brahma.FSharp.OpenCL.Core.dll" удаляется.
+    16>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.FSharp.OpenCL.Translator.dll" удаляется.
+    15>CoreClean:
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll" удаляется.
+    16>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.FSharp.OpenCL.Core.dll" удаляется.
+    15>CoreClean:
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\Brahma.FSharp.OpenCL.Printer.dll" удаляется.
+    16>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.Helpers.dll" удаляется.
+    15>CoreClean:
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\Brahma.FSharp.OpenCL.Translator.dll" удаляется.
+    16>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\FSharpx.Collections.dll" удаляется.
+    15>CoreClean:
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\Brahma.Helpers.dll" удаляется.
+    16>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.dll" удаляется.
+    15>CoreClean:
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\Brahma.OpenCL.dll" удаляется.
+    16>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll" удаляется.
+    15>CoreClean:
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\FSharp.Core.dll" удаляется.
+    16>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.FSharp.OpenCL.AST.dll" удаляется.
+    15>CoreClean:
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\FSharp.Quotations.Evaluator.dll" удаляется.
+    16>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.FSharp.OpenCL.Printer.dll" удаляется.
+    15>CoreClean:
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\OpenCL.Net.dll" удаляется.
+    16>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\FSharp.Quotations.Evaluator.dll" удаляется.
+    15>CoreClean:
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\YC.PrettyPrinter.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\FSharpx.Collections.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" удаляется.
+    16>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\YC.PrettyPrinter.dll" удаляется.
+    15>CoreClean:
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\Brahma.FSharp.OpenCL.AST.xml" удаляется.
+    16>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahman.Substrings.pdb" удаляется.
+    15>CoreClean:
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\Brahma.FSharp.OpenCL.Core.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\Brahma.FSharp.OpenCL.Core.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\Brahma.FSharp.OpenCL.Extensions.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\Brahma.FSharp.OpenCL.Printer.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\Brahma.FSharp.OpenCL.Printer.xml" удаляется.
+    16>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahman.Substrings.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\FSharp.Core.xml" удаляется.
+    13>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll" в "bin\Release\OpenCL.Net.dll".
+    15>CoreClean:
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\Brahma.FSharp.OpenCL.Translator.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\Brahma.FSharp.OpenCL.Translator.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\Brahma.Helpers.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\Brahma.Helpers.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\Brahma.OpenCL.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\Brahma.OpenCL.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\Brahma.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\Brahma.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\FSharp.Core.xml" удаляется.
+     8>Сборка проекта "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\Brahma.FSharp.OpenCL.Core.fsproj" завершена (целевые объекты Clean).
+    13>CopyFilesToOutputDirectory:
+         Копирование файла из "obj\Release\Brahma.Helpers.dll" в "bin\Release\Brahma.Helpers.dll".
+    15>CoreClean:
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\FSharp.Quotations.Evaluator.pdb" удаляется.
+    16>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.OpenCL.pdb" удаляется.
+    15>CoreClean:
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\FSharp.Quotations.Evaluator.xml" удаляется.
+    16>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.OpenCL.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.Agents.pdb" удаляется.
+    15>CoreClean:
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\YC.PrettyPrinter.xml" удаляется.
+    16>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.Agents.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.FSharp.OpenCL.Translator.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.FSharp.OpenCL.Translator.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.FSharp.OpenCL.Core.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.FSharp.OpenCL.Core.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.Helpers.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.Helpers.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\FSharpx.Collections.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.FSharp.OpenCL.Extensions.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.FSharp.OpenCL.AST.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.FSharp.OpenCL.Printer.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahma.FSharp.OpenCL.Printer.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\FSharp.Quotations.Evaluator.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\FSharp.Quotations.Evaluator.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\YC.PrettyPrinter.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\obj\Release\Brahman.Runner.CS.csprojResolveAssemblyReference.cache" удаляется.
+    15>CoreClean:
+         Файл "C:\Brahma.FSharp\src\BlackScholes\bin\Release\FSharpx.Collections.xml" удаляется.
+    16>CoreClean:
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\obj\Release\Brahman.Runner.CS.exe" удаляется.
+         Файл "C:\Brahma.FSharp\src\Brahman.Runner.CS\obj\Release\Brahman.Runner.CS.pdb" удаляется.
+    15>CoreClean:
+         Файл "C:\Brahma.FSharp\src\BlackScholes\obj\Release\BlackScholes.fsprojResolveAssemblyReference.cache" удаляется.
+         Файл "C:\Brahma.FSharp\src\BlackScholes\obj\Release\BlackScholes.exe" удаляется.
+         Файл "C:\Brahma.FSharp\src\BlackScholes\obj\Release\BlackScholes.pdb" удаляется.
+    13>CopyFilesToOutputDirectory:
+         Brahma.Helpers -> C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.dll
+         Копирование файла из "obj\Release\Brahma.Helpers.pdb" в "bin\Release\Brahma.Helpers.pdb".
+     7>Сборка проекта "C:\Brahma.FSharp\src\Brahma.Agents\Brahma.Agents.fsproj" завершена (целевые объекты Clean).
+     6>Сборка проекта "C:\Brahma.FSharp\src\Brahman.Substrings\Brahman.Substrings.fsproj" завершена (целевые объекты Clean).
+    13>Сборка проекта "C:\Brahma.FSharp\src\Brahma.Helpers\Brahma.Helpers.csproj" завершена (целевые объекты Rebuild).
+     1>Проект "C:\Brahma.FSharp\Brahma.FSharp.sln" (1) выполняет сборку "C:\Brahma.FSharp\src\ArraySum\ArraySum.fsproj" (17) в узле 3 (целевые объекты Rebuild).
+    17>CoreClean:
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\ArraySum.exe.config" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\ArraySum.XML" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\ArraySum.exe" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\ArraySum.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\Brahma.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\Brahma.FSharp.OpenCL.AST.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\Brahma.FSharp.OpenCL.Core.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\Brahma.FSharp.OpenCL.Printer.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\Brahma.FSharp.OpenCL.Translator.dll" удаляется.
+     1>Проект "C:\Brahma.FSharp\Brahma.FSharp.sln" (1) выполняет сборку "C:\Brahma.FSharp\src\MatrixMultiply\MatrixMultiply.fsproj" (18) в узле 4 (целевые объекты Rebuild).
+    18>CoreClean:
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\MatrixMultiply.exe.config" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\FsMatrixMultiply.XML" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\MatrixMultiply.exe" удаляется.
+    17>CoreClean:
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\Brahma.Helpers.dll" удаляется.
+    18>CoreClean:
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\MatrixMultiply.pdb" удаляется.
+    17>CoreClean:
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\Brahma.OpenCL.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\FSharp.Core.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\OpenCL.Net.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\FSharp.Quotations.Evaluator.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\YC.PrettyPrinter.dll" удаляется.
+    18>CoreClean:
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\Brahma.dll" удаляется.
+    17>CoreClean:
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\FSharpx.Collections.dll" удаляется.
+    18>CoreClean:
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\Brahma.FSharp.OpenCL.AST.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\Brahma.FSharp.OpenCL.Core.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\Brahma.FSharp.OpenCL.Printer.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\Brahma.FSharp.OpenCL.Translator.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\Brahma.Helpers.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\Brahma.OpenCL.dll" удаляется.
+    17>CoreClean:
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\Brahma.FSharp.OpenCL.AST.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\Brahma.FSharp.OpenCL.Core.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\Brahma.FSharp.OpenCL.Core.xml" удаляется.
+    18>CoreClean:
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\FSharp.Core.dll" удаляется.
+    17>CoreClean:
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\Brahma.FSharp.OpenCL.Extensions.xml" удаляется.
+    18>CoreClean:
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\OpenCL.Net.dll" удаляется.
+    17>CoreClean:
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\Brahma.FSharp.OpenCL.Printer.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\Brahma.FSharp.OpenCL.Printer.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\Brahma.FSharp.OpenCL.Translator.pdb" удаляется.
+    18>CoreClean:
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\FSharp.Quotations.Evaluator.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\YC.PrettyPrinter.dll" удаляется.
+    17>CoreClean:
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\Brahma.FSharp.OpenCL.Translator.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\Brahma.Helpers.pdb" удаляется.
+    18>CoreClean:
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\FSharpx.Collections.dll" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" удаляется.
+    17>CoreClean:
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\Brahma.Helpers.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\Brahma.OpenCL.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\Brahma.OpenCL.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\Brahma.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\Brahma.xml" удаляется.
+    18>CoreClean:
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\Brahma.FSharp.OpenCL.AST.xml" удаляется.
+    17>CoreClean:
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\FSharp.Core.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\FSharp.Quotations.Evaluator.pdb" удаляется.
+    18>CoreClean:
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\Brahma.FSharp.OpenCL.Core.pdb" удаляется.
+    17>CoreClean:
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\FSharp.Quotations.Evaluator.xml" удаляется.
+    18>CoreClean:
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\Brahma.FSharp.OpenCL.Core.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\Brahma.FSharp.OpenCL.Extensions.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\Brahma.FSharp.OpenCL.Printer.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\Brahma.FSharp.OpenCL.Printer.xml" удаляется.
+    17>CoreClean:
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\YC.PrettyPrinter.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\bin\Release\FSharpx.Collections.xml" удаляется.
+    18>CoreClean:
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\Brahma.FSharp.OpenCL.Translator.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\Brahma.FSharp.OpenCL.Translator.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\Brahma.Helpers.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\Brahma.Helpers.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\Brahma.OpenCL.pdb" удаляется.
+    17>CoreClean:
+         Файл "C:\Brahma.FSharp\src\ArraySum\obj\Release\ArraySum.exe" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\obj\Release\ArraySum.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\ArraySum\obj\Release\ArraySum.fsprojResolveAssemblyReference.cache" удаляется.
+    18>CoreClean:
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\Brahma.OpenCL.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\Brahma.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\Brahma.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\FSharp.Core.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\FSharp.Quotations.Evaluator.pdb" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\FSharp.Quotations.Evaluator.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\YC.PrettyPrinter.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\FSharpx.Collections.xml" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\obj\Release\MatrixMultiply.exe" удаляется.
+         Файл "C:\Brahma.FSharp\src\MatrixMultiply\obj\Release\MatrixMultiply.pdb" удаляется.
+     1>Проект "C:\Brahma.FSharp\Brahma.FSharp.sln" (1) выполняет сборку "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\Brahma.FSharp.OpenCL.Extensions.fsproj" (9:5) в узле 2 (целевые объекты Rebuild).
+   9:5>Проект "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\Brahma.FSharp.OpenCL.Extensions.fsproj" (9:5) выполняет сборку "C:\Brahma.FSharp\src\Brahma.OpenCL\Brahma.OpenCL.csproj" (12:6) в узле 2 (целевые объекты по умолчанию).
+    12>GenerateTargetFrameworkMonikerAttribute:
+       Целевой объект "GenerateTargetFrameworkMonikerAttribute" пропускается, так как все выходные файлы актуальны по отношению к входным.
+       Kernel:
+       Целевой объект "Kernel" пропускается из-за отсутствия выходных файлов.
+       CoreCompile:
+         C:\Program Files (x86)\MSBuild\14.0\bin\csc.exe /noconfig /nowarn:1701,1702 /nostdlib+ /warn:3 /doc:bin\Release\Brahma.OpenCL.XML /define:TRACE /highentropyva+ /reference:C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.dll /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Microsoft.CSharp.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /reference:C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Core.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" /debug:pdbonly /filealign:512 /optimize+ /out:obj\Release\Brahma.OpenCL.dll /ruleset:"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\\Rule Sets\MinimumRecommendedRules.ruleset" /subsystemversion:6.00 /target:library /utf8output Buffer.cs ClException.cs CommandQueue.cs ComputeProvider.cs Kernel.cs NDRange.cs NDRangeDimension.cs Properties\AssemblyInfo.cs Commands\ReadBuffer.cs Commands\Run.cs Range.cs Commands\WaitFor.cs Commands\WriteBuffer.cs "C:\Users\Пользователь\AppData\Local\Temp\.NETFramework,Version=v4.5.AssemblyAttributes.cs"
+         Using shared compilation with compiler from directory: C:\Program Files (x86)\MSBuild\14.0\Bin
+       _CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.dll" в "bin\Release\Brahma.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll" в "bin\Release\OpenCL.Net.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.pdb" в "bin\Release\Brahma.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.xml" в "bin\Release\Brahma.xml".
+       CopyFilesToOutputDirectory:
+         Копирование файла из "obj\Release\Brahma.OpenCL.dll" в "bin\Release\Brahma.OpenCL.dll".
+         Brahma.OpenCL -> C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.dll
+         Копирование файла из "obj\Release\Brahma.OpenCL.pdb" в "bin\Release\Brahma.OpenCL.pdb".
+    12>Сборка проекта "C:\Brahma.FSharp\src\Brahma.OpenCL\Brahma.OpenCL.csproj" завершена (целевые объекты по умолчанию).
+     9>GenerateTargetFrameworkMonikerAttribute:
+       Целевой объект "GenerateTargetFrameworkMonikerAttribute" пропускается, так как все выходные файлы актуальны по отношению к входным.
+       Kernel:
+       Целевой объект "Kernel" пропускается из-за отсутствия выходных файлов.
+       CoreCompile:
+         C:\Program Files (x86)\Microsoft SDKs\F#\4.0\Framework\v4.0\fsc.exe -o:obj\Release\Brahma.FSharp.OpenCL.Extensions.dll --debug:pdbonly --noframework --define:TRACE --doc:bin\Release\Brahma.FSharp.OpenCL.Extensions.XML --optimize+ -r:C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.dll -r:C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.dll -r:C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" -r:C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Core.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Numerics.dll" --target:library --warn:3 --warnaserror:76 --fullpaths --flaterrors --subsystemversion:6.00 --highentropyva+ "C:\Users\Пользователь\AppData\Local\Temp\.NETFramework,Version=v4.5.AssemblyAttributes.fs" Array.fs OpenCL.fs 
+     4>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll" в "bin\Release\FSharp.Core.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll" в "bin\Release\OpenCL.Net.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.xml" в "bin\Release\FSharp.Core.xml".
+       CopyFilesToOutputDirectory:
+         Копирование файла из "obj\Release\Brahma.FSharp.OpenCL.AST.dll" в "bin\Release\Brahma.FSharp.OpenCL.AST.dll".
+         Brahma.FSharp.OpenCL.AST -> C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.dll
+         Копирование файла из "obj\Release\Brahma.FSharp.OpenCL.AST.pdb" в "bin\Release\Brahma.FSharp.OpenCL.AST.pdb".
+     4>Сборка проекта "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\Brahma.FSharp.OpenCL.AST.fsproj" завершена (целевые объекты Rebuild).
+     1>Проект "C:\Brahma.FSharp\Brahma.FSharp.sln" (1) выполняет сборку "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\Brahma.FSharp.OpenCL.Printer.fsproj" (10:5) в узле 3 (целевые объекты Rebuild).
+    10>GenerateTargetFrameworkMonikerAttribute:
+       Целевой объект "GenerateTargetFrameworkMonikerAttribute" пропускается, так как все выходные файлы актуальны по отношению к входным.
+       Kernel:
+       Целевой объект "Kernel" пропускается из-за отсутствия выходных файлов.
+       CoreCompile:
+         C:\Program Files (x86)\Microsoft SDKs\F#\4.0\Framework\v4.0\fsc.exe -o:obj\Release\Brahma.FSharp.OpenCL.Printer.dll --debug:pdbonly --noframework --define:TRACE --doc:bin\Release\Brahma.FSharp.OpenCL.Printer.XML --optimize+ -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.dll -r:C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll -r:C:\Brahma.FSharp\packages\FSharpx.Collections\lib\net40\FSharpx.Collections.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" -r:C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Core.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Numerics.dll" -r:C:\Brahma.FSharp\packages\YC.PrettyPrinter\lib\net40\YC.PrettyPrinter.dll --target:library --warn:3 --warnaserror:76 --fullpaths --flaterrors --subsystemversion:6.00 --highentropyva+ "C:\Users\Пользователь\AppData\Local\Temp\.NETFramework,Version=v4.5.AssemblyAttributes.fs" Types.fs Expressions.fs Pragmas.fs Statements.fs FunDecl.fs TypeDecl.fs Printer.fs 
+     1>Проект "C:\Brahma.FSharp\Brahma.FSharp.sln" (1) выполняет сборку "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\Brahma.FSharp.OpenCL.Translator.fsproj" (11:5) в узле 4 (целевые объекты Rebuild).
+    11>GenerateTargetFrameworkMonikerAttribute:
+       Целевой объект "GenerateTargetFrameworkMonikerAttribute" пропускается, так как все выходные файлы актуальны по отношению к входным.
+       Kernel:
+       Целевой объект "Kernel" пропускается из-за отсутствия выходных файлов.
+       CoreCompile:
+         C:\Program Files (x86)\Microsoft SDKs\F#\4.0\Framework\v4.0\fsc.exe -o:obj\Release\Brahma.FSharp.OpenCL.Translator.dll --debug:pdbonly --noframework --define:TRACE --doc:bin\Release\Brahma.FSharp.OpenCL.Translator.XML --optimize+ -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.dll -r:C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll -r:C:\Brahma.FSharp\packages\FSharpx.Collections\lib\net40\FSharpx.Collections.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" -r:C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Core.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Numerics.dll" --target:library --warn:3 --warnaserror:76 --fullpaths --flaterrors --subsystemversion:6.00 --highentropyva+ "C:\Users\Пользователь\AppData\Local\Temp\.NETFramework,Version=v4.5.AssemblyAttributes.fs" Namer.fs Common.fs Type.fs Array.fs QuotationsTransformer.fs Body.fs Translator.fs 
+     9>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.dll" в "bin\Release\Brahma.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.dll" в "bin\Release\Brahma.OpenCL.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll" в "bin\Release\FSharp.Core.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll" в "bin\Release\OpenCL.Net.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.pdb" в "bin\Release\Brahma.OpenCL.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.xml" в "bin\Release\Brahma.OpenCL.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.pdb" в "bin\Release\Brahma.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.xml" в "bin\Release\Brahma.xml".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.xml" в "bin\Release\FSharp.Core.xml".
+       CopyFilesToOutputDirectory:
+         Копирование файла из "obj\Release\Brahma.FSharp.OpenCL.Extensions.dll" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.dll".
+         Brahma.FSharp.OpenCL.Extensions -> C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll
+         Копирование файла из "obj\Release\Brahma.FSharp.OpenCL.Extensions.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb".
+     9>Сборка проекта "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\Brahma.FSharp.OpenCL.Extensions.fsproj" завершена (целевые объекты Rebuild).
+    10>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.dll" в "bin\Release\Brahma.FSharp.OpenCL.AST.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll" в "bin\Release\FSharp.Core.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharpx.Collections\lib\net40\FSharpx.Collections.dll" в "bin\Release\FSharpx.Collections.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll" в "bin\Release\OpenCL.Net.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\YC.PrettyPrinter\lib\net40\YC.PrettyPrinter.dll" в "bin\Release\YC.PrettyPrinter.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" в "bin\Release\Brahma.FSharp.OpenCL.AST.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.xml" в "bin\Release\Brahma.FSharp.OpenCL.AST.xml".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.xml" в "bin\Release\FSharp.Core.xml".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharpx.Collections\lib\net40\FSharpx.Collections.xml" в "bin\Release\FSharpx.Collections.xml".
+         Копирование файла из "C:\Brahma.FSharp\packages\YC.PrettyPrinter\lib\net40\YC.PrettyPrinter.xml" в "bin\Release\YC.PrettyPrinter.xml".
+       CopyFilesToOutputDirectory:
+         Копирование файла из "obj\Release\Brahma.FSharp.OpenCL.Printer.dll" в "bin\Release\Brahma.FSharp.OpenCL.Printer.dll".
+         Brahma.FSharp.OpenCL.Printer -> C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.dll
+         Копирование файла из "obj\Release\Brahma.FSharp.OpenCL.Printer.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Printer.pdb".
+    10>Сборка проекта "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\Brahma.FSharp.OpenCL.Printer.fsproj" завершена (целевые объекты Rebuild).
+    11>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.dll" в "bin\Release\Brahma.FSharp.OpenCL.AST.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll" в "bin\Release\FSharp.Core.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharpx.Collections\lib\net40\FSharpx.Collections.dll" в "bin\Release\FSharpx.Collections.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll" в "bin\Release\OpenCL.Net.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" в "bin\Release\Brahma.FSharp.OpenCL.AST.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.xml" в "bin\Release\Brahma.FSharp.OpenCL.AST.xml".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.xml" в "bin\Release\FSharp.Core.xml".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharpx.Collections\lib\net40\FSharpx.Collections.xml" в "bin\Release\FSharpx.Collections.xml".
+       CopyFilesToOutputDirectory:
+         Копирование файла из "obj\Release\Brahma.FSharp.OpenCL.Translator.dll" в "bin\Release\Brahma.FSharp.OpenCL.Translator.dll".
+         Brahma.FSharp.OpenCL.Translator -> C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.dll
+         Копирование файла из "obj\Release\Brahma.FSharp.OpenCL.Translator.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Translator.pdb".
+    11>Сборка проекта "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\Brahma.FSharp.OpenCL.Translator.fsproj" завершена (целевые объекты Rebuild).
+     5>Проект "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\Brahma.FSharp.OpenCL.Tests.fsproj" (5) выполняет сборку "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\Brahma.FSharp.OpenCL.Core.fsproj" (8:7) в узле 1 (целевые объекты по умолчанию).
+     8>GenerateTargetFrameworkMonikerAttribute:
+       Целевой объект "GenerateTargetFrameworkMonikerAttribute" пропускается, так как все выходные файлы актуальны по отношению к входным.
+       Kernel:
+       Целевой объект "Kernel" пропускается из-за отсутствия выходных файлов.
+       CoreCompile:
+         C:\Program Files (x86)\Microsoft SDKs\F#\4.0\Framework\v4.0\fsc.exe -o:obj\Release\Brahma.FSharp.OpenCL.Core.dll --debug:pdbonly --noframework --define:TRACE --doc:bin\Release\Brahma.FSharp.OpenCL.Core.XML --optimize- -r:C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.dll -r:C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.dll -r:C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll -r:C:\Brahma.FSharp\packages\FSharp.Quotations.Evaluator\lib\net40\FSharp.Quotations.Evaluator.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" -r:C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Core.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Numerics.dll" --target:library --warn:3 --warnaserror:76 --fullpaths --flaterrors --subsystemversion:6.00 --highentropyva+ "C:\Users\Пользователь\AppData\Local\Temp\.NETFramework,Version=v4.5.AssemblyAttributes.fs" Core.fs 
+       _CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.dll" в "bin\Release\Brahma.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.dll" в "bin\Release\Brahma.FSharp.OpenCL.AST.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.dll" в "bin\Release\Brahma.FSharp.OpenCL.Printer.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.dll" в "bin\Release\Brahma.FSharp.OpenCL.Translator.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.dll" в "bin\Release\Brahma.OpenCL.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll" в "bin\Release\FSharp.Core.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Quotations.Evaluator\lib\net40\FSharp.Quotations.Evaluator.dll" в "bin\Release\FSharp.Quotations.Evaluator.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll" в "bin\Release\OpenCL.Net.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\YC.PrettyPrinter.dll" в "bin\Release\YC.PrettyPrinter.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\FSharpx.Collections.dll" в "bin\Release\FSharpx.Collections.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" в "bin\Release\Brahma.FSharp.OpenCL.AST.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.xml" в "bin\Release\Brahma.FSharp.OpenCL.AST.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.xml" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Printer.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.xml" в "bin\Release\Brahma.FSharp.OpenCL.Printer.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Translator.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.xml" в "bin\Release\Brahma.FSharp.OpenCL.Translator.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.pdb" в "bin\Release\Brahma.OpenCL.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.xml" в "bin\Release\Brahma.OpenCL.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.pdb" в "bin\Release\Brahma.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.xml" в "bin\Release\Brahma.xml".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.xml" в "bin\Release\FSharp.Core.xml".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Quotations.Evaluator\lib\net40\FSharp.Quotations.Evaluator.pdb" в "bin\Release\FSharp.Quotations.Evaluator.pdb".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Quotations.Evaluator\lib\net40\FSharp.Quotations.Evaluator.xml" в "bin\Release\FSharp.Quotations.Evaluator.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\YC.PrettyPrinter.xml" в "bin\Release\YC.PrettyPrinter.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\FSharpx.Collections.xml" в "bin\Release\FSharpx.Collections.xml".
+       CopyFilesToOutputDirectory:
+         Копирование файла из "obj\Release\Brahma.FSharp.OpenCL.Core.dll" в "bin\Release\Brahma.FSharp.OpenCL.Core.dll".
+         Brahma.FSharp.OpenCL.Core -> C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.dll
+         Копирование файла из "obj\Release\Brahma.FSharp.OpenCL.Core.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Core.pdb".
+     8>Сборка проекта "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\Brahma.FSharp.OpenCL.Core.fsproj" завершена (целевые объекты по умолчанию).
+     5>GenerateTargetFrameworkMonikerAttribute:
+       Целевой объект "GenerateTargetFrameworkMonikerAttribute" пропускается, так как все выходные файлы актуальны по отношению к входным.
+       Kernel:
+       Целевой объект "Kernel" пропускается из-за отсутствия выходных файлов.
+       CoreCompile:
+         C:\Program Files (x86)\Microsoft SDKs\F#\4.0\Framework\v4.0\fsc.exe -o:obj\Release\Brahma.FSharp.OpenCL.Tests.dll --debug:pdbonly --noframework --define:TRACE --doc:bin\Release\Brahma.FSharp.OpenCL.Tests.XML --optimize+ -r:C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.dll -r:C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.dll -r:C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.dll -r:C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" -r:C:\Brahma.FSharp\packages\NUnit\lib\net45\nunit.framework.dll -r:C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Core.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Numerics.dll" --target:library --warn:3 --warnaserror:76 --fullpaths --flaterrors --subsystemversion:6.00 --highentropyva+ "C:\Users\Пользователь\AppData\Local\Temp\.NETFramework,Version=v4.5.AssemblyAttributes.fs" Full.fs PerformanceCYK.fs Translator.fs 
+    17>GenerateTargetFrameworkMonikerAttribute:
+       Целевой объект "GenerateTargetFrameworkMonikerAttribute" пропускается, так как все выходные файлы актуальны по отношению к входным.
+       Kernel:
+       Целевой объект "Kernel" пропускается из-за отсутствия выходных файлов.
+       CoreCompile:
+         C:\Program Files (x86)\Microsoft SDKs\F#\4.0\Framework\v4.0\fsc.exe -o:obj\Release\ArraySum.exe --debug:pdbonly --noframework --define:TRACE --doc:bin\Release\ArraySum.XML --optimize+ -r:C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.dll -r:C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.dll -r:C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.dll -r:C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" -r:C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Core.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Numerics.dll" --target:exe --warn:3 --warnaserror:76 --fullpaths --flaterrors --subsystemversion:6.00 --highentropyva+ "C:\Users\Пользователь\AppData\Local\Temp\.NETFramework,Version=v4.5.AssemblyAttributes.fs" ArraySum.fs 
+       _CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.dll" в "bin\Release\Brahma.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.dll" в "bin\Release\Brahma.FSharp.OpenCL.AST.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.dll" в "bin\Release\Brahma.FSharp.OpenCL.Core.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.dll" в "bin\Release\Brahma.FSharp.OpenCL.Printer.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.dll" в "bin\Release\Brahma.FSharp.OpenCL.Translator.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.dll" в "bin\Release\Brahma.Helpers.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.dll" в "bin\Release\Brahma.OpenCL.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll" в "bin\Release\FSharp.Core.dll".
+    15>GenerateTargetFrameworkMonikerAttribute:
+       Целевой объект "GenerateTargetFrameworkMonikerAttribute" пропускается, так как все выходные файлы актуальны по отношению к входным.
+       Kernel:
+       Целевой объект "Kernel" пропускается из-за отсутствия выходных файлов.
+    17>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll" в "bin\Release\OpenCL.Net.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\FSharp.Quotations.Evaluator.dll" в "bin\Release\FSharp.Quotations.Evaluator.dll".
+    15>CoreCompile:
+         C:\Program Files (x86)\Microsoft SDKs\F#\4.0\Framework\v4.0\fsc.exe -o:obj\Release\BlackScholes.exe --debug:pdbonly --noframework --define:TRACE --doc:bin\Release\BlackScholes.XML --optimize+ -r:C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.dll -r:C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.dll -r:C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.dll -r:C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll -r:C:\Brahma.FSharp\packages\FSharp.Quotations.Evaluator\lib\net40\FSharp.Quotations.Evaluator.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" -r:C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Core.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Numerics.dll" --target:exe --warn:3 --warnaserror:76 --fullpaths --flaterrors --subsystemversion:6.00 --highentropyva+ "C:\Users\Пользователь\AppData\Local\Temp\.NETFramework,Version=v4.5.AssemblyAttributes.fs" BlackScholes.fs 
+    17>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\YC.PrettyPrinter.dll" в "bin\Release\YC.PrettyPrinter.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\FSharpx.Collections.dll" в "bin\Release\FSharpx.Collections.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" в "bin\Release\Brahma.FSharp.OpenCL.AST.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.xml" в "bin\Release\Brahma.FSharp.OpenCL.AST.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Core.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.xml" в "bin\Release\Brahma.FSharp.OpenCL.Core.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.xml" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.xml".
+    16>Проект "C:\Brahma.FSharp\src\Brahman.Runner.CS\Brahman.Runner.CS.csproj" (16) выполняет сборку "C:\Brahma.FSharp\src\Brahman.Substrings\Brahman.Substrings.fsproj" (6:4) в узле 2 (целевые объекты по умолчанию).
+   6:4>Проект "C:\Brahma.FSharp\src\Brahman.Substrings\Brahman.Substrings.fsproj" (6:4) выполняет сборку "C:\Brahma.FSharp\src\Brahma.Agents\Brahma.Agents.fsproj" (7:2) в узле 2 (целевые объекты по умолчанию).
+     7>GenerateTargetFrameworkMonikerAttribute:
+       Целевой объект "GenerateTargetFrameworkMonikerAttribute" пропускается, так как все выходные файлы актуальны по отношению к входным.
+    17>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Printer.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.xml" в "bin\Release\Brahma.FSharp.OpenCL.Printer.xml".
+    18>GenerateTargetFrameworkMonikerAttribute:
+       Целевой объект "GenerateTargetFrameworkMonikerAttribute" пропускается, так как все выходные файлы актуальны по отношению к входным.
+    17>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Translator.pdb".
+    18>Kernel:
+       Целевой объект "Kernel" пропускается из-за отсутствия выходных файлов.
+       CoreCompile:
+         C:\Program Files (x86)\Microsoft SDKs\F#\4.0\Framework\v4.0\fsc.exe -o:obj\Release\MatrixMultiply.exe --debug:pdbonly --noframework --define:TRACE --doc:bin\Release\FsMatrixMultiply.XML --optimize+ -r:C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.dll -r:C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.dll -r:C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.dll -r:C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" -r:C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Core.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Numerics.dll" --target:exe --warn:3 --warnaserror:76 --fullpaths --flaterrors --subsystemversion:6.00 --highentropyva+ "C:\Users\Пользователь\AppData\Local\Temp\.NETFramework,Version=v4.5.AssemblyAttributes.fs" MatrixMultiply.fs 
+    17>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.xml" в "bin\Release\Brahma.FSharp.OpenCL.Translator.xml".
+    15>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.dll" в "bin\Release\Brahma.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.dll" в "bin\Release\Brahma.FSharp.OpenCL.AST.dll".
+    17>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.pdb" в "bin\Release\Brahma.Helpers.pdb".
+    15>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.dll" в "bin\Release\Brahma.FSharp.OpenCL.Core.dll".
+    17>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.xml" в "bin\Release\Brahma.Helpers.xml".
+     7>Kernel:
+       Целевой объект "Kernel" пропускается из-за отсутствия выходных файлов.
+       CoreCompile:
+         C:\Program Files (x86)\Microsoft SDKs\F#\4.0\Framework\v4.0\fsc.exe -o:obj\Release\Brahma.Agents.dll --debug:pdbonly --noframework --define:TRACE --doc:bin\Release\Brahma.Agents.XML --optimize+ -r:C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.dll -r:C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.dll -r:C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.dll -r:C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" -r:C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Core.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Numerics.dll" --target:library --warn:3 --warnaserror:76 --fullpaths --flaterrors --subsystemversion:6.00 --highentropyva+ "C:\Users\Пользователь\AppData\Local\Temp\.NETFramework,Version=v4.5.AssemblyAttributes.fs" AgentsBase.fs 
+    17>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.pdb" в "bin\Release\Brahma.OpenCL.pdb".
+    15>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.dll" в "bin\Release\Brahma.FSharp.OpenCL.Printer.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.dll" в "bin\Release\Brahma.FSharp.OpenCL.Translator.dll".
+     7>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.dll" в "bin\Release\Brahma.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.dll" в "bin\Release\Brahma.FSharp.OpenCL.AST.dll".
+    15>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.dll" в "bin\Release\Brahma.Helpers.dll".
+    17>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.xml" в "bin\Release\Brahma.OpenCL.xml".
+     7>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.dll" в "bin\Release\Brahma.FSharp.OpenCL.Core.dll".
+    17>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.pdb" в "bin\Release\Brahma.pdb".
+    15>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.dll" в "bin\Release\Brahma.OpenCL.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll" в "bin\Release\FSharp.Core.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Quotations.Evaluator\lib\net40\FSharp.Quotations.Evaluator.dll" в "bin\Release\FSharp.Quotations.Evaluator.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll" в "bin\Release\OpenCL.Net.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\YC.PrettyPrinter.dll" в "bin\Release\YC.PrettyPrinter.dll".
+    17>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.xml" в "bin\Release\Brahma.xml".
+    15>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\FSharpx.Collections.dll" в "bin\Release\FSharpx.Collections.dll".
+    17>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.xml" в "bin\Release\FSharp.Core.xml".
+     7>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.dll".
+    17>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\FSharp.Quotations.Evaluator.pdb" в "bin\Release\FSharp.Quotations.Evaluator.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\FSharp.Quotations.Evaluator.xml" в "bin\Release\FSharp.Quotations.Evaluator.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\YC.PrettyPrinter.xml" в "bin\Release\YC.PrettyPrinter.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\FSharpx.Collections.xml" в "bin\Release\FSharpx.Collections.xml".
+     7>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.dll" в "bin\Release\Brahma.FSharp.OpenCL.Printer.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.dll" в "bin\Release\Brahma.FSharp.OpenCL.Translator.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.dll" в "bin\Release\Brahma.Helpers.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.dll" в "bin\Release\Brahma.OpenCL.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll" в "bin\Release\FSharp.Core.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll" в "bin\Release\OpenCL.Net.dll".
+    15>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" в "bin\Release\Brahma.FSharp.OpenCL.AST.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.xml" в "bin\Release\Brahma.FSharp.OpenCL.AST.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Core.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.xml" в "bin\Release\Brahma.FSharp.OpenCL.Core.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.xml" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Printer.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.xml" в "bin\Release\Brahma.FSharp.OpenCL.Printer.xml".
+     7>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\FSharp.Quotations.Evaluator.dll" в "bin\Release\FSharp.Quotations.Evaluator.dll".
+    15>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Translator.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.xml" в "bin\Release\Brahma.FSharp.OpenCL.Translator.xml".
+    17>_CopyAppConfigFile:
+         Копирование файла из "app.config" в "bin\Release\ArraySum.exe.config".
+     7>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\YC.PrettyPrinter.dll" в "bin\Release\YC.PrettyPrinter.dll".
+    15>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.pdb" в "bin\Release\Brahma.Helpers.pdb".
+     7>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\FSharpx.Collections.dll" в "bin\Release\FSharpx.Collections.dll".
+    15>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.xml" в "bin\Release\Brahma.Helpers.xml".
+     7>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" в "bin\Release\Brahma.FSharp.OpenCL.AST.pdb".
+    15>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.pdb" в "bin\Release\Brahma.OpenCL.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.xml" в "bin\Release\Brahma.OpenCL.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.pdb" в "bin\Release\Brahma.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.xml" в "bin\Release\Brahma.xml".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.xml" в "bin\Release\FSharp.Core.xml".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Quotations.Evaluator\lib\net40\FSharp.Quotations.Evaluator.pdb" в "bin\Release\FSharp.Quotations.Evaluator.pdb".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Quotations.Evaluator\lib\net40\FSharp.Quotations.Evaluator.xml" в "bin\Release\FSharp.Quotations.Evaluator.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\YC.PrettyPrinter.xml" в "bin\Release\YC.PrettyPrinter.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\FSharpx.Collections.xml" в "bin\Release\FSharpx.Collections.xml".
+    17>CopyFilesToOutputDirectory:
+         Копирование файла из "obj\Release\ArraySum.exe" в "bin\Release\ArraySum.exe".
+         ArraySum -> C:\Brahma.FSharp\src\ArraySum\bin\Release\ArraySum.exe
+         Копирование файла из "obj\Release\ArraySum.pdb" в "bin\Release\ArraySum.pdb".
+    17>Сборка проекта "C:\Brahma.FSharp\src\ArraySum\ArraySum.fsproj" завершена (целевые объекты Rebuild).
+     7>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.xml" в "bin\Release\Brahma.FSharp.OpenCL.AST.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Core.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.xml" в "bin\Release\Brahma.FSharp.OpenCL.Core.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.xml" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Printer.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.xml" в "bin\Release\Brahma.FSharp.OpenCL.Printer.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Translator.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.xml" в "bin\Release\Brahma.FSharp.OpenCL.Translator.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.pdb" в "bin\Release\Brahma.Helpers.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.xml" в "bin\Release\Brahma.Helpers.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.pdb" в "bin\Release\Brahma.OpenCL.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.xml" в "bin\Release\Brahma.OpenCL.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.pdb" в "bin\Release\Brahma.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.xml" в "bin\Release\Brahma.xml".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.xml" в "bin\Release\FSharp.Core.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\FSharp.Quotations.Evaluator.pdb" в "bin\Release\FSharp.Quotations.Evaluator.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\FSharp.Quotations.Evaluator.xml" в "bin\Release\FSharp.Quotations.Evaluator.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\YC.PrettyPrinter.xml" в "bin\Release\YC.PrettyPrinter.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\FSharpx.Collections.xml" в "bin\Release\FSharpx.Collections.xml".
+    15>_CopyAppConfigFile:
+         Копирование файла из "app.config" в "bin\Release\BlackScholes.exe.config".
+       CopyFilesToOutputDirectory:
+         Копирование файла из "obj\Release\BlackScholes.exe" в "bin\Release\BlackScholes.exe".
+         BlackScholes -> C:\Brahma.FSharp\src\BlackScholes\bin\Release\BlackScholes.exe
+         Копирование файла из "obj\Release\BlackScholes.pdb" в "bin\Release\BlackScholes.pdb".
+    15>Сборка проекта "C:\Brahma.FSharp\src\BlackScholes\BlackScholes.fsproj" завершена (целевые объекты Rebuild).
+     7>CopyFilesToOutputDirectory:
+         Копирование файла из "obj\Release\Brahma.Agents.dll" в "bin\Release\Brahma.Agents.dll".
+         Brahma.Agents -> C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.Agents.dll
+         Копирование файла из "obj\Release\Brahma.Agents.pdb" в "bin\Release\Brahma.Agents.pdb".
+     7>Сборка проекта "C:\Brahma.FSharp\src\Brahma.Agents\Brahma.Agents.fsproj" завершена (целевые объекты по умолчанию).
+     6>GenerateTargetFrameworkMonikerAttribute:
+       Целевой объект "GenerateTargetFrameworkMonikerAttribute" пропускается, так как все выходные файлы актуальны по отношению к входным.
+       Kernel:
+       Целевой объект "Kernel" пропускается из-за отсутствия выходных файлов.
+       CoreCompile:
+         C:\Program Files (x86)\Microsoft SDKs\F#\4.0\Framework\v4.0\fsc.exe -o:obj\Release\Brahman.Substrings.dll --debug:pdbonly --noframework --define:TRACE --doc:bin\Release\Brahman.Substrings.XML --optimize+ -r:C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.Agents.dll -r:C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.dll -r:C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.dll -r:C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.dll -r:C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.dll -r:C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll -r:C:\Brahma.FSharp\packages\FSharpx.Collections\lib\net40\FSharpx.Collections.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" -r:C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Core.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Numerics.dll" --target:library --warn:3 --warnaserror:76 --fullpaths --flaterrors --subsystemversion:6.00 --highentropyva+ "C:\Users\Пользователь\AppData\Local\Temp\.NETFramework,Version=v4.5.AssemblyAttributes.fs" AssemblyInfo.fs Helpers.fs NaiveSearchGpu.fs NaiveHashingGpuPrivateLocal.fs HashtableGpuPrivateLocal.fs AhoCorasickOptimized.fs HDReader.fs Matcher.fs MatcherCS.fs 
+    18>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.dll" в "bin\Release\Brahma.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.dll" в "bin\Release\Brahma.FSharp.OpenCL.AST.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.dll" в "bin\Release\Brahma.FSharp.OpenCL.Core.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.dll" в "bin\Release\Brahma.FSharp.OpenCL.Printer.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.dll" в "bin\Release\Brahma.FSharp.OpenCL.Translator.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.dll" в "bin\Release\Brahma.Helpers.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.dll" в "bin\Release\Brahma.OpenCL.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll" в "bin\Release\FSharp.Core.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll" в "bin\Release\OpenCL.Net.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\FSharp.Quotations.Evaluator.dll" в "bin\Release\FSharp.Quotations.Evaluator.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\YC.PrettyPrinter.dll" в "bin\Release\YC.PrettyPrinter.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\FSharpx.Collections.dll" в "bin\Release\FSharpx.Collections.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" в "bin\Release\Brahma.FSharp.OpenCL.AST.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.xml" в "bin\Release\Brahma.FSharp.OpenCL.AST.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Core.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.xml" в "bin\Release\Brahma.FSharp.OpenCL.Core.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.xml" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Printer.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.xml" в "bin\Release\Brahma.FSharp.OpenCL.Printer.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Translator.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.xml" в "bin\Release\Brahma.FSharp.OpenCL.Translator.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.pdb" в "bin\Release\Brahma.Helpers.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.xml" в "bin\Release\Brahma.Helpers.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.pdb" в "bin\Release\Brahma.OpenCL.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.xml" в "bin\Release\Brahma.OpenCL.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.pdb" в "bin\Release\Brahma.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.xml" в "bin\Release\Brahma.xml".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.xml" в "bin\Release\FSharp.Core.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\FSharp.Quotations.Evaluator.pdb" в "bin\Release\FSharp.Quotations.Evaluator.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\FSharp.Quotations.Evaluator.xml" в "bin\Release\FSharp.Quotations.Evaluator.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\YC.PrettyPrinter.xml" в "bin\Release\YC.PrettyPrinter.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\FSharpx.Collections.xml" в "bin\Release\FSharpx.Collections.xml".
+       _CopyAppConfigFile:
+         Копирование файла из "app.config" в "bin\Release\MatrixMultiply.exe.config".
+       CopyFilesToOutputDirectory:
+         Копирование файла из "obj\Release\MatrixMultiply.exe" в "bin\Release\MatrixMultiply.exe".
+         MatrixMultiply -> C:\Brahma.FSharp\src\MatrixMultiply\bin\Release\MatrixMultiply.exe
+         Копирование файла из "obj\Release\MatrixMultiply.pdb" в "bin\Release\MatrixMultiply.pdb".
+    18>Сборка проекта "C:\Brahma.FSharp\src\MatrixMultiply\MatrixMultiply.fsproj" завершена (целевые объекты Rebuild).
+     5>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.dll" в "bin\Release\Brahma.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.dll" в "bin\Release\Brahma.FSharp.OpenCL.AST.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.dll" в "bin\Release\Brahma.FSharp.OpenCL.Core.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.dll" в "bin\Release\Brahma.FSharp.OpenCL.Printer.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.dll" в "bin\Release\Brahma.FSharp.OpenCL.Translator.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.dll" в "bin\Release\Brahma.Helpers.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.dll" в "bin\Release\Brahma.OpenCL.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll" в "bin\Release\FSharp.Core.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\NUnit\lib\net45\nunit.framework.dll" в "bin\Release\nunit.framework.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll" в "bin\Release\OpenCL.Net.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\FSharp.Quotations.Evaluator.dll" в "bin\Release\FSharp.Quotations.Evaluator.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\YC.PrettyPrinter.dll" в "bin\Release\YC.PrettyPrinter.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\FSharpx.Collections.dll" в "bin\Release\FSharpx.Collections.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" в "bin\Release\Brahma.FSharp.OpenCL.AST.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.xml" в "bin\Release\Brahma.FSharp.OpenCL.AST.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Core.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.xml" в "bin\Release\Brahma.FSharp.OpenCL.Core.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.xml" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Printer.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.xml" в "bin\Release\Brahma.FSharp.OpenCL.Printer.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Translator.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.xml" в "bin\Release\Brahma.FSharp.OpenCL.Translator.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.pdb" в "bin\Release\Brahma.Helpers.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.xml" в "bin\Release\Brahma.Helpers.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.pdb" в "bin\Release\Brahma.OpenCL.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.xml" в "bin\Release\Brahma.OpenCL.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.pdb" в "bin\Release\Brahma.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.xml" в "bin\Release\Brahma.xml".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.xml" в "bin\Release\FSharp.Core.xml".
+         Копирование файла из "C:\Brahma.FSharp\packages\NUnit\lib\net45\nunit.framework.xml" в "bin\Release\nunit.framework.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\FSharp.Quotations.Evaluator.pdb" в "bin\Release\FSharp.Quotations.Evaluator.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\FSharp.Quotations.Evaluator.xml" в "bin\Release\FSharp.Quotations.Evaluator.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\YC.PrettyPrinter.xml" в "bin\Release\YC.PrettyPrinter.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\FSharpx.Collections.xml" в "bin\Release\FSharpx.Collections.xml".
+       _CopyAppConfigFile:
+         Копирование файла из "app.config" в "bin\Release\Brahma.FSharp.OpenCL.Tests.dll.config".
+       CopyFilesToOutputDirectory:
+         Копирование файла из "obj\Release\Brahma.FSharp.OpenCL.Tests.dll" в "bin\Release\Brahma.FSharp.OpenCL.Tests.dll".
+         Brahma.FSharp.OpenCL.Tests -> C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.FSharp.OpenCL.Tests.dll
+         Копирование файла из "obj\Release\Brahma.FSharp.OpenCL.Tests.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Tests.pdb".
+     5>Сборка проекта "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\Brahma.FSharp.OpenCL.Tests.fsproj" завершена (целевые объекты Rebuild).
+     6>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.Agents.dll" в "bin\Release\Brahma.Agents.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.dll" в "bin\Release\Brahma.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.dll" в "bin\Release\Brahma.FSharp.OpenCL.AST.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.dll" в "bin\Release\Brahma.FSharp.OpenCL.Core.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.dll" в "bin\Release\Brahma.FSharp.OpenCL.Printer.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.dll" в "bin\Release\Brahma.FSharp.OpenCL.Translator.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.dll" в "bin\Release\Brahma.Helpers.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.dll" в "bin\Release\Brahma.OpenCL.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll" в "bin\Release\FSharp.Core.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharpx.Collections\lib\net40\FSharpx.Collections.dll" в "bin\Release\FSharpx.Collections.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll" в "bin\Release\OpenCL.Net.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\FSharp.Quotations.Evaluator.dll" в "bin\Release\FSharp.Quotations.Evaluator.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\YC.PrettyPrinter.dll" в "bin\Release\YC.PrettyPrinter.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.Agents.pdb" в "bin\Release\Brahma.Agents.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.Agents\bin\Release\Brahma.Agents.xml" в "bin\Release\Brahma.Agents.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" в "bin\Release\Brahma.FSharp.OpenCL.AST.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.AST\bin\Release\Brahma.FSharp.OpenCL.AST.xml" в "bin\Release\Brahma.FSharp.OpenCL.AST.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Core.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\Brahma.FSharp.OpenCL.Core.xml" в "bin\Release\Brahma.FSharp.OpenCL.Core.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Extensions\bin\Release\Brahma.FSharp.OpenCL.Extensions.xml" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Printer.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\Brahma.FSharp.OpenCL.Printer.xml" в "bin\Release\Brahma.FSharp.OpenCL.Printer.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Translator.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Translator\bin\Release\Brahma.FSharp.OpenCL.Translator.xml" в "bin\Release\Brahma.FSharp.OpenCL.Translator.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.pdb" в "bin\Release\Brahma.Helpers.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.Helpers\bin\Release\Brahma.Helpers.xml" в "bin\Release\Brahma.Helpers.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.pdb" в "bin\Release\Brahma.OpenCL.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.OpenCL\bin\Release\Brahma.OpenCL.xml" в "bin\Release\Brahma.OpenCL.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.pdb" в "bin\Release\Brahma.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma\bin\Release\Brahma.xml" в "bin\Release\Brahma.xml".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.xml" в "bin\Release\FSharp.Core.xml".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharpx.Collections\lib\net40\FSharpx.Collections.xml" в "bin\Release\FSharpx.Collections.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\FSharp.Quotations.Evaluator.pdb" в "bin\Release\FSharp.Quotations.Evaluator.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Core\bin\Release\FSharp.Quotations.Evaluator.xml" в "bin\Release\FSharp.Quotations.Evaluator.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahma.FSharp.OpenCL.Printer\bin\Release\YC.PrettyPrinter.xml" в "bin\Release\YC.PrettyPrinter.xml".
+       _CopyAppConfigFile:
+         Копирование файла из "app.config" в "bin\Release\Brahman.Substrings.dll.config".
+       CopyFilesToOutputDirectory:
+         Копирование файла из "obj\Release\Brahman.Substrings.dll" в "bin\Release\Brahman.Substrings.dll".
+         Brahman.Substrings -> C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahman.Substrings.dll
+         Копирование файла из "obj\Release\Brahman.Substrings.pdb" в "bin\Release\Brahman.Substrings.pdb".
+     6>Сборка проекта "C:\Brahma.FSharp\src\Brahman.Substrings\Brahman.Substrings.fsproj" завершена (целевые объекты по умолчанию).
+    14>GenerateTargetFrameworkMonikerAttribute:
+       Целевой объект "GenerateTargetFrameworkMonikerAttribute" пропускается, так как все выходные файлы актуальны по отношению к входным.
+       CoreCompile:
+         C:\Program Files (x86)\Microsoft SDKs\F#\4.0\Framework\v4.0\fsc.exe -o:obj\Release\Brahman.Runner.exe --debug:pdbonly --noframework --define:TRACE --doc:bin\Release\Brahman.Runner.XML --optimize+ -r:C:\Brahma.FSharp\packages\Argu\lib\net40\Argu.dll -r:C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahman.Substrings.dll -r:C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Core.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Numerics.dll" --target:exe --warn:3 --warnaserror:76 --fullpaths --flaterrors --subsystemversion:6.00 --highentropyva+ "C:\Users\Пользователь\AppData\Local\Temp\.NETFramework,Version=v4.5.AssemblyAttributes.fs" Runner.fs 
+     2>GenerateTargetFrameworkMonikerAttribute:
+       Целевой объект "GenerateTargetFrameworkMonikerAttribute" пропускается, так как все выходные файлы актуальны по отношению к входным.
+       CoreCompile:
+         C:\Program Files (x86)\Microsoft SDKs\F#\4.0\Framework\v4.0\fsc.exe -o:obj\Release\Brahman.Tests.dll --debug:pdbonly --noframework --define:TRACE --doc:bin\Release\Brahman.Test.XML --optimize+ -r:C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahman.Substrings.dll -r:C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" -r:C:\Brahma.FSharp\packages\NUnit\lib\net45\nunit.framework.dll -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Core.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" -r:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Numerics.dll" --target:library --warn:3 --warnaserror:76 --fullpaths --flaterrors --subsystemversion:6.00 --highentropyva+ "C:\Users\Пользователь\AppData\Local\Temp\.NETFramework,Version=v4.5.AssemblyAttributes.fs" Substrings.Tests.fs 
+    16>GenerateTargetFrameworkMonikerAttribute:
+       Целевой объект "GenerateTargetFrameworkMonikerAttribute" пропускается, так как все выходные файлы актуальны по отношению к входным.
+       CoreCompile:
+         C:\Program Files (x86)\MSBuild\14.0\bin\csc.exe /noconfig /nowarn:1701,1702 /nostdlib+ /warn:3 /doc:bin\Release\Brahman.Runner.CS.XML /define:TRACE /highentropyva+ /reference:C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahman.Substrings.dll /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\Microsoft.CSharp.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\mscorlib.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Core.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Data.DataSetExtensions.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Data.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.dll" /reference:"C:\Program Files (x86)\Reference Assemblies\Microsoft\Framework\.NETFramework\v4.5\System.Xml.Linq.dll" /debug:pdbonly /filealign:512 /optimize+ /out:obj\Release\Brahman.Runner.CS.exe /ruleset:"C:\Program Files (x86)\Microsoft Visual Studio 14.0\Team Tools\Static Analysis Tools\\Rule Sets\MinimumRecommendedRules.ruleset" /subsystemversion:6.00 /target:exe /utf8output Runner.cs Properties\AssemblyInfo.cs "C:\Users\Пользователь\AppData\Local\Temp\.NETFramework,Version=v4.5.AssemblyAttributes.cs"
+         Using shared compilation with compiler from directory: C:\Program Files (x86)\MSBuild\14.0\Bin
+       _CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahman.Substrings.dll" в "bin\Release\Brahman.Substrings.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\FSharp.Core.dll" в "bin\Release\FSharp.Core.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.OpenCL.dll" в "bin\Release\Brahma.OpenCL.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\OpenCL.Net.dll" в "bin\Release\OpenCL.Net.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.Agents.dll" в "bin\Release\Brahma.Agents.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Translator.dll" в "bin\Release\Brahma.FSharp.OpenCL.Translator.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Core.dll" в "bin\Release\Brahma.FSharp.OpenCL.Core.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.Helpers.dll" в "bin\Release\Brahma.Helpers.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\FSharpx.Collections.dll" в "bin\Release\FSharpx.Collections.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.dll" в "bin\Release\Brahma.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.AST.dll" в "bin\Release\Brahma.FSharp.OpenCL.AST.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Printer.dll" в "bin\Release\Brahma.FSharp.OpenCL.Printer.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\FSharp.Quotations.Evaluator.dll" в "bin\Release\FSharp.Quotations.Evaluator.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\YC.PrettyPrinter.dll" в "bin\Release\YC.PrettyPrinter.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahman.Substrings.pdb" в "bin\Release\Brahman.Substrings.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahman.Substrings.xml" в "bin\Release\Brahman.Substrings.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\FSharp.Core.xml" в "bin\Release\FSharp.Core.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.OpenCL.pdb" в "bin\Release\Brahma.OpenCL.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.OpenCL.xml" в "bin\Release\Brahma.OpenCL.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.Agents.pdb" в "bin\Release\Brahma.Agents.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.Agents.xml" в "bin\Release\Brahma.Agents.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Translator.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Translator.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Translator.xml" в "bin\Release\Brahma.FSharp.OpenCL.Translator.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Core.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Core.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Core.xml" в "bin\Release\Brahma.FSharp.OpenCL.Core.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.Helpers.pdb" в "bin\Release\Brahma.Helpers.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.Helpers.xml" в "bin\Release\Brahma.Helpers.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\FSharpx.Collections.xml" в "bin\Release\FSharpx.Collections.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.pdb" в "bin\Release\Brahma.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.xml" в "bin\Release\Brahma.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Extensions.xml" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" в "bin\Release\Brahma.FSharp.OpenCL.AST.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.AST.xml" в "bin\Release\Brahma.FSharp.OpenCL.AST.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Printer.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Printer.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Printer.xml" в "bin\Release\Brahma.FSharp.OpenCL.Printer.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\FSharp.Quotations.Evaluator.pdb" в "bin\Release\FSharp.Quotations.Evaluator.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\FSharp.Quotations.Evaluator.xml" в "bin\Release\FSharp.Quotations.Evaluator.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\YC.PrettyPrinter.xml" в "bin\Release\YC.PrettyPrinter.xml".
+       _CopyAppConfigFile:
+         Копирование файла из "app.config" в "bin\Release\Brahman.Runner.CS.exe.config".
+       CopyFilesToOutputDirectory:
+         Копирование файла из "obj\Release\Brahman.Runner.CS.exe" в "bin\Release\Brahman.Runner.CS.exe".
+         Brahman.Runner.CS -> C:\Brahma.FSharp\src\Brahman.Runner.CS\bin\Release\Brahman.Runner.CS.exe
+         Копирование файла из "obj\Release\Brahman.Runner.CS.pdb" в "bin\Release\Brahman.Runner.CS.pdb".
+    16>Сборка проекта "C:\Brahma.FSharp\src\Brahman.Runner.CS\Brahman.Runner.CS.csproj" завершена (целевые объекты Rebuild).
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahman.Substrings.dll" в "bin\Release\Brahman.Substrings.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll" в "bin\Release\FSharp.Core.dll".
+         Копирование файла из "C:\Brahma.FSharp\packages\NUnit\lib\net45\nunit.framework.dll" в "bin\Release\nunit.framework.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.OpenCL.dll" в "bin\Release\Brahma.OpenCL.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\OpenCL.Net.dll" в "bin\Release\OpenCL.Net.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.Agents.dll" в "bin\Release\Brahma.Agents.dll".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\packages\Argu\lib\net40\Argu.dll" в "bin\Release\Argu.dll".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Translator.dll" в "bin\Release\Brahma.FSharp.OpenCL.Translator.dll".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahman.Substrings.dll" в "bin\Release\Brahman.Substrings.dll".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Core.dll" в "bin\Release\Brahma.FSharp.OpenCL.Core.dll".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.dll" в "bin\Release\FSharp.Core.dll".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.Helpers.dll" в "bin\Release\Brahma.Helpers.dll".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.OpenCL.dll" в "bin\Release\Brahma.OpenCL.dll".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\FSharpx.Collections.dll" в "bin\Release\FSharpx.Collections.dll".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\OpenCL.Net.dll" в "bin\Release\OpenCL.Net.dll".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.Agents.dll" в "bin\Release\Brahma.Agents.dll".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.dll" в "bin\Release\Brahma.dll".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Translator.dll" в "bin\Release\Brahma.FSharp.OpenCL.Translator.dll".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.dll".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Core.dll" в "bin\Release\Brahma.FSharp.OpenCL.Core.dll".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.AST.dll" в "bin\Release\Brahma.FSharp.OpenCL.AST.dll".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.Helpers.dll" в "bin\Release\Brahma.Helpers.dll".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Printer.dll" в "bin\Release\Brahma.FSharp.OpenCL.Printer.dll".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\FSharpx.Collections.dll" в "bin\Release\FSharpx.Collections.dll".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\FSharp.Quotations.Evaluator.dll" в "bin\Release\FSharp.Quotations.Evaluator.dll".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.dll" в "bin\Release\Brahma.dll".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\YC.PrettyPrinter.dll" в "bin\Release\YC.PrettyPrinter.dll".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Extensions.dll" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.dll".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahman.Substrings.pdb" в "bin\Release\Brahman.Substrings.pdb".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.AST.dll" в "bin\Release\Brahma.FSharp.OpenCL.AST.dll".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahman.Substrings.xml" в "bin\Release\Brahman.Substrings.xml".
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.xml" в "bin\Release\FSharp.Core.xml".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Printer.dll" в "bin\Release\Brahma.FSharp.OpenCL.Printer.dll".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\packages\NUnit\lib\net45\nunit.framework.xml" в "bin\Release\nunit.framework.xml".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\FSharp.Quotations.Evaluator.dll" в "bin\Release\FSharp.Quotations.Evaluator.dll".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.OpenCL.pdb" в "bin\Release\Brahma.OpenCL.pdb".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\YC.PrettyPrinter.dll" в "bin\Release\YC.PrettyPrinter.dll".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.OpenCL.xml" в "bin\Release\Brahma.OpenCL.xml".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahman.Substrings.pdb" в "bin\Release\Brahman.Substrings.pdb".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.Agents.pdb" в "bin\Release\Brahma.Agents.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.Agents.xml" в "bin\Release\Brahma.Agents.xml".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahman.Substrings.xml" в "bin\Release\Brahman.Substrings.xml".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Translator.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Translator.pdb".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\packages\Argu\lib\net40\Argu.pdb" в "bin\Release\Argu.pdb".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Translator.xml" в "bin\Release\Brahma.FSharp.OpenCL.Translator.xml".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\packages\Argu\lib\net40\Argu.xml" в "bin\Release\Argu.xml".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Core.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Core.pdb".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\packages\FSharp.Core\lib\net40\FSharp.Core.xml" в "bin\Release\FSharp.Core.xml".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Core.xml" в "bin\Release\Brahma.FSharp.OpenCL.Core.xml".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.OpenCL.pdb" в "bin\Release\Brahma.OpenCL.pdb".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.Helpers.pdb" в "bin\Release\Brahma.Helpers.pdb".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.OpenCL.xml" в "bin\Release\Brahma.OpenCL.xml".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.Helpers.xml" в "bin\Release\Brahma.Helpers.xml".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.Agents.pdb" в "bin\Release\Brahma.Agents.pdb".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\FSharpx.Collections.xml" в "bin\Release\FSharpx.Collections.xml".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.Agents.xml" в "bin\Release\Brahma.Agents.xml".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.pdb" в "bin\Release\Brahma.pdb".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Translator.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Translator.pdb".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.xml" в "bin\Release\Brahma.xml".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Translator.xml" в "bin\Release\Brahma.FSharp.OpenCL.Translator.xml".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Core.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Core.pdb".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Extensions.xml" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.xml".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Core.xml" в "bin\Release\Brahma.FSharp.OpenCL.Core.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.Helpers.pdb" в "bin\Release\Brahma.Helpers.pdb".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" в "bin\Release\Brahma.FSharp.OpenCL.AST.pdb".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.Helpers.xml" в "bin\Release\Brahma.Helpers.xml".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.AST.xml" в "bin\Release\Brahma.FSharp.OpenCL.AST.xml".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\FSharpx.Collections.xml" в "bin\Release\FSharpx.Collections.xml".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Printer.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Printer.pdb".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.pdb" в "bin\Release\Brahma.pdb".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Printer.xml" в "bin\Release\Brahma.FSharp.OpenCL.Printer.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\FSharp.Quotations.Evaluator.pdb" в "bin\Release\FSharp.Quotations.Evaluator.pdb".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.xml" в "bin\Release\Brahma.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.pdb".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\FSharp.Quotations.Evaluator.xml" в "bin\Release\FSharp.Quotations.Evaluator.xml".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Extensions.xml" в "bin\Release\Brahma.FSharp.OpenCL.Extensions.xml".
+     2>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\YC.PrettyPrinter.xml" в "bin\Release\YC.PrettyPrinter.xml".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.AST.pdb" в "bin\Release\Brahma.FSharp.OpenCL.AST.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.AST.xml" в "bin\Release\Brahma.FSharp.OpenCL.AST.xml".
+     2>_CopyAppConfigFile:
+         Копирование файла из "app.config" в "bin\Release\Brahman.Tests.dll.config".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Printer.pdb" в "bin\Release\Brahma.FSharp.OpenCL.Printer.pdb".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\Brahma.FSharp.OpenCL.Printer.xml" в "bin\Release\Brahma.FSharp.OpenCL.Printer.xml".
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\FSharp.Quotations.Evaluator.pdb" в "bin\Release\FSharp.Quotations.Evaluator.pdb".
+     2>CopyFilesToOutputDirectory:
+         Копирование файла из "obj\Release\Brahman.Tests.dll" в "bin\Release\Brahman.Tests.dll".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\FSharp.Quotations.Evaluator.xml" в "bin\Release\FSharp.Quotations.Evaluator.xml".
+     2>CopyFilesToOutputDirectory:
+         Brahman.Test -> C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahman.Tests.dll
+         Копирование файла из "obj\Release\Brahman.Tests.pdb" в "bin\Release\Brahman.Tests.pdb".
+    14>_CopyFilesMarkedCopyLocal:
+         Копирование файла из "C:\Brahma.FSharp\src\Brahman.Substrings\bin\Release\YC.PrettyPrinter.xml" в "bin\Release\YC.PrettyPrinter.xml".
+     2>Сборка проекта "C:\Brahma.FSharp\tests\Brahman.Tests\Brahman.Test.fsproj" завершена (целевые объекты Rebuild).
+    14>_CopyAppConfigFile:
+         Копирование файла из "app.config" в "bin\Release\Brahman.Runner.exe.config".
+       CopyFilesToOutputDirectory:
+         Копирование файла из "obj\Release\Brahman.Runner.exe" в "bin\Release\Brahman.Runner.exe".
+         Brahman.Runner -> C:\Brahma.FSharp\src\Brahman.Runner\bin\Release\Brahman.Runner.exe
+         Копирование файла из "obj\Release\Brahman.Runner.pdb" в "bin\Release\Brahman.Runner.pdb".
+    14>Сборка проекта "C:\Brahma.FSharp\src\Brahman.Runner\Brahman.Runner.fsproj" завершена (целевые объекты Rebuild).
+     1>Сборка проекта "C:\Brahma.FSharp\Brahma.FSharp.sln" завершена (целевые объекты Rebuild).
+
+Сборка успешно завершена.
+    Предупреждений: 0
+    Ошибок: 0
+
+Затраченное время: 00:00:11.38
+Finished Target: Build
+Starting Target: CopyBinaries (==> Build)
+Creating C:\Brahma.FSharp\bin\ArraySum
+Creating C:\Brahma.FSharp\bin\BlackScholes
+Creating C:\Brahma.FSharp\bin\Brahma
+Creating C:\Brahma.FSharp\bin\Brahma.Agents
+Creating C:\Brahma.FSharp\bin\Brahma.FSharp.OpenCL.AST
+Creating C:\Brahma.FSharp\bin\Brahma.FSharp.OpenCL.Core
+Creating C:\Brahma.FSharp\bin\Brahma.FSharp.OpenCL.Extensions
+Creating C:\Brahma.FSharp\bin\Brahma.FSharp.OpenCL.Printer
+Creating C:\Brahma.FSharp\bin\Brahma.FSharp.OpenCL.Translator
+Creating C:\Brahma.FSharp\bin\Brahma.Helpers
+Creating C:\Brahma.FSharp\bin\Brahma.OpenCL
+Creating C:\Brahma.FSharp\bin\Brahman.Runner
+Creating C:\Brahma.FSharp\bin\Brahman.Runner.CS
+Creating C:\Brahma.FSharp\bin\Brahman.Substrings
+Creating C:\Brahma.FSharp\bin\MatrixMultiply
+Finished Target: CopyBinaries
+Starting Target: RunTests (==> CopyBinaries)
+C:\Brahma.FSharp\packages\test\NUnit.Runners\tools\nunit-console.exe "-nologo" "-noshadow" "-labels" "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.FSharp.OpenCL.Tests.dll" "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahman.Tests.dll" "-xml:TestResults.xml" 
+C:\Brahma.FSharp\packages\test\NUnit.Runners\tools\nunit-console.exe "-nologo" "-noshadow" "-labels" "C:\Brahma.FSharp\tests\Brahma.FSharp.OpenCL.Tests\bin\Release\Brahma.FSharp.OpenCL.Tests.dll" "C:\Brahma.FSharp\tests\Brahman.Tests\bin\Release\Brahman.Tests.dll" "-xml:TestResults.xml" 
+ProcessModel: Default    DomainUsage: Multiple
+Execution Runtime: net-3.5
+Unhandled Exception:
+NUnit.Core.UnsupportedFrameworkException: Skipped loading assembly Brahma.FSharp.OpenCL.Tests because it references an unsupported version of the nunit.framework, 3.4.1.0
+
+Server stack trace: 
+   в NUnit.Core.Builders.TestAssemblyBuilder.GetCandidateFixtureTypes(Assembly assembly, String ns)
+   в NUnit.Core.Builders.TestAssemblyBuilder.GetFixtures(Assembly assembly, String ns)
+   в NUnit.Core.Builders.TestAssemblyBuilder.Build(String assemblyName, Boolean autoSuites)
+   в NUnit.Core.Builders.TestAssemblyBuilder.Build(String assemblyName, String testName, Boolean autoSuites)
+   в NUnit.Core.TestSuiteBuilder.BuildSingleAssembly(TestPackage package)
+   в NUnit.Core.TestSuiteBuilder.Build(TestPackage package)
+   в NUnit.Core.SimpleTestRunner.Load(TestPackage package)
+   в NUnit.Core.ProxyTestRunner.Load(TestPackage package)
+   в NUnit.Core.ProxyTestRunner.Load(TestPackage package)
+   в NUnit.Core.RemoteTestRunner.Load(TestPackage package)
+   в System.Runtime.Remoting.Messaging.StackBuilderSink._PrivateProcessMessage(IntPtr md, Object[] args, Object server, Object[]& outArgs)
+   в System.Runtime.Remoting.Messaging.StackBuilderSink.SyncProcessMessage(IMessage msg)
+
+Exception rethrown at [0]: 
+   в System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   в System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   в NUnit.Core.TestRunner.Load(TestPackage package)
+   в NUnit.Util.TestDomain.Load(TestPackage package)
+   в NUnit.Util.AggregatingTestRunner.Load(TestPackage package)
+   в NUnit.Core.ProxyTestRunner.Load(TestPackage package)
+   в NUnit.Util.RemoteTestAgent.AgentRunner.Load(TestPackage package)
+   в System.Runtime.Remoting.Messaging.StackBuilderSink._PrivateProcessMessage(IntPtr md, Object[] args, Object server, Object[]& outArgs)
+   в System.Runtime.Remoting.Messaging.StackBuilderSink.SyncProcessMessage(IMessage msg)
+
+Exception rethrown at [1]: 
+   в System.Runtime.Remoting.Proxies.RealProxy.HandleReturnMessage(IMessage reqMsg, IMessage retMsg)
+   в System.Runtime.Remoting.Proxies.RealProxy.PrivateInvoke(MessageData& msgData, Int32 type)
+   в NUnit.Core.TestRunner.Load(TestPackage package)
+   в NUnit.Core.ProxyTestRunner.Load(TestPackage package)
+   в NUnit.Util.ProcessRunner.Load(TestPackage package)
+   в NUnit.ConsoleRunner.ConsoleUi.Execute(ConsoleOptions options)
+   в NUnit.ConsoleRunner.Runner.Main(String[] args)
+
+---------------------------------------------------------------------
+Build Time Report
+---------------------------------------------------------------------
+Target         Duration
+------         --------
+Clean          00:00:00.3432162
+AssemblyInfo   00:00:00.0981394
+Build          00:00:11.7006222
+CopyBinaries   00:00:02.3506822
+Total:         00:00:16.0697165
+---------------------------------------------------------------------
+---------------------------------------------------------------------

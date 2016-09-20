@@ -8,6 +8,7 @@ NUGET
       FSharp.Core
     NuGet.CommandLine (3.4.3)
     NUnit (3.4.1)
+    nunit.framework (2.63)
     OpenCL.Net (2.2.9)
     YC.PrettyPrinter (0.0.5)
       FSharp.Core

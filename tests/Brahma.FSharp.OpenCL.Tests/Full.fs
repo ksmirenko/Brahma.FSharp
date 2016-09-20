@@ -46,7 +46,7 @@ type Translator() =
             commandQueue.Dispose()
             Assert.AreEqual(expected, r)
             provider.CloseAllBuffers()
-        kernelPrepareF,check
+        kernelPrepareF, check
 
     let returnResult command =
         let kernel, kernelPrepareF, kernelRunF = provider.Compile command    
@@ -56,63 +56,12 @@ type Translator() =
             let cq2 = commandQueue.Add(outArray.ToHost provider).Finish()
             commandQueue.Dispose()
             provider.CloseAllBuffers()
-        kernelPrepareF,check
+            outArray
+        kernelPrepareF, getresult
     
     let mtrxToArr (mtrx : 't [][]) = 
         Array.concat (Array.toSeq(mtrx))
-    
-    [<Test>]
-    member this.``MatrixSum``() = 
-        let command = 
-            <@ 
-                fun (range : _1D) (mtrx1 : array<_>) (mtrx2 : array<_>) (res : array<_>) ->                    
-                    let i = range.GlobalID0
-                    res.[i] <- mtrx1.[i] + mtrx2.[i]
-            @>
-        let run, check = checkResult command
-        let mtrx1 = [|[|2;3;4|];[|5;7;8|];[|2;6;9|];[|6;7;8|]|]
-        let mtrx2 = [|[|1;3;4|];[|5;6;8|];[|2;3;9|];[|0;7;8|]|]
-        let rows = mtrx1.Length
-        let cols = mtrx1.[0].Length
-        let range = new _1D(rows * cols, 1)
-        let res = Array.zeroCreate (rows * cols)
-        run range (mtrxToArr mtrx1) (mtrxToArr mtrx2) res
-        check res (mtrxToArr [|[|3;6;8|];[|10;13;16|];[|4;9;18|];[|6;14;16|]|])
-              
-    [<Test>]  
-    member this.``MatrixElemSum``() = 
-        let command = 
-            <@
-                fun (range: _1D) (mtrx : array<_>) (res : array<_>) ->
-                let i = range.GlobalID0
-                res.[0] <!+  mtrx.[i]
-            @>
-        let run, check = checkResult command
-        let mtrx = [|[|2;3;4|];[|5;7;8|];[|2;6;9|];[|6;7;8|]|]
-        let rows = mtrx.Length
-        let cols = mtrx.[0].Length
-        let range = new _1D(rows * cols, 1)
-        let res = Array.zeroCreate 1
-        run range (mtrxToArr mtrx) res
-        check res [|67|]
 
-    [<Test>]
-    member this.``Array item set``() = 
-        let command = 
-            <@ 
-                fun (range:_1D) (buf:array<int>) -> 
-                    buf.[0] <- 1
-            @>
-
-        let run,check = checkResult command
-        run _1d intInArr        
-        check intInArr [|1;1;2;3|]
-
-    [<Test>]
-    member this.``Array item set. Long``() = 
-            outArray
-        kernelPrepareF, getresult
-          
     let matrixToArray (m: array<array<_>>) = 
         let lines = m.Length
         let cols = m.[0].Length 
@@ -183,7 +132,42 @@ type Translator() =
         let d = new _1D(m.Length * m.[0].Length, 1)
         run d (Array.concat m) buf
         get buf
-
+    
+    [<Test>]
+    member this.``MtrxSum``() = 
+        let command = 
+            <@ 
+                fun (range : _1D) (mtrx1 : array<_>) (mtrx2 : array<_>) (res : array<_>) ->                    
+                    let i = range.GlobalID0
+                    res.[i] <- mtrx1.[i] + mtrx2.[i]
+            @>
+        let run, check = checkResult command
+        let mtrx1 = [|[|2;3;4|];[|5;7;8|];[|2;6;9|];[|6;7;8|]|]
+        let mtrx2 = [|[|1;3;4|];[|5;6;8|];[|2;3;9|];[|0;7;8|]|]
+        let rows = mtrx1.Length
+        let cols = mtrx1.[0].Length
+        let range = new _1D(rows * cols, 1)
+        let res = Array.zeroCreate (rows * cols)
+        run range (mtrxToArr mtrx1) (mtrxToArr mtrx2) res
+        check res (mtrxToArr [|[|3;6;8|];[|10;13;16|];[|4;9;18|];[|6;14;16|]|])
+              
+    [<Test>]  
+    member this.``MtrxElemSum``() = 
+        let command = 
+            <@
+                fun (range: _1D) (mtrx : array<_>) (res : array<_>) ->
+                let i = range.GlobalID0
+                res.[0] <!+  mtrx.[i]
+            @>
+        let run, check = checkResult command
+        let mtrx = [|[|2;3;4|];[|5;7;8|];[|2;6;9|];[|6;7;8|]|]
+        let rows = mtrx.Length
+        let cols = mtrx.[0].Length
+        let range = new _1D(rows * cols, 1)
+        let res = Array.zeroCreate 1
+        run range (mtrxToArr mtrx) res
+        check res [|67|]
+          
     [<Test>]
     member this.``Array item set``() = 
         let command = 
