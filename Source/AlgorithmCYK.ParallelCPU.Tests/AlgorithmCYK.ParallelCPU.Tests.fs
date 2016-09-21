@@ -1,4 +1,5 @@
 ﻿module AlgorithmCYK.ParallelCPU.Tests
+
 open AlgorithmCYK
 open AlgorithmCYK.ParallelCPU
 open NUnit.Framework

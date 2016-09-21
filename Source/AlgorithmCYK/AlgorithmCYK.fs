@@ -1,5 +1,4 @@
 ﻿module AlgorithmCYK
-open System
 
 let unzip arr = Array.unzip(arr)
 let findIndex arr elem = Array.findIndex ((=) elem) arr

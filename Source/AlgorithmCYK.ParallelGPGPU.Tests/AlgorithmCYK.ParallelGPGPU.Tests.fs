@@ -1,12 +1,5 @@
 ﻿module AlgorithmCYK.ParallelGPGPU.Tests
 
-open Brahma
-open Brahma.Helpers
-open Brahma.OpenCL
-open Brahma.FSharp.OpenCL.Core
-open Brahma.FSharp.OpenCL.Extensions
-open Brahma.FSharp.OpenCL.Translator
-open Microsoft.FSharp.Quotations
 open AlgorithmCYK
 open AlgorithmCYK.ParallelGPGPU
 open NUnit.Framework

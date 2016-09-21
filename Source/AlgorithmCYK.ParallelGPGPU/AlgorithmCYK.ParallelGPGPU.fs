@@ -1,8 +1,8 @@
 ﻿module AlgorithmCYK.ParallelGPGPU
 
-//open Brahma
 open Brahma.OpenCL
 open OpenCL.Net
+open Brahma.FSharp.OpenCL.Translator
 open Brahma.FSharp.OpenCL.Core
 open Brahma.FSharp.OpenCL.Extensions
 open Microsoft.FSharp.Quotations
@@ -109,3 +109,7 @@ let CYKParallelGPGPU (rules : array<string*string>) str start =
         let matrix =  [|for i in 0..n - 1 -> [|for j in 0..n - 1 -> Array.zeroCreate nonterm.Length|]|]
         let matrCYK = matrixCYKParallelGPGPU begtRules endtRules begnRules endnRulesL endnRulesR strArr n matrix
         conclCYK matrCYK nonterm start
+
+//let (rl1, start1) = ([|("S","AB"); ("S","BC"); ("A","BA"); ("B","CC"); ("C","AB"); ("B","b"); ("A","a"); ("C","a")|], "S")
+//let res = CYKParallelGPGPU rl1 "baaba" start1
+//printfn "%b" res
