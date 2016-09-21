@@ -1,12 +1,10 @@
 ﻿module AlgorithmCYK.ParallelGPGPU
 
-open Brahma
-open Brahma.Helpers
-open OpenCL.Net
+//open Brahma
 open Brahma.OpenCL
+open OpenCL.Net
 open Brahma.FSharp.OpenCL.Core
 open Brahma.FSharp.OpenCL.Extensions
-open Brahma.FSharp.OpenCL.Translator
 open Microsoft.FSharp.Quotations
 open AlgorithmCYK
 
@@ -32,10 +30,10 @@ let provAndQueue() =
         try  ComputeProvider.Create(platformName, deviceType)
         with 
         | ex -> failwith ex.Message
-    let commandQueue = new CommandQueue(provider, provider.Devices |> Seq.head)
+    let commandQueue = new Brahma.OpenCL.CommandQueue(provider, provider.Devices |> Seq.head)
     provider, commandQueue
 
-let result (mtrxel : array<_>) rows cols (provider: ComputeProvider) (commandQueue: CommandQueue) = 
+let result (mtrxel : array<_>) rows cols (provider: ComputeProvider) (commandQueue: Brahma.OpenCL.CommandQueue) = 
     let _ = commandQueue.Add(mtrxel.ToHost provider).Finish()
     commandQueue.Dispose()
     provider.Dispose()

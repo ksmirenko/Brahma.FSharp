@@ -9,7 +9,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>AlgorithmCYK.Tests</RootNamespace>
     <AssemblyName>AlgorithmCYK.Tests</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFSharpCoreVersion>4.3.0.0</TargetFSharpCoreVersion>
     <Name>AlgorithmCYK.Tests</Name>
     <TargetFrameworkProfile />
@@ -51,7 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AlgorithmCYK\AlgorithmCYK.fsproj">
-      <Name>AlgorithmCYK (AlgorithmCYK\AlgorithmCYK)</Name>
+      <Name>AlgorithmCYK</Name>
       <Project>{f7efcd46-ba39-4dbf-a1ee-d274b08cb995}</Project>
       <Private>True</Private>
     </ProjectReference>

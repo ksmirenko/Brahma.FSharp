@@ -2,7 +2,6 @@ source https://nuget.org/api/v2
 
 nuget Argu
 nuget FSharp.Charting
-nuget FSharp.Core
 nuget FSharp.Quotations.Evaluator
 nuget FSharpx.Collections
 nuget NuGet.CommandLine

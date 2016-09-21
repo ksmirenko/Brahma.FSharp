@@ -1372,7 +1372,7 @@ type Translator() =
         let m6 = [|[|4; 3|]; [|2; 1|]|]
         let pairsArr = [|(m1, m2); (m3, m4); (m5, m6)|]
         let res = Array.map(fun (x, y) -> matrSum x y) pairsArr
-        Assert.AreEqual (res, Array.concat [|[|[|10; 10; 10|]; [|10; 10; 10|]; [|10; 10; 10|]|]; [|[|20; 20; 20|]; [|20; 20; 20|]; [|20; 20; 20|]|]; [|[|5; 5|]; [|5; 5|]|]|])
+        Assert.AreEqual (res, [|[|10; 10; 10; 10; 10; 10; 10; 10; 10|]; [|20; 20; 20; 20; 20; 20; 20; 20; 20|]; [|5; 5; 5; 5|]|])
 
 
     [<Test>]
@@ -1387,7 +1387,7 @@ type Translator() =
         let m3 = [|[|1; 2|]; [|3; 4|]|]
         let arrArr = [|m1; m2; m3|]
         let res = Array.map(fun x -> elemSum x) arrArr
-        Assert.AreEqual (res, [|45; 90; 10|])
+        Assert.AreEqual (res, [|[|45|]; [|90|]; [|10|]|])
 
     [<Test>]
     member this.``matrixSum``() =
