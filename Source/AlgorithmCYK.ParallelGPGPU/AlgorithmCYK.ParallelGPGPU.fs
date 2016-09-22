@@ -110,6 +110,6 @@ let CYKParallelGPGPU (rules : array<string*string>) str start =
         let matrCYK = matrixCYKParallelGPGPU begtRules endtRules begnRules endnRulesL endnRulesR strArr n matrix
         conclCYK matrCYK nonterm start
 
-//let (rl1, start1) = ([|("S","AB"); ("S","BC"); ("A","BA"); ("B","CC"); ("C","AB"); ("B","b"); ("A","a"); ("C","a")|], "S")
-//let res = CYKParallelGPGPU rl1 "baaba" start1
-//printfn "%b" res
+let (rl1, start1) = ([|("S","AB"); ("S","BC"); ("A","BA"); ("B","CC"); ("C","AB"); ("B","b"); ("A","a"); ("C","a")|], "S")
+let res = CYKParallelGPGPU rl1 "baaba" start1
+printfn "%b" res
