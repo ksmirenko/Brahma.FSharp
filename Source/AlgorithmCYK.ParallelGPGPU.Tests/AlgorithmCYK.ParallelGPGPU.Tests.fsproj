@@ -10,7 +10,6 @@
     <RootNamespace>AlgorithmCYK.ParallelGPGPU.Tests</RootNamespace>
     <AssemblyName>AlgorithmCYK.ParallelGPGPU.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
-    <TargetFSharpCoreVersion>4.3.0.0</TargetFSharpCoreVersion>
     <Name>AlgorithmCYK.ParallelGPGPU.Tests</Name>
     <TargetFrameworkProfile />
   </PropertyGroup>
@@ -35,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
-    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <Reference Include="FSharp.Core, Version=4.3.0.0">
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
