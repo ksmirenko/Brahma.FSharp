@@ -40,7 +40,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AlgorithmCYK.ParallelCPU.Tests.fs" />
-    <None Include="Script.fsx" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\AlgorithmCYK.ParallelCPU\AlgorithmCYK.ParallelCPU.fsproj">

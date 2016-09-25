@@ -10,7 +10,7 @@ open AlgorithmCYK
 
 let rows (arr : array<_>) = arr.Length
 let cols (arr : array<array<_>>) = arr.[0].Length
-let toArr arr = Array.concat(Array.toSeq(arr))
+let toArr arr = Array.concat(arr)
 let toMtrx (arr : array<_>) rows cols = Array.init rows (fun i -> Array.init cols (fun j -> arr.[cols * i + j]))
 let arrSum (arr1 : array<int>) (arr2 : array<int>) = 
     for i = 0 to arr1.Length - 1 do
@@ -56,7 +56,7 @@ let rulesCheckParal (begtRules : array<int>) (endtRules : array<int>) (mtrxel : 
     let length = str.Length 
     let localWorkSize = length
     let kernel, kernelPrepare, kernelRun = provider.Compile command
-    let d =(new _1D(length, localWorkSize))
+    let d = new _1D(length, localWorkSize)
     let newMtrxel = toArr mtrxel
     let toMtrxel = Array.zeroCreate newMtrxel.Length
     kernelPrepare d newMtrxel str endtRules.Length endtRules begtRules rows cols toMtrxel
@@ -71,21 +71,23 @@ let compCheckParal (begnRules : array<int>) (endnRulesL : array<int>) (endnRules
         <@
             fun (rng : _1D) (begnR : array<_>) (endnRL : array<_>) (endnRR : array<_>) (mtrxel1 : array<_>) (mtrxel2 : array<_>) (mtrxel3 : array<_>) lenEl lenR a b cols (toArr : array<_>) ->
                 let r = rng.GlobalID0
+                let mtrx1Shift = r * cols
+                let mtrx2Shift = (r + b + 1) * cols
                 for i = 0 to lenEl - 1 do
-                    if mtrxel1.[r * cols + i] = 1
+                    if mtrxel1.[mtrx1Shift + i] = 1
                     then 
                         for j = 0 to lenEl - 1 do
-                            if mtrxel2.[(r + b + 1) * cols + j] = 1
+                            if mtrxel2.[mtrx2Shift + j] = 1
                             then
                                 for k = 0 to lenR - 1 do
                                     if (i = endnRL.[k]) && (j = endnRR.[k])
-                                    then toArr.[r * cols + begnR.[k]] <- 1     
+                                    then toArr.[mtrx1Shift + begnR.[k]] <- 1     
         @>
     let newMtrxel = toArr mtrxel3
     let length = newMtrxel.Length 
     let localWorkSize = length
     let kernel, kernelPrepare, kernelRun = provider.Compile command
-    let d =(new _1D(length, localWorkSize))
+    let d = new _1D(length, localWorkSize)
     let toMtrxel = Array.zeroCreate length
     kernelPrepare d begnRules endnRulesL endnRulesR mtrxel1 mtrxel2 newMtrxel length begnRules.Length a b cols toMtrxel
     let _ = commandQueue.Add(kernelRun())
@@ -109,7 +111,3 @@ let CYKParallelGPGPU (rules : array<string*string>) str start =
         let matrix =  [|for i in 0..n - 1 -> [|for j in 0..n - 1 -> Array.zeroCreate nonterm.Length|]|]
         let matrCYK = matrixCYKParallelGPGPU begtRules endtRules begnRules endnRulesL endnRulesR strArr n matrix
         conclCYK matrCYK nonterm start
-
-let (rl1, start1) = ([|("S","AB"); ("S","BC"); ("A","BA"); ("B","CC"); ("C","AB"); ("B","b"); ("A","a"); ("C","a")|], "S")
-let res = CYKParallelGPGPU rl1 "baaba" start1
-printfn "%b" res
