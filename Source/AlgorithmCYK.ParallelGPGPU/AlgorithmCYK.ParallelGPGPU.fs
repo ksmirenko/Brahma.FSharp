@@ -56,7 +56,7 @@ let rulesCheckParal (begtRules : array<int>) (endtRules : array<int>) (mtrxel : 
     let length = str.Length 
     let localWorkSize = length
     let kernel, kernelPrepare, kernelRun = provider.Compile command
-    let d = new _1D(length, localWorkSize)
+    let d = new _1D(length, 1)
     let newMtrxel = toArr mtrxel
     let toMtrxel = Array.zeroCreate newMtrxel.Length
     kernelPrepare d newMtrxel str endtRules.Length endtRules begtRules rows cols toMtrxel
@@ -87,7 +87,7 @@ let compCheckParal (begnRules : array<int>) (endnRulesL : array<int>) (endnRules
     let length = newMtrxel.Length 
     let localWorkSize = length
     let kernel, kernelPrepare, kernelRun = provider.Compile command
-    let d = new _1D(length, localWorkSize)
+    let d = new _1D(length, 1)
     let toMtrxel = Array.zeroCreate length
     kernelPrepare d begnRules endnRulesL endnRulesR mtrxel1 mtrxel2 newMtrxel length begnRules.Length a b cols toMtrxel
     let _ = commandQueue.Add(kernelRun())

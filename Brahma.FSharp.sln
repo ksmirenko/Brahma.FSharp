@@ -89,6 +89,8 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "AlgorithmCYK.UserPart", "So
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "AlgorithmCYK.ParallelGPGPU.Tests", "Source\AlgorithmCYK.ParallelGPGPU.Tests\AlgorithmCYK.ParallelGPGPU.Tests.fsproj", "{64C06D36-7D38-410B-BD8F-F88DFA71F5F4}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "AlgorithmCYK.TimeTests", "Source\AlgorithmCYK.TimeTests\AlgorithmCYK.TimeTests.fsproj", "{28D22A7A-E081-4F38-9230-E07C7F179D90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -359,6 +361,14 @@ Global
 		{64C06D36-7D38-410B-BD8F-F88DFA71F5F4}.Release|Any CPU.Build.0 = Release|Any CPU
 		{64C06D36-7D38-410B-BD8F-F88DFA71F5F4}.Release|x64.ActiveCfg = Release|Any CPU
 		{64C06D36-7D38-410B-BD8F-F88DFA71F5F4}.Release|x86.ActiveCfg = Release|Any CPU
+		{28D22A7A-E081-4F38-9230-E07C7F179D90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28D22A7A-E081-4F38-9230-E07C7F179D90}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28D22A7A-E081-4F38-9230-E07C7F179D90}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{28D22A7A-E081-4F38-9230-E07C7F179D90}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{28D22A7A-E081-4F38-9230-E07C7F179D90}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28D22A7A-E081-4F38-9230-E07C7F179D90}.Release|Any CPU.Build.0 = Release|Any CPU
+		{28D22A7A-E081-4F38-9230-E07C7F179D90}.Release|x64.ActiveCfg = Release|Any CPU
+		{28D22A7A-E081-4F38-9230-E07C7F179D90}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -390,5 +400,6 @@ Global
 		{644B1F24-6C8C-4BE7-8EB5-4AB229DF9FD8} = {350468B9-10E0-48F3-B85C-052673E7CF30}
 		{B1415FFE-83EC-4239-8467-772CC3A7E440} = {350468B9-10E0-48F3-B85C-052673E7CF30}
 		{64C06D36-7D38-410B-BD8F-F88DFA71F5F4} = {350468B9-10E0-48F3-B85C-052673E7CF30}
+		{28D22A7A-E081-4F38-9230-E07C7F179D90} = {350468B9-10E0-48F3-B85C-052673E7CF30}
 	EndGlobalSection
 EndGlobal
