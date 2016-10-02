@@ -5,13 +5,13 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>64c06d36-7d38-410b-bd8f-f88dfa71f5f4</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>AlgorithmCYK.ParallelGPGPU.Tests</RootNamespace>
-    <AssemblyName>AlgorithmCYK.ParallelGPGPU.Tests</AssemblyName>
+    <ProjectGuid>28d22a7a-e081-4f38-9230-e07c7f179d90</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>AlgorithmCYK.TimeTests</RootNamespace>
+    <AssemblyName>AlgorithmCYK.TimeTests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Name>AlgorithmCYK.ParallelGPGPU.Tests</Name>
+    <Name>AlgorithmCYK.TimeTests</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DocumentationFile>bin\Debug\AlgorithmCYK.ParallelGPGPU.Tests.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\AlgorithmCYK.TimeTests.XML</DocumentationFile>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -33,9 +33,39 @@
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DocumentationFile>bin\Release\AlgorithmCYK.ParallelGPGPU.Tests.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\AlgorithmCYK.TimeTests.XML</DocumentationFile>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Forms.DataVisualization" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AlgorithmCYK.TimeTests.fs" />
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AlgorithmCYK.ParallelCPU\AlgorithmCYK.ParallelCPU.fsproj">
+      <Name>AlgorithmCYK.ParallelCPU</Name>
+      <Project>{ce4579d8-d2e0-43ac-b34f-690e2be84a18}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\AlgorithmCYK.ParallelGPGPU\AlgorithmCYK.ParallelGPGPU.fsproj">
+      <Name>AlgorithmCYK.ParallelGPGPU</Name>
+      <Project>{1d11e15c-415e-4591-a1cb-e8334211e95b}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\AlgorithmCYK\AlgorithmCYK.fsproj">
+      <Name>AlgorithmCYK</Name>
+      <Project>{f7efcd46-ba39-4dbf-a1ee-d274b08cb995}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
   </PropertyGroup>
@@ -59,21 +89,17 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Compile Include="AlgorithmCYK.ParallelGPGPU.Tests.fs" />
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="mscorlib" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Numerics" />
-    <ProjectReference Include="..\AlgorithmCYK.ParallelGPGPU\AlgorithmCYK.ParallelGPGPU.fsproj">
-      <Name>AlgorithmCYK.ParallelGPGPU</Name>
-      <Project>{1d11e15c-415e-4591-a1cb-e8334211e95b}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-  </ItemGroup>
+  <Choose>
+    <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v4.0' Or $(TargetFrameworkVersion) == 'v4.5' Or $(TargetFrameworkVersion) == 'v4.5.1' Or $(TargetFrameworkVersion) == 'v4.5.2' Or $(TargetFrameworkVersion) == 'v4.5.3' Or $(TargetFrameworkVersion) == 'v4.6' Or $(TargetFrameworkVersion) == 'v4.6.1' Or $(TargetFrameworkVersion) == 'v4.6.2' Or $(TargetFrameworkVersion) == 'v4.6.3')">
+      <ItemGroup>
+        <Reference Include="FSharp.Charting">
+          <HintPath>..\..\packages\FSharp.Charting\lib\net40\FSharp.Charting.dll</HintPath>
+          <Private>True</Private>
+          <Paket>True</Paket>
+        </Reference>
+      </ItemGroup>
+    </When>
+  </Choose>
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v2.0' Or $(TargetFrameworkVersion) == 'v3.0' Or $(TargetFrameworkVersion) == 'v3.5')">
       <ItemGroup>
@@ -139,11 +165,4 @@
       </ItemGroup>
     </When>
   </Choose>
-  <ItemGroup>
-    <Reference Include="nunit.framework">
-      <HintPath>..\..\packages\NUnit\lib\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-      <Paket>True</Paket>
-    </Reference>
-  </ItemGroup>
 </Project>

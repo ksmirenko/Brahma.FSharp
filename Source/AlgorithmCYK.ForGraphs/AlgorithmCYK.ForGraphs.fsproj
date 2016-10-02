@@ -5,13 +5,13 @@
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>64c06d36-7d38-410b-bd8f-f88dfa71f5f4</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>AlgorithmCYK.ParallelGPGPU.Tests</RootNamespace>
-    <AssemblyName>AlgorithmCYK.ParallelGPGPU.Tests</AssemblyName>
+    <ProjectGuid>919d3a66-43ab-4300-8228-8a62e8a68a18</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>AlgorithmCYK.ForGraphs</RootNamespace>
+    <AssemblyName>AlgorithmCYK.ForGraphs</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Name>AlgorithmCYK.ParallelGPGPU.Tests</Name>
+    <Name>AlgorithmCYK.ForGraphs</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,7 +22,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DocumentationFile>bin\Debug\AlgorithmCYK.ParallelGPGPU.Tests.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\AlgorithmCYK.ForGraphs.XML</DocumentationFile>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
@@ -33,9 +33,26 @@
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
     <PlatformTarget>AnyCPU</PlatformTarget>
-    <DocumentationFile>bin\Release\AlgorithmCYK.ParallelGPGPU.Tests.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\AlgorithmCYK.ForGraphs.XML</DocumentationFile>
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="AlgorithmCYK.ForGraphs.fs" />
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AlgorithmCYK\AlgorithmCYK.fsproj">
+      <Name>AlgorithmCYK</Name>
+      <Project>{f7efcd46-ba39-4dbf-a1ee-d274b08cb995}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
   </PropertyGroup>
@@ -59,21 +76,6 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Compile Include="AlgorithmCYK.ParallelGPGPU.Tests.fs" />
-    <None Include="App.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Reference Include="mscorlib" />
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Numerics" />
-    <ProjectReference Include="..\AlgorithmCYK.ParallelGPGPU\AlgorithmCYK.ParallelGPGPU.fsproj">
-      <Name>AlgorithmCYK.ParallelGPGPU</Name>
-      <Project>{1d11e15c-415e-4591-a1cb-e8334211e95b}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-  </ItemGroup>
   <Choose>
     <When Condition="$(TargetFrameworkIdentifier) == '.NETFramework' And ($(TargetFrameworkVersion) == 'v2.0' Or $(TargetFrameworkVersion) == 'v3.0' Or $(TargetFrameworkVersion) == 'v3.5')">
       <ItemGroup>
@@ -139,11 +141,4 @@
       </ItemGroup>
     </When>
   </Choose>
-  <ItemGroup>
-    <Reference Include="nunit.framework">
-      <HintPath>..\..\packages\NUnit\lib\nunit.framework.dll</HintPath>
-      <Private>True</Private>
-      <Paket>True</Paket>
-    </Reference>
-  </ItemGroup>
 </Project>
