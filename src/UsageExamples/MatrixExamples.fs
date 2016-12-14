@@ -130,3 +130,4 @@ let TriMat (mat: array<float>) rows columns =
     provider.CloseAllBuffers()
 
     a
+

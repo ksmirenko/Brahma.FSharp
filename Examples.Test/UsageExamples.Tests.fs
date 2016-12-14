@@ -24,16 +24,16 @@ type ``Usage Examples`` () =
     let random = new System.Random()   
      
     let GenerateMatrixInt64 rows cols range =
-            Array.init (rows * cols) (fun i -> int64 (random.NextDouble() * range))
+            Array.init (rows * cols) (fun i -> int64(random.NextDouble() * range))
 
     let GenerateMatrixFP rows cols range =
-        Array.init (rows * cols) (fun i -> float (random.NextDouble() * range))
+        Array.init (rows * cols) (fun i -> float(random.NextDouble() * range))
 
     let GenerateArrayFP length range =
-        Array.init (length) (fun i -> float (random.NextDouble() * range))
+        Array.init (length) (fun i -> float(random.NextDouble() * range))
 
     let GenerateArrayInt length range =
-        Array.init (length) (fun i -> int (random.NextDouble() * range))
+        Array.init (length) (fun i -> int(random.NextDouble() * range))
     
 // Testing functions
     let Add (a:array<_>) (b:array<_>)  row column =

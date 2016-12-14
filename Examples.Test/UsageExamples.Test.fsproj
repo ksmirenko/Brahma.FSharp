@@ -98,7 +98,7 @@
       <Project>{0e731438-dd9e-4444-950d-ef2de31d3e97}</Project>
       <Private>True</Private>
     </ProjectReference>
-    <ProjectReference Include="..\src\UsageExampleMatrix\UsageExamples.fsproj">
+    <ProjectReference Include="..\src\UsageExamples\UsageExamples.fsproj">
       <Name>UsageExamples</Name>
       <Project>{b1f53c50-d020-4b47-b9b4-52a42ec66e18}</Project>
       <Private>True</Private>
