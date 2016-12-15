@@ -30,7 +30,7 @@ type ``Usage Examples`` () =
         Array.init (rows * cols) (fun i -> float(random.NextDouble() * range))
 
     let GenerateArrayFP length range =
-        Array.init (length) (fun i -> float(random.NextDouble() * range))
+        Array.init (length) (fun i -> float(random.NextDouble() * range) - (range / 2.0))
 
     let GenerateArrayInt length range =
         Array.init (length) (fun i -> int(random.NextDouble() * range))
@@ -102,11 +102,55 @@ type ``Usage Examples`` () =
         Assert.AreEqual (res, control)
 
     [<Test>]
+    member this.``Addition 2`` ()=
+        let r = 400
+        let c = 400
+        let b = 60.0
+        let m1 = GenerateMatrixFP r c b
+        let m2 = GenerateMatrixFP r c b
+        let control = Add m1 m2 r c
+        let res = Addition m1 m2 r c
+        Assert.AreEqual (res, control)
+
+    [<Test>]
+    member this.``Addition 3`` ()=
+        let r = 200
+        let c = 2
+        let b = 6.0
+        let m1 = GenerateMatrixFP r c b
+        let m2 = GenerateMatrixFP r c b
+        let control = Add m1 m2 r c
+        let res = Addition m1 m2 r c
+        Assert.AreEqual (res, control)
+
+    [<Test>]
     member this.``Constant And Matrix Multiply``()=
         let rows = 1000
         let columns = 300
         let range = 50.0
         let constant = int64(3)
+        let m1 = GenerateMatrixInt64 rows columns range
+        let control = Multiply m1 constant rows columns
+        let res = ConstantAndMatrixMultiply m1 constant rows columns
+        Assert.AreEqual (control, res)
+
+    [<Test>]
+    member this.``Constant And Matrix Multiply 2``()=
+        let rows = 300
+        let columns = 300
+        let range = 40.0
+        let constant = int64(9)
+        let m1 = GenerateMatrixInt64 rows columns range
+        let control = Multiply m1 constant rows columns
+        let res = ConstantAndMatrixMultiply m1 constant rows columns
+        Assert.AreEqual (control, res)
+
+    [<Test>]
+    member this.``Constant And Matrix Multiply 3``()=
+        let rows = 4
+        let columns = 8
+        let range = 5.0
+        let constant = int64(0)
         let m1 = GenerateMatrixInt64 rows columns range
         let control = Multiply m1 constant rows columns
         let res = ConstantAndMatrixMultiply m1 constant rows columns
@@ -124,10 +168,50 @@ type ``Usage Examples`` () =
                 control.[i * r + j] <- Math.Round(control.[i * r + j], 10)
                 res.[i * r + j] <- Math.Round(control.[i * r + j], 10)
         Assert.AreEqual (control, res)
+
+    [<Test>]
+    member this.``Triangular Matrix 2``()=
+        let r = 10
+        let b = 10.0
+        let m1 = GenerateMatrixFP r r b
+        let control = TriangularMatrix m1 r
+        let res = TriMat m1 r r
+        for i in 0 .. r - 1 do
+            for j in 0 .. r - 1 do
+                control.[i * r + j] <- Math.Round(control.[i * r + j], 10)
+                res.[i * r + j] <- Math.Round(control.[i * r + j], 10)
+        Assert.AreEqual (control, res)
+
+    [<Test>]
+    member this.``Triangular Matrix 3``()=
+        let r = 12
+        let b = 10.0
+        let m1 = GenerateMatrixFP r r b
+        let control = TriangularMatrix m1 r
+        let res = TriMat m1 r r
+        for i in 0 .. r - 1 do
+            for j in 0 .. r - 1 do
+                control.[i * r + j] <- Math.Round(control.[i * r + j], 10)
+                res.[i * r + j] <- Math.Round(control.[i * r + j], 10)
+        Assert.AreEqual (control, res)
     
     [<Test>]
-    member this.``Fibonacci row`` ()=
+    member this.``Fibonacci row 80`` ()=
         let l = 80
+        let res = Fib l
+        let control = Fibonacci l
+        Assert.AreEqual (control, res)
+
+    [<Test>]
+    member this.``Fibonacci row 10`` ()=
+        let l = 40
+        let res = Fib l
+        let control = Fibonacci l
+        Assert.AreEqual (control, res)
+
+    [<Test>]
+    member this.``Fibonacci row 6`` ()=
+        let l = 20
         let res = Fib l
         let control = Fibonacci l
         Assert.AreEqual (control, res)

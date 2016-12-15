@@ -53,6 +53,7 @@
     <Compile Include="UsageExamples.Tests.fs" />
     <None Include="paket.references" />
     <Content Include="app.config" />
+    <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
@@ -60,7 +61,8 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit\lib\nunit.framework.dll</HintPath>
+      <HintPath>..\packages\NUnit.3.5.0\lib\net45\nunit.framework.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="OpenCL.Net">
       <HintPath>..\packages\OpenCL.Net\lib\net40\OpenCL.Net.dll</HintPath>

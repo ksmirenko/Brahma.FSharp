@@ -47,6 +47,9 @@ let Nulify (arr: array<_>) length firstElement lastElement =
     let platformName = "NVIDIA*"
     let deviceType = DeviceType.Default
     
+    if firstElement >= lastElement
+    then failwith "Invalid indexes"
+
     let provider =
         try  ComputeProvider.Create(platformName, deviceType)
         with 
@@ -79,6 +82,9 @@ let Reflect (arr: array<_>) length =
     let localWorkSize = 20
     let platformName = "NVIDIA*"
     let deviceType = DeviceType.Default
+    
+    if length <= 1 
+    then failwith "Invalid length"
     
     let provider =
         try  ComputeProvider.Create(platformName, deviceType)

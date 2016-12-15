@@ -36,9 +36,10 @@ let working l =
     
     let workerEven = new Worker<int, int>(even)
     let workerOdd = new Worker<int, int>(odd)
-    for i  in 0 .. l / 2 - 1 do 
+    for i in 0 .. l / 2 - 1 do 
         workerEven.Process (i, computeArr1)
         workerOdd.Process (i, computeArr2)
     workerEven.Die()
+    workerOdd.Die()
     arr
 
