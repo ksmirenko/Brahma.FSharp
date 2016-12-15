@@ -56,8 +56,8 @@
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
     <Compile Include="MarshallingIssue.Tests.fs" />
-    <None Include="app.config" />
     <None Include="paket.references" />
+    <Content Include="app.config" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MarshallingIssue.Code\MarshallingIssue.Core.fsproj">
