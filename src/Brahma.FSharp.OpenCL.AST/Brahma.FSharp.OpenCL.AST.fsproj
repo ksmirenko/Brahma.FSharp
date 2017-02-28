@@ -58,7 +58,9 @@
   <ItemGroup>
     <Compile Include="Common.fs" />
     <Compile Include="Pragmas.fs" />
+    <Compile Include="DeclSpecifiers.fs" />
     <Compile Include="Types.fs" />
+    <Compile Include="DeclSpecifierPack.fs" />
     <Compile Include="Expressions.fs" />
     <Compile Include="Statements.fs" />
     <Compile Include="FunDecl.fs" />

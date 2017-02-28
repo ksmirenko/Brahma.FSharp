@@ -15,19 +15,35 @@
 
 namespace Brahma.FSharp.OpenCL.AST
 
-type FunFormalArg<'lang>(isGlobal:bool, name:string, _type:Type<'lang>) =
+// TODO: change in Brahma.FSharp
+type FunFormalArg<'lang>(declSpecs:DeclSpecifierPack<'lang>, name:string) =
     inherit Statement<'lang>()
     override this.Children = []
-    member this.IsGlobal = isGlobal
+    member this.DeclSpecs = declSpecs
     member this.Name = name
-    member this.Type = _type
 
-type FunDecl<'lang>(isKernel:bool, name:string, retType:Type<'lang>, args:List<FunFormalArg<'lang>>, body:Statement<'lang>) =
+    override this.Equals(other) =
+        match other with
+        | :? FunFormalArg<'lang> as o ->
+            this.DeclSpecs.Equals(o.DeclSpecs)
+            && this.Name.Equals(o.Name)
+        | _ -> false
+
+// TODO: change in Brahma.FSharp
+type FunDecl<'lang>(declSpecs:DeclSpecifierPack<'lang>, name:string, args:List<FunFormalArg<'lang>>, body:Statement<'lang>) =
     inherit TopDef<'lang>()
     override this.Children = []
-    member this.isKernel = isKernel 
-    member this.RetType = retType
+    member this.DeclSpecs = declSpecs
     member this.Name = name
     member this.Args = args
     member this.Body = body
+
+    override this.Equals(other) =
+        match other with
+        | :? FunDecl<'lang> as o ->
+            this.DeclSpecs.Equals(o.DeclSpecs)
+            && this.Name.Equals(o.Name)
+            && this.Args.Equals(o.Args)
+            // NB: body is omitted in this check
+        | _ -> false
 
