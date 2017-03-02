@@ -20,9 +20,10 @@ To build project use
 
 ## Build Status
 
-Mono | .NET
----- | ----
-[![Mono CI Build Status](https://img.shields.io/travis/YaccConstructor/Brahma.FSharp/master.svg)](https://travis-ci.org/YaccConstructor/Brahma.FSharp) | [![.NET Build Status](https://img.shields.io/appveyor/ci/gsvgit/brahma-fsharp/master.svg)](https://ci.appveyor.com/project/gsvgit/brahma-fsharp)
+   |Mono | .NET
+---|---- | ----
+master | [![Mono CI Build Status](https://img.shields.io/travis/YaccConstructor/Brahma.FSharp/master.svg)](https://travis-ci.org/YaccConstructor/Brahma.FSharp) | [![.NET Build Status](https://img.shields.io/appveyor/ci/gsvgit/brahma-fsharp/master.svg)](https://ci.appveyor.com/project/gsvgit/brahma-fsharp)
+dev | [![Mono CI Build Status](https://img.shields.io/travis/YaccConstructor/Brahma.FSharp/dev.svg)](https://travis-ci.org/YaccConstructor/Brahma.FSharp) | [![.NET Build Status](https://img.shields.io/appveyor/ci/gsvgit/brahma-fsharp/dev.svg)](https://ci.appveyor.com/project/gsvgit/brahma-fsharp)
 
 ## Maintainer(s)
 
