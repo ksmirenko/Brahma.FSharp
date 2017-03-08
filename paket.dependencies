@@ -1,13 +1,22 @@
 source https://nuget.org/api/v2
 
 nuget Argu
+nuget DotNet.Contracts
+nuget DotParser
 nuget FSharp.Core redirects: force
+nuget FSharp.TypeProviders.StarterPack
 nuget FSharp.Quotations.Evaluator
 nuget FSharpx.Collections
+nuget FSharpx.Collections.Experimental
+nuget Mono.Addins
 nuget NuGet.CommandLine
 nuget NUnit 2.6.3
 nuget OpenCL.Net 2.2.9.0
 nuget YC.PrettyPrinter
+nuget YC.QuickGraph
+nuget YC.SDK
+nuget YC.SDK.Runtime
+nuget YC.Utils.SourceText
 
 group Build
   source https://nuget.org/api/v2
