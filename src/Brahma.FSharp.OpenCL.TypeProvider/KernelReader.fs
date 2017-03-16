@@ -37,7 +37,7 @@ let parsePrimitiveType pType =
     | Half          -> failwith "Half type is not supported"
     | TypeName _    -> failwith "Custom types are not supported"
 
-let buildProvidedMethod (treatPointersAsArrays:Bool) (funDecl:FunDecl<Lang>) =
+let buildProvidedMethod (treatPointersAsArrays:bool) (funDecl:FunDecl<Lang>) =
     let buildProvidedParameter (funFormalArg:FunFormalArg<Lang>) =
         let rec parseType (t:Type<Lang>) =
             match t with
@@ -65,7 +65,7 @@ let buildProvidedMethod (treatPointersAsArrays:Bool) (funDecl:FunDecl<Lang>) =
         IsStaticMethod = true,
         InvokeCode = (fun args -> <@@ ignore() @@>))
 
-let readKernels filename (treatPointersAsArrays:Bool) =
+let readKernels filename (treatPointersAsArrays:bool) =
     let isKernelFun (funDecl:FunDecl<Lang>) =
         match funDecl.DeclSpecs.FunQual with
         | Some Kernel -> true
@@ -73,4 +73,4 @@ let readKernels filename (treatPointersAsArrays:Bool) =
     System.IO.File.ReadAllText(filename)
     |> parseCLCode
     |> List.filter isKernelFun
-    |> List.map buildProvidedMethod treatPointersAsArrays
+    |> List.map (fun x -> buildProvidedMethod treatPointersAsArrays x)

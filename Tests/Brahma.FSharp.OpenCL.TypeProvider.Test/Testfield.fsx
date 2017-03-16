@@ -1,4 +1,4 @@
-﻿#r @"../../src/Brahma.FSharp.OpenCL.TypeProvider/bin/Release/Brahma.FSharp.OpenCL.TypeProvider.dll"
+﻿#r @"../../src/Brahma.FSharp.OpenCL.TypeProvider/bin/Debug/Brahma.FSharp.OpenCL.TypeProvider.dll"
 
 open Brahma.FSharp.OpenCL.TypeProvider.Provided
 
@@ -7,7 +7,7 @@ let [<Literal>] sourcesPath = __SOURCE_DIRECTORY__ + @"\OpenCLSources\"
 // Example 1: simple.cl
 
 let [<Literal>] simpleSourcePath = sourcesPath + "simple.cl"
-type SimpleProvided = KernelProvider<simpleSourcePath, false>
+type SimpleProvided = KernelProvider<simpleSourcePath>
 let foo = SimpleProvided.foo
 
 let a:int = 326
@@ -17,7 +17,7 @@ foo(a, b)
 // Example 2: matvec.cl
 
 let [<Literal>] matvecSourcePath = sourcesPath + "matvec.cl"
-type MatvecProvided = KernelProvider<matvecSourcePath, true>
+type MatvecProvided = KernelProvider<matvecSourcePath>
 let matvec = MatvecProvided.matvec
 
 // stub; actually pointers to float arrays are expected here
