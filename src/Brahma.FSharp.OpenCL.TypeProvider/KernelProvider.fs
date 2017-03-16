@@ -14,17 +14,21 @@ type KernelProvider(config : TypeProviderConfig) as this =
     let assembly = Assembly.GetExecutingAssembly()
 
     let kernelProvider = ProvidedTypeDefinition(assembly, nspace, "KernelProvider", Some(typeof<obj>))
-
-    let parameters = [ProvidedStaticParameter("PathToFile", typeof<string>)]
+    let parameters = [
+            ProvidedStaticParameter("PathToFile", typeof<string>),
+            ProvidedStaticParameter("TreatPointersAsArrays", typeof<string>)
+        ]
 
     do kernelProvider.DefineStaticParameters(parameters, fun typeName args ->
         let filePath = args.[0] :?> string
+        let treatPointersAsArrays = args.[0] :?> bool
         let retProvider = ProvidedTypeDefinition(assembly,
                                                  nspace,
                                                  typeName,
                                                  Some typeof<obj>,
                                                  HideObjectMethods = true)
-        readKernels filePath |> List.iter retProvider.AddMember
+        readKernels filePath treatPointersAsArrays
+        |> List.iter retProvider.AddMember
         retProvider
     )
 
