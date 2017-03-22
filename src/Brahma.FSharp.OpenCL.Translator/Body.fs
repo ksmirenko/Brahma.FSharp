@@ -136,7 +136,7 @@ and private translateCall exprOpt (mInfo:System.Reflection.MethodInfo) _args tar
             | :? Const<Lang> as c -> int c.Val
             | other -> failwithf "Calling Array.zeroCreate with a non-const argument: %A" other
         new ZeroArray<_>(length) :> Statement<_>, tContext
-    | c -> failwithf "Unsupporte call: %s" c
+    | c -> failwithf "Unsupported call: %s" c
 
 and private itemHelper exprs hostVar tContext =
     let idx,tContext = 
