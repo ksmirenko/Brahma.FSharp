@@ -23,6 +23,9 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
     <DocumentationFile>bin\Debug\Brahma.FSharp.OpenCL.TypeProvider.XML</DocumentationFile>
+    <StartAction>Program</StartAction>
+    <StartProgram>C:\Program Files (x86)\Microsoft Visual Studio 14.0\Common7\IDE\devenv.exe</StartProgram>
+    <StartArguments>C:\Users\Delgado\Workspace\Brahma.FSharp\OpenCLProviderTest.sln</StartArguments>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -33,40 +36,6 @@
     <WarningLevel>3</WarningLevel>
     <DocumentationFile>bin\Release\Brahma.FSharp.OpenCL.TypeProvider.XML</DocumentationFile>
   </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="mscorlib" />
-    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-      <Private>True</Private>
-    </Reference>
-    <Reference Include="System" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Numerics" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="ProvidedTypes.fsi">
-      <Paket>True</Paket>
-    </Compile>
-    <Compile Include="ProvidedTypes.fs">
-      <Paket>True</Paket>
-    </Compile>
-    <Compile Include="DebugProvidedTypes.fs">
-      <Paket>True</Paket>
-    </Compile>
-    <Compile Include="KernelReader.fs" />
-    <Compile Include="KernelProvider.fs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Brahma.FSharp.OpenCL.AST\Brahma.FSharp.OpenCL.AST.fsproj">
-      <Name>Brahma.FSharp.OpenCL.AST</Name>
-      <Project>{e0388e66-e36c-4eca-adcc-bfd115820c25}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-    <ProjectReference Include="..\Brahma.FSharp.OpenCL.OpenCLTranslator\Brahma.FSharp.OpenCL.OpenCLTranslator.fsproj">
-      <Name>Brahma.FSharp.OpenCL.OpenCLTranslator</Name>
-      <Project>{a93e672f-931f-415d-84a9-e7ca230f5ce8}</Project>
-      <Private>True</Private>
-    </ProjectReference>
-  </ItemGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
   </PropertyGroup>
@@ -83,7 +52,40 @@
     </Otherwise>
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
-  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+  <ItemGroup>
+    <Compile Include="ProvidedTypes.fsi">
+      <Paket>True</Paket>
+    </Compile>
+    <Compile Include="ProvidedTypes.fs">
+      <Paket>True</Paket>
+    </Compile>
+    <Compile Include="DebugProvidedTypes.fs">
+      <Paket>True</Paket>
+    </Compile>
+    <Compile Include="KernelReader.fs" />
+    <Compile Include="KernelProvider.fs" />
+    <Content Include="app.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="mscorlib" />
+    <Reference Include="FSharp.Core, Version=$(TargetFSharpCoreVersion), Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Numerics" />
+    <ProjectReference Include="..\Brahma.FSharp.OpenCL.AST\Brahma.FSharp.OpenCL.AST.fsproj">
+      <Name>Brahma.FSharp.OpenCL.AST</Name>
+      <Project>{e0388e66-e36c-4eca-adcc-bfd115820c25}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Brahma.FSharp.OpenCL.OpenCLTranslator\Brahma.FSharp.OpenCL.OpenCLTranslator.fsproj">
+      <Name>Brahma.FSharp.OpenCL.OpenCLTranslator</Name>
+      <Project>{a93e672f-931f-415d-84a9-e7ca230f5ce8}</Project>
+      <Private>True</Private>
+    </ProjectReference>
+  </ItemGroup>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
   </Target>
