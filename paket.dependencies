@@ -1,7 +1,6 @@
 source https://nuget.org/api/v2
 
 nuget Argu
-nuget FSharp.Core redirects: force
 nuget FSharp.Quotations.Evaluator
 nuget FSharpx.Collections
 nuget NuGet.CommandLine
