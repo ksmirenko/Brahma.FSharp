@@ -10,28 +10,34 @@ open Brahma.FSharp.OpenCL.TypeProvider.Provided
 
 [<TestFixture>]
 type TypeProviderTests() =
+    let [<Literal>] sourcesPath = __SOURCE_DIRECTORY__ + "/OpenCLSources/"
+    let [<Literal>] simplePath = sourcesPath + "simple.cl"
+    let [<Literal>] matvecPath = sourcesPath + "matvec.cl"
+    let [<Literal>] matmatPath = sourcesPath + "matmat.cl"
+
     let sign = dict[
                     "void", "Microsoft.FSharp.Core.Unit";
                     "char", "System.SByte";
                     "int", "System.Int32";
                     "uint", "System.UInt32";
                     "float", "System.Single"
-                   ]
+                    ]
 
     let checkKernelSignature _fun _params =
-        let invokeMethod = _fun.GetType().GetMethods() |> Array.find (fun x -> x.Name = "Invoke")
+        let invokeMethod = _fun.GetType().GetMethod("Invoke")
+        let actualParams = invokeMethod.GetParameters().[0].ParameterType.GenericTypeArguments
+                           |> Array.map (fun x -> x.FullName)
         Assert.AreEqual(sign.Item("void"), invokeMethod.ReturnType.FullName)
-        Assert.AreEqual(_params, invokeMethod.ReturnType.FullName)
+        Assert.AreEqual(_params, actualParams)
 
     [<Test>]
     member this.``Simple single kernel definition without body``() =
-        let foo = KernelProvider< @"C:\Users\Delgado\Workspace\Brahma.FSharp\Tests\Brahma.FSharp.OpenCL.TypeProvider.Test\OpenCLSources\simple.cl">.foo
-        ()
-        //checkKernelSignature foo [| sign.Item("int"); sign.Item("char") + "[]" |]
+        let foo = KernelProvider<simplePath>.foo
+        checkKernelSignature foo [| sign.Item("int"); sign.Item("char") + "[]" |]
 
     [<Test>]
-    member this.``TP: matrix * vector, treating pointers as arrays``() = ()
-        (*let matvec = KernelProvider<__SOURCE_DIRECTORY__ + "OpenCLSources/matvec.cl", TreatPointersAsArrays=true>.matvec
+    member this.``TP: matrix * vector, treating pointers as arrays``() =
+        let matvec = KernelProvider<matvecPath, TreatPointersAsArrays=true>.matvec
         let floatArray = sign.Item("float") + "[]"
         let _params = [|
                         floatArray;
@@ -39,11 +45,11 @@ type TypeProviderTests() =
                         sign.Item("uint");
                         floatArray
                       |]
-        checkKernelSignature matvec _params*)
+        checkKernelSignature matvec _params
 
     [<Test>]
-    member this.``TP: matrix * matrix, treating pointers as arrays``() = ()
-        (* let matvec = KernelProvider<"OpenCLSources/matmat.cl", TreatPointersAsArrays=true>.matvec
+    member this.``TP: matrix * matrix, treating pointers as arrays``() =
+        let matmat = KernelProvider<matmatPath, TreatPointersAsArrays=true>.myGEMM1
         let _int = sign.Item("int")
         let floatArray = sign.Item("float") + "[]"
         let _params = [|
@@ -54,4 +60,4 @@ type TypeProviderTests() =
                         floatArray;
                         floatArray
                       |]
-        checkKernelSignature matvec _params *)
+        checkKernelSignature matmat _params
