@@ -8,9 +8,9 @@ NUGET
     FSharp.Core (4.0.0.1) - redirects: force
     FSharp.Quotations.Evaluator (1.0.7)
     FSharp.TypeProviders.StarterPack (1.1.3.88)
-    FSharpx.Collections (1.15.2)
+    FSharpx.Collections (1.15.2) - redirects: force
       FSharp.Core
-    FSharpx.Collections.Experimental (1.15.2)
+    FSharpx.Collections.Experimental (1.15.2) - redirects: force
       FSharp.Core
       FSharpx.Collections (>= 1.15.2)
     Mono.Addins (1.3.3)
