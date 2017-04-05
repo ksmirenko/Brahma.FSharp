@@ -5,6 +5,12 @@ VisualStudioVersion = 14.0.25123.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Brahma.FSharp.OpenCL.TypeProvider.Test", "tests\Brahma.FSharp.OpenCL.TypeProvider.Test\Brahma.FSharp.OpenCL.TypeProvider.Test.fsproj", "{51FEBAFD-AD82-4A86-A50A-61D385AB7E79}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{AF792B3E-A18B-4C57-AEC1-74C12B25A97F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IntegrationSamples", "IntegrationSamples", "{D3A53C26-2330-403F-B10E-D3A6AAA19435}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "MatrixMultiplyTP", "src\MatrixMultiplyTP\MatrixMultiplyTP.fsproj", "{878B80F8-9F7D-45C5-A8A6-DE1FC48ACFF1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,8 +21,16 @@ Global
 		{51FEBAFD-AD82-4A86-A50A-61D385AB7E79}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{51FEBAFD-AD82-4A86-A50A-61D385AB7E79}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{51FEBAFD-AD82-4A86-A50A-61D385AB7E79}.Release|Any CPU.Build.0 = Release|Any CPU
+		{878B80F8-9F7D-45C5-A8A6-DE1FC48ACFF1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{878B80F8-9F7D-45C5-A8A6-DE1FC48ACFF1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{878B80F8-9F7D-45C5-A8A6-DE1FC48ACFF1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{878B80F8-9F7D-45C5-A8A6-DE1FC48ACFF1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{51FEBAFD-AD82-4A86-A50A-61D385AB7E79} = {AF792B3E-A18B-4C57-AEC1-74C12B25A97F}
+		{878B80F8-9F7D-45C5-A8A6-DE1FC48ACFF1} = {D3A53C26-2330-403F-B10E-D3A6AAA19435}
 	EndGlobalSection
 EndGlobal
