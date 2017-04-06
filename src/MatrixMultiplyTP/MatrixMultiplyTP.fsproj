@@ -38,6 +38,27 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Brahma">
+      <HintPath>..\..\bin\Brahma.OpenCL\Brahma.dll</HintPath>
+    </Reference>
+    <Reference Include="Brahma.FSharp.OpenCL.Core">
+      <HintPath>..\..\bin\Brahma.FSharp.OpenCL.Core\Brahma.FSharp.OpenCL.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Brahma.FSharp.OpenCL.Extensions">
+      <HintPath>..\..\bin\Brahma.FSharp.OpenCL.Extensions\Brahma.FSharp.OpenCL.Extensions.dll</HintPath>
+    </Reference>
+    <Reference Include="Brahma.FSharp.OpenCL.Translator">
+      <HintPath>..\..\bin\Brahma.FSharp.OpenCL.Translator\Brahma.FSharp.OpenCL.Translator.dll</HintPath>
+    </Reference>
+    <Reference Include="Brahma.FSharp.OpenCL.TypeProvider">
+      <HintPath>..\..\bin\Brahma.FSharp.OpenCL.TypeProvider\Brahma.FSharp.OpenCL.TypeProvider.dll</HintPath>
+    </Reference>
+    <Reference Include="Brahma.Helpers">
+      <HintPath>..\..\bin\Brahma.Helpers\Brahma.Helpers.dll</HintPath>
+    </Reference>
+    <Reference Include="Brahma.OpenCL">
+      <HintPath>..\..\bin\Brahma.OpenCL\Brahma.OpenCL.dll</HintPath>
+    </Reference>
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />

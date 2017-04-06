@@ -36,12 +36,15 @@ type CLCodeGenerator() =
         
 type ComputeProvider with
 
-    member private this.CompileQuery<'T when 'T :> ICLKernel>(lambda:Expr, translatorOptions) =
+    member private this.CompileQuery<'T when 'T :> ICLKernel>(lambda:Expr, translatorOptions, additionalSource:string option) =
         let kernel = System.Activator.CreateInstance<'T>()        
 //        let r, newLambda = CLCodeGenerator.GenerateKernel(lambda, this, kernel, translatorOptions)
         let r = CLCodeGenerator.GenerateKernel(lambda, this, kernel, translatorOptions)
         let str = (kernel :> ICLKernel).Source.ToString()    
-        let program, error = Cl.CreateProgramWithSource(this.Context, 1u, [|str|], null)
+        let program, error =
+            match additionalSource with
+            | None -> Cl.CreateProgramWithSource(this.Context, 1u, [|str|], null)
+            | Some addsrc -> Cl.CreateProgramWithSource(this.Context, 2u, [| addsrc; str |], null)
         let _devices = Array.ofSeq  this.Devices
         let error = Cl.BuildProgram(program, _devices.Length |> uint32, _devices, this.CompileOptionsStr, null, IntPtr.Zero)
         if error <> ErrorCode.Success
@@ -56,12 +59,13 @@ type ComputeProvider with
 //        kernel , newLambda 
         kernel            
                     
-    member this.Compile (query: Expr<'TRange ->'a> , ?_options:CompileOptions, ?translatorOptions, ?_outCode:string ref, ?kernelName:string) =
+    member this.Compile (query: Expr<'TRange ->'a> , ?_options:CompileOptions, ?translatorOptions,
+                         ?_outCode:string ref, ?kernelName:string, ?additionalSource:string) =
         let options = defaultArg _options ComputeProvider.DefaultOptions_p
         let tOptions = defaultArg translatorOptions []
         this.SetCompileOptions options
 //        let kernel, newQuery = this.CompileQuery<Kernel<'TRange>>(query, tOptions)
-        let kernel = this.CompileQuery<Kernel<'TRange>>(query, tOptions)
+        let kernel = this.CompileQuery<Kernel<'TRange>>(query, tOptions, additionalSource)
         let rng = ref Unchecked.defaultof<'TRange>
         let args = ref [||]
         let run = ref Unchecked.defaultof<Commands.Run<'TRange>>

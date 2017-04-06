@@ -16,8 +16,13 @@
 module MatrixMultiplyTP
 
 open OpenCL.Net
+open Brahma.FSharp.OpenCL.Core
+open Brahma.FSharp.OpenCL.Extensions
+open Brahma.FSharp.OpenCL.TypeProvider.Provided
+open Brahma.Helpers
+open Brahma.OpenCL
 
-let [<Literal>] openClPath = __SOURCE_DIRECTORY__ + "../../Tests/Brahma.FSharp.OpenCL.TypeProvider.Test/OpenClSources/matmat.cl"
+let [<Literal>] clSourcePath = __SOURCE_DIRECTORY__ + "../../../Tests/Brahma.FSharp.OpenCL.TypeProvider.Test/OpenCLSources/matmat.cl"
 let size = 10 // matrix size
 let iterations = 10
 
@@ -46,6 +51,64 @@ let Main platformName (m1:array<_>) (m2:array<_>) =
     let columns = size
     let localWorkSize = 2
     let deviceType = DeviceType.Default
-    0
+
+    let additionalClSource = System.IO.File.ReadAllText(clSourcePath)
+    let clMultiply =
+        try KernelProvider<clSourcePath, TreatPointersAsArrays=true>.myGEMM1
+        with
+        | ex -> failwith ex.Message
+
+    let computeProvider =
+        try ComputeProvider.Create(platformName, deviceType)
+        with
+        | ex -> failwith ex.Message
+    let mutable commandQueue = new CommandQueue(computeProvider, computeProvider.Devices |> Seq.head)
+
+    let aValues = m1
+    let bValues = m2
+    let cParallel = Array.zeroCreate(rows * columns)
+
+    let command =
+        <@
+            fun (r:_2D) (a:array<_>) (b:array<_>) (c:array<_>) ->
+                clMultiply(size, size, size, a, b, c)
+        @>
+
+    printfn "Multiplying two %Ax%A matrices %A times using .NET..." rows columns iterations
+    let cNormal = Array.zeroCreate (rows * columns)
+    for i in 0 .. iterations - 1 do
+        Timer<string>.Global.Start()
+        multiply aValues rows columns bValues rows columns cNormal
+        Timer<string>.Global.Lap(".NET")
+    printfn "done."
+
+    printfn "Multiplying two %Ax%A matrices %A times using OpenCL and platform/device: %A ..." rows columns iterations computeProvider
+    let kernel, kernelPrepare, kernelRun = computeProvider.Compile command
+    let d =(new _2D(rows, columns, localWorkSize, localWorkSize))
+    kernelPrepare d aValues bValues cParallel
+
+    for i in 0 .. iterations - 1 do
+        Timer<string>.Global.Start()
+        let _ = commandQueue.Add(kernelRun()).Finish()
+        Timer<string>.Global.Lap("OpenCL")
+
+    let _ = commandQueue.Add(cParallel.ToHost computeProvider).Finish()
+
+    printfn "Verifying results..."
+    let mutable isSuccess = true
+    for i in 0 .. rows * columns - 1 do
+        if isSuccess && System.Math.Abs(float32 (cParallel.[i] - cNormal.[i])) > 0.01f
+        then
+            isSuccess <- false
+            printfn "Expected: %A Actual: %A Error = %A" cNormal.[i] cParallel.[i] (System.Math.Abs(cParallel.[i] - cNormal.[i]))
+
+    printfn "done."
+
+    Timer<string>.Global.Average(".NET") |> printfn "Avg. time, F#: %A"
+    Timer<string>.Global.Average("OpenCL") |> printfn "Avg. time, OpenCL: %A"
+
+    commandQueue.Dispose()
+    computeProvider.Dispose()
+    computeProvider.CloseAllBuffers()
 
 Main "NVIDIA*" (makeMatrix size size) (makeMatrix size size) |> ignore
