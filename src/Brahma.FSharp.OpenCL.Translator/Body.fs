@@ -341,7 +341,11 @@ and translateApplicationFun expr1 expr2 targetContext =
             go e1 (exp::_vals) args
         | e ->
             let listArg = List.rev _vals
-            let funCall = new FunCall<_>(expr.ToString(), _vals) :> Statement<_>
+            let funName =
+                match expr with
+                | Patterns.ValueWithName(_, _, name) -> name
+                | _ -> expr.ToString()
+            let funCall = new FunCall<_>(funName, _vals) :> Statement<_>
             funCall, targetContext
                 //failwith "-Partial evaluation is not supported in kernel function."
     let exp, tc = (TranslateAsExpr (expr2) targetContext)
