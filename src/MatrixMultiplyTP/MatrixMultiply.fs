@@ -23,6 +23,8 @@ open Brahma.Helpers
 open Brahma.OpenCL
 
 let [<Literal>] clSourcePath = __SOURCE_DIRECTORY__ + "../../../Tests/Brahma.FSharp.OpenCL.TypeProvider.Test/OpenCLSources/matmat.cl"
+type ProvidedType = KernelProvider<clSourcePath, TreatPointersAsArrays=true>
+
 let size = 10 // matrix size
 let iterations = 10
 
@@ -53,8 +55,8 @@ let Main platformName (m1:array<_>) (m2:array<_>) =
     let deviceType = DeviceType.Default
 
     let additionalClSource = System.IO.File.ReadAllText(clSourcePath)
-    let clMultiply =
-        try KernelProvider<clSourcePath, TreatPointersAsArrays=true>.myGEMM1
+    let myGEMM1 = fun m n k a b c ->
+        try ProvidedType.myGEMM1(m, n, k, a, b, c)
         with
         | ex -> failwith ex.Message
 
@@ -68,10 +70,11 @@ let Main platformName (m1:array<_>) (m2:array<_>) =
     let bValues = m2
     let cParallel = Array.zeroCreate(rows * columns)
 
+    let sz = size
     let command =
         <@
             fun (r:_2D) (a:array<_>) (b:array<_>) (c:array<_>) ->
-                clMultiply(size, size, size, a, b, c)
+                myGEMM1 sz sz sz a b c
         @>
 
     printfn "Multiplying two %Ax%A matrices %A times using .NET..." rows columns iterations
@@ -83,7 +86,8 @@ let Main platformName (m1:array<_>) (m2:array<_>) =
     printfn "done."
 
     printfn "Multiplying two %Ax%A matrices %A times using OpenCL and platform/device: %A ..." rows columns iterations computeProvider
-    let kernel, kernelPrepare, kernelRun = computeProvider.Compile command
+    let code = ref ""
+    let kernel, kernelPrepare, kernelRun = computeProvider.Compile(command, _outCode = code, additionalSource = additionalClSource)
     let d =(new _2D(rows, columns, localWorkSize, localWorkSize))
     kernelPrepare d aValues bValues cParallel
 
