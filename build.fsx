@@ -46,6 +46,7 @@ let tags = "F# OpenCL GPGPU Parallel .NET"
 
 // File system information
 let solutionFile  = "Brahma.FSharp.sln"
+let tpTestSolutionFile  = "OpenCLProviderTest.sln"
 
 // Pattern specifying assemblies to be tested using NUnit
 let testAssemblies = "tests/**/bin/Release/*Tests*.dll"
@@ -116,6 +117,13 @@ Target "CopyBinaries" (fun _ ->
     |>  Seq.iter (fun (fromDir, toDir) -> CopyDir toDir fromDir (fun _ -> true))
 )
 
+Target "CopyTPSampleBinaries" (fun _ ->
+    !! "src/**/*TP/*.??proj"
+    -- "src/**/*.shproj"
+    |>  Seq.map (fun f -> ((System.IO.Path.GetDirectoryName f) </> "bin/Release", "bin" </> (System.IO.Path.GetFileNameWithoutExtension f)))
+    |>  Seq.iter (fun (fromDir, toDir) -> CopyDir toDir fromDir (fun _ -> true))
+)
+
 // --------------------------------------------------------------------------------------
 // Clean build results
 
@@ -132,6 +140,16 @@ Target "CleanDocs" (fun _ ->
 
 Target "Build" (fun _ ->
     !! solutionFile
+#if MONO
+    |> MSBuildReleaseExt "" [ ("DefineConstants","MONO") ] "Rebuild"
+#else
+    |> MSBuildRelease "" "Rebuild"
+#endif
+    |> ignore
+)
+
+Target "BuildTPTests" (fun () ->
+    !! tpTestSolutionFile
 #if MONO
     |> MSBuildReleaseExt "" [ ("DefineConstants","MONO") ] "Rebuild"
 #else
@@ -377,6 +395,8 @@ Target "All" DoNothing
   ==> "AssemblyInfo"
   ==> "Build"
   ==> "CopyBinaries"
+  ==> "BuildTPTests"
+  ==> "CopyTPSampleBinaries"
   =?> ("RunTests",isLocalBuild)
   ==> "GenerateReferenceDocs"
   ==> "GenerateDocs"
