@@ -1,4 +1,4 @@
-﻿namespace Brahma.FSharp.OpenCL.OpenCLTranslator.Test
+﻿namespace Brahma.FSharp.OpenCL.OpenCLTranslator.Tests
 
 open NUnit.Framework
 open Brahma.FSharp.OpenCL.AST

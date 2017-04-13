@@ -1,4 +1,4 @@
-﻿module Brahma.FSharp.OpenCL.OpenCLTranslator.Test.Helpers
+﻿module Brahma.FSharp.OpenCL.OpenCLTranslator.Tests.Helpers
 
 open NUnit.Framework
 open Brahma.FSharp.OpenCL.OpenCLTranslator.Main

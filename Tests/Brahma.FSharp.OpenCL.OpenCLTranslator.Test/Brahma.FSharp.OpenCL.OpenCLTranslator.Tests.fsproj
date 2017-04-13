@@ -7,12 +7,12 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>e83df1ba-5b55-4770-ac08-bb1c9d5856b8</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>OpenCLTranslator.Test</RootNamespace>
-    <AssemblyName>Brahma.FSharp.OpenCL.TypeProvider.Test</AssemblyName>
+    <RootNamespace>OpenCLTranslator.Tests</RootNamespace>
+    <AssemblyName>Brahma.FSharp.OpenCL.OpenCLTranslator.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <TargetFSharpCoreVersion>4.4.0.0</TargetFSharpCoreVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Name>Brahma.FSharp.OpenCL.TypeProvider.Translator.Test</Name>
+    <Name>Brahma.FSharp.OpenCL.OpenCLTranslator.Tests</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,7 +22,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Debug\OpenCLTranslator.Test.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\OpenCLTranslator.Tests.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,7 +31,7 @@
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Release\OpenCLTranslator.Test.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\OpenCLTranslator.Tests.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>

@@ -1,9 +1,9 @@
-﻿namespace Brahma.FSharp.OpenCL.OpenCLTranslator.Test
+﻿namespace Brahma.FSharp.OpenCL.OpenCLTranslator.Tests
 
 open NUnit.Framework
 open Brahma.FSharp.OpenCL.AST
 open Brahma.FSharp.OpenCL.OpenCLTranslator.Main
-open Brahma.FSharp.OpenCL.OpenCLTranslator.Test.Helpers
+open Brahma.FSharp.OpenCL.OpenCLTranslator.Tests.Helpers
 
 [<TestFixture>]
 type RealWorldTests() =

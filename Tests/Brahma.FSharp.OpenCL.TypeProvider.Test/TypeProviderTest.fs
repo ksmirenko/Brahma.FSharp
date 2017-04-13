@@ -51,13 +51,13 @@ type TypeProviderTests() =
     member this.``TP: matrix * matrix, treating pointers as arrays``() =
         let matmat = KernelProvider<matmatPath, TreatPointersAsArrays=true>.myGEMM1
         let _int = sign.Item("int")
-        let floatArray = sign.Item("float") + "[]"
+        let intArray = sign.Item("int") + "[]"
         let _params = [|
                         _int;
                         _int;
                         _int;
-                        floatArray;
-                        floatArray;
-                        floatArray
+                        intArray;
+                        intArray;
+                        intArray
                       |]
         checkKernelSignature matmat _params

@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Brahma.FSharp.OpenCL.TypeProvider.Test", "tests\Brahma.FSharp.OpenCL.TypeProvider.Test\Brahma.FSharp.OpenCL.TypeProvider.Test.fsproj", "{51FEBAFD-AD82-4A86-A50A-61D385AB7E79}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "Brahma.FSharp.OpenCL.TypeProvider.Tests", "Tests\Brahma.FSharp.OpenCL.TypeProvider.Test\Brahma.FSharp.OpenCL.TypeProvider.Tests.fsproj", "{51FEBAFD-AD82-4A86-A50A-61D385AB7E79}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{AF792B3E-A18B-4C57-AEC1-74C12B25A97F}"
 EndProject

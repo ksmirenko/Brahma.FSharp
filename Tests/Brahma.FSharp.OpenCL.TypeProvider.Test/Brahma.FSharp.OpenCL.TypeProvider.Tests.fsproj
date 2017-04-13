@@ -7,12 +7,12 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>51febafd-ad82-4a86-a50a-61d385ab7e79</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Brahma.FSharp.OpenCL.TypeProvider.Test</RootNamespace>
-    <AssemblyName>Brahma.FSharp.OpenCL.TypeProvider.Test</AssemblyName>
+    <RootNamespace>Brahma.FSharp.OpenCL.TypeProvider.Tests</RootNamespace>
+    <AssemblyName>Brahma.FSharp.OpenCL.TypeProvider.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
     <TargetFSharpCoreVersion>4.4.0.0</TargetFSharpCoreVersion>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Name>Brahma.FSharp.OpenCL.TypeProvider.Test</Name>
+    <Name>Brahma.FSharp.OpenCL.TypeProvider.Tests</Name>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -22,7 +22,7 @@
     <OutputPath>bin\Debug\</OutputPath>
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Debug\Brahma.FSharp.OpenCL.TypeProvider.Test.XML</DocumentationFile>
+    <DocumentationFile>bin\Debug\Brahma.FSharp.OpenCL.TypeProvider.Tests.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -31,7 +31,7 @@
     <OutputPath>bin\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <WarningLevel>3</WarningLevel>
-    <DocumentationFile>bin\Release\Brahma.FSharp.OpenCL.TypeProvider.Test.XML</DocumentationFile>
+    <DocumentationFile>bin\Release\Brahma.FSharp.OpenCL.TypeProvider.Tests.XML</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup>
     <MinimumVisualStudioVersion Condition="'$(MinimumVisualStudioVersion)' == ''">11</MinimumVisualStudioVersion>
@@ -53,18 +53,6 @@
     <None Include="Testfield.fsx" />
     <Compile Include="TypeProviderTest.fs" />
     <None Include="paket.references" />
-    <None Include="OpenCLSources\matmat.cl">
-      <Link>matmat.cl</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="OpenCLSources\matvec.cl">
-      <Link>matvec.cl</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Include="OpenCLSources\simple.cl">
-      <Link>simple.cl</Link>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <Content Include="app.config" />
   </ItemGroup>
   <ItemGroup>
