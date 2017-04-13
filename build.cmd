@@ -12,7 +12,7 @@ if errorlevel 1 (
 )
 
 REM Generate lexer and parser for OpenCLTranslator
-packages\YC.SDK\tools\YC.FSLEx.exe ^
+packages\YC.SDK\tools\YC.FsLex.exe ^
     src\Brahma.FSharp.OpenCL.OpenCLTranslator\Lexer.fsl ^
     --unicode ^
     -o src\Brahma.FSharp.OpenCL.OpenCLTranslator\Lexer.fsl.fs

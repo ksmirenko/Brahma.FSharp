@@ -72,7 +72,7 @@ fi
 run $PAKET_EXE restore
 
 # Generate lexer and parser for OpenCLTranslator
-run packages/YC.SDK/tools/YC.FSLEx.exe \
+run packages/YC.SDK/tools/YC.FsLex.exe \
   src/Brahma.FSharp.OpenCL.OpenCLTranslator/Lexer.fsl \
   --unicode \
   -o src/Brahma.FSharp.OpenCL.OpenCLTranslator/Lexer.fsl.fs
