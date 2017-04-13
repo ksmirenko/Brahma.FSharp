@@ -25,13 +25,13 @@ open Brahma.OpenCL
 let [<Literal>] clSourcePath = __SOURCE_DIRECTORY__ + "../../../Tests/Brahma.FSharp.OpenCL.TypeProvider.Test/OpenCLSources/matmat.cl"
 type ProvidedType = KernelProvider<clSourcePath, TreatPointersAsArrays=true>
 
-let size = 10 // matrix size
+let size = 256 // matrix size
 let iterations = 10
 
 let random = new System.Random()
 
 let makeMatrix rows cols =
-    Array.init (rows * cols) (fun i -> float32 (random.NextDouble()))
+    Array.init (rows * cols) (fun i -> random.Next(1000))
 
 let outputMatrixDimensions aRows aCols bRows bCols =
     if aCols = bRows
@@ -42,11 +42,10 @@ let multiply (a:array<_>) aRows aCols (b:array<_>) bRows bCols (c:array<_>) =
     let cRows, cCols = outputMatrixDimensions aRows aCols bRows bCols
     for i in 0 .. cRows - 1 do
         for j in 0 .. cCols - 1 do
-            let mutable buf = 0.0f
+            let mutable buf = 0
             for k in 0 .. aCols - 1 do
                  buf <- buf + a.[i * aCols + k] * b.[k * bCols + j]
             c.[i * cCols + j] <- c.[i * cCols + j] + buf
-
 
 let Main platformName (m1:array<_>) (m2:array<_>) = 
     let rows = size
@@ -55,10 +54,8 @@ let Main platformName (m1:array<_>) (m2:array<_>) =
     let deviceType = DeviceType.Default
 
     let additionalClSource = System.IO.File.ReadAllText(clSourcePath)
-    let myGEMM1 = fun m n k a b c ->
-        try ProvidedType.myGEMM1(m, n, k, a, b, c)
-        with
-        | ex -> failwith ex.Message
+    let myGEMM1 m n k a b c =
+        ProvidedType.myGEMM1(m, n, k, a, b, c)
 
     let computeProvider =
         try ComputeProvider.Create(platformName, deviceType)
@@ -85,7 +82,7 @@ let Main platformName (m1:array<_>) (m2:array<_>) =
         Timer<string>.Global.Lap(".NET")
     printfn "done."
 
-    printfn "Multiplying two %Ax%A matrices %A times using OpenCL and platform/device: %A ..." rows columns iterations computeProvider
+    printfn "Multiplying two %Ax%A matrices %A times using OpenCL and platform/device: %A..." rows columns iterations computeProvider
     let code = ref ""
     let kernel, kernelPrepare, kernelRun = computeProvider.Compile(command, _outCode = code, additionalSource = additionalClSource)
     let d =(new _2D(rows, columns, localWorkSize, localWorkSize))
@@ -101,15 +98,15 @@ let Main platformName (m1:array<_>) (m2:array<_>) =
     printfn "Verifying results..."
     let mutable isSuccess = true
     for i in 0 .. rows * columns - 1 do
-        if isSuccess && System.Math.Abs(float32 (cParallel.[i] - cNormal.[i])) > 0.01f
+        if isSuccess && cParallel.[i] = cNormal.[i]
         then
             isSuccess <- false
-            printfn "Expected: %A Actual: %A Error = %A" cNormal.[i] cParallel.[i] (System.Math.Abs(cParallel.[i] - cNormal.[i]))
+            printfn "Error in cell %A:\n\tExpected: %A Actual: %A Error = %A" i cNormal.[i] cParallel.[i] (System.Math.Abs(cParallel.[i] - cNormal.[i]))
 
     printfn "done."
 
-    Timer<string>.Global.Average(".NET") |> printfn "Avg. time, F#: %A"
-    Timer<string>.Global.Average("OpenCL") |> printfn "Avg. time, OpenCL: %A"
+    Timer<string>.Global.Average(".NET") |> printfn "Avg. time, F#:\t\t%.8f sec."
+    Timer<string>.Global.Average("OpenCL") |> printfn "Avg. time, OpenCL:\t%.8f sec."
 
     commandQueue.Dispose()
     computeProvider.Dispose()
