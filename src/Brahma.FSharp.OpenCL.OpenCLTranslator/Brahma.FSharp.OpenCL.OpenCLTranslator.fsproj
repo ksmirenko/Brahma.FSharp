@@ -70,6 +70,8 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Numerics" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Brahma.FSharp.OpenCL.AST\Brahma.FSharp.OpenCL.AST.fsproj">
       <Name>Brahma.FSharp.OpenCL.AST</Name>
       <Project>{e0388e66-e36c-4eca-adcc-bfd115820c25}</Project>

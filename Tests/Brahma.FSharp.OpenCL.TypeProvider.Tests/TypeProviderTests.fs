@@ -1,4 +1,4 @@
-﻿namespace Brahma.FSharp.OpenCL.TypeProvider.Test
+﻿namespace Brahma.FSharp.OpenCL.TypeProvider.Tests
 
 #if INTERACTIVE
 #r "../../packages/NUnit/lib/nunit.framework.dll"
