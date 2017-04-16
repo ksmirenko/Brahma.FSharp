@@ -14,11 +14,20 @@ type KernelProvider(config : TypeProviderConfig) as this =
     let assembly = Assembly.GetExecutingAssembly()
 
     let kernelProvider = ProvidedTypeDefinition(assembly, nspace, "KernelProvider", Some(typeof<obj>))
-    let parameters = [
-        ProvidedStaticParameter("PathToFile", typeof<string>)
-        ProvidedStaticParameter("TreatPointersAsArrays", typeof<bool>, parameterDefaultValue = false)
-    ]
+    let parameters =
+        [
+            ProvidedStaticParameter("PathToFile", typeof<string>)
+            ProvidedStaticParameter("TreatPointersAsArrays", typeof<bool>, parameterDefaultValue = false)
+        ]
+    let xmlHelpText =
+        """
+        <summary>Provider for typed representation of OpenCL C kernel function headers.</summary>
+        <param name="PathToFile">Location of a file containing OpenCL C source code.</param>
+        <param name="TreatPointersAsArrays">When set to true, the type provider will generate array types
+        for pointers in function parameters, instead of reference types.</param>
+        """
 
+    do kernelProvider.AddXmlDoc xmlHelpText
     do kernelProvider.DefineStaticParameters(parameters, fun typeName args ->
         let filePath = args.[0] :?> string
         let treatPointersAsArrays = args.[1] :?> bool

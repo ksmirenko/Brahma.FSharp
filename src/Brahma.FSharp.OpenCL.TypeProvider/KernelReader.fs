@@ -22,20 +22,20 @@ open System
 
 let parsePrimitiveType pType =
     match pType with
-    | Bool          -> typeof<bool>
-    | Char          -> typeof<sbyte>
-    | UChar         -> typeof<byte>
-    | Short         -> typeof<int16>
-    | UShort        -> typeof<uint16>
-    | Int           -> typeof<int>
-    | UInt          -> typeof<uint32>
-    | Long          -> typeof<int64>
-    | ULong         -> typeof<uint64>
-    | Float         -> typeof<single>
-    | Double        -> typeof<double>
-    | Void          -> typeof<unit>
-    | Half          -> failwith "Half type is not supported"
-    | TypeName _    -> failwith "Custom types are not supported"
+    | Bool -> typeof<bool>
+    | Char -> typeof<sbyte>
+    | UChar -> typeof<byte>
+    | Short -> typeof<int16>
+    | UShort -> typeof<uint16>
+    | Int -> typeof<int>
+    | UInt -> typeof<uint32>
+    | Long -> typeof<int64>
+    | ULong -> typeof<uint64>
+    | Float -> typeof<single>
+    | Double -> typeof<double>
+    | Void -> typeof<unit>
+    | Half -> failwith "Half type is not supported"
+    | TypeName _ -> failwith "Custom types are not supported"
 
 let buildProvidedMethod (treatPointersAsArrays:bool) (funDecl:FunDecl<Lang>) =
     let buildProvidedParameter (funFormalArg:FunFormalArg<Lang>) =
@@ -46,8 +46,7 @@ let buildProvidedMethod (treatPointersAsArrays:bool) (funDecl:FunDecl<Lang>) =
             | :? ArrayType<Lang> as t ->
                 (parseType t.BaseType).MakeArrayType()
             | :? StructType<Lang> as t ->
-                // TODO
-                failwith "Not implemented yet"
+                failwith "Structs are not supported yet"
             | :? RefType<Lang> as t ->
                 if treatPointersAsArrays
                 then (parseType t.BaseType).MakeArrayType()
@@ -63,7 +62,8 @@ let buildProvidedMethod (treatPointersAsArrays:bool) (funDecl:FunDecl<Lang>) =
         funDecl.Args |> List.map buildProvidedParameter,
         typeof<Void>, // all kernels have void return type
         IsStaticMethod = true,
-        InvokeCode = (fun args -> <@@ ignore() @@>))
+        InvokeCode = (fun args -> <@@ ignore() @@>)
+    )
 
 let readKernels filename (treatPointersAsArrays:bool) =
     let isKernelFun (funDecl:FunDecl<Lang>) =

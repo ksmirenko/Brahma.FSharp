@@ -26,7 +26,11 @@ let parseCLCode code =
 
     let tree =
         match OpenCLParser.buildAst allTokens with
-        | Success (sppf, t, d) -> (OpenCLParser.translate translateArgs sppf d) :> List<List<FunDecl<Lang>>>
+        | Success (sppf, t, d) ->
+            let translationResult = (OpenCLParser.translate translateArgs sppf d) :> obj
+            match translationResult with
+            | :? List<List<FunDecl<Lang>>> as res -> res
+            | _ -> failwithf "Error: translator returned an invalud type: %A" (translationResult.GetType())
         | Error (pos,errs,msg,dbg,_) -> failwithf "Error: %A    %A \n %A"  pos errs msg
 
     let res = tree.[0]
