@@ -28,8 +28,8 @@ type PTypes<'lang> =
     | ULong
     | Float
     | Double
-    | Void
     | Half
+    | Void
     | TypeName of string
 
 [<AbstractClass>]
