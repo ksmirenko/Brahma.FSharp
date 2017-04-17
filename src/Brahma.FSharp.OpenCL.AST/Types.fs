@@ -15,7 +15,6 @@
 
 namespace Brahma.FSharp.OpenCL.AST
 
-// TODO: update Brahma.FSharp to support the new types
 type PTypes<'lang> =
     | Bool
     | Char
@@ -36,6 +35,7 @@ type PTypes<'lang> =
 type Type<'lang>()=
     inherit Node<'lang>()
     abstract Size:int
+    abstract Matches: obj -> bool
 
 type PrimitiveType<'lang>(pType:PTypes<'lang>) =
     inherit Type<'lang>()
@@ -43,7 +43,7 @@ type PrimitiveType<'lang>(pType:PTypes<'lang>) =
     override this.Children = []
     member this.Type = pType
 
-    override this.Equals(other) =
+    override this.Matches(other) =
         match other with
         | :? PrimitiveType<'lang> as o ->
             this.Type.Equals(o.Type)
@@ -58,10 +58,10 @@ type ArrayType<'lang>(baseType:Type<'lang>, ?size:int) =
     override this.Children = []
     member this.BaseType = baseType
 
-    override this.Equals(other) =
+    override this.Matches(other) =
         match other with
         | :? ArrayType<'lang> as o ->
-            this.BaseType.Equals(o.BaseType)
+            this.BaseType.Matches(o.BaseType)
             // NB: size is omitted in this check
         | _ -> false
 
@@ -77,11 +77,11 @@ type Struct<'lang>(name: string, fields: List<StructField<'lang>>) =
     override this.Children = []
     member this.Fields = fields
     member this.Name = name
-    override this.Equals(other) =
+    member this.Matches(other:obj) =
         match other with
         | :? Struct<'lang> as o ->
             this.Name.Equals(o.Name)
-            // NB: fields are omitted in this check!
+            // NB: fields are omitted in this check
         | _ -> false
 
 type StructType<'lang>(decl)=
@@ -93,10 +93,13 @@ type StructType<'lang>(decl)=
         | Some decl -> decl.Fields |> List.sumBy (fun f -> f.FType.Size)
         | None -> 0
 
-    override this.Equals(other) =
+    override this.Matches(other) =
         match other with
         | :? StructType<'lang> as o ->
-            this.Declaration.Equals(o.Declaration)
+            match this.Declaration, o.Declaration with
+            | Some x, Some y -> x.Matches(y)
+            | None, None -> true
+            | _ -> false
             // NB: size is omitted in this check
         | _ -> false
 
@@ -107,9 +110,9 @@ type RefType<'lang>(baseType:Type<'lang>, typeQuals:TypeQualifier<'lang> list) =
     member this.BaseType = baseType
     member this.TypeQuals = typeQuals
 
-    override this.Equals(other) =
+    override this.Matches(other) =
         match other with
         | :? RefType<'lang> as o ->
-            this.BaseType.Equals(o.BaseType)
+            this.BaseType.Matches(o.BaseType)
             && this.TypeQuals.Equals(o.TypeQuals)
         | _ -> false

@@ -59,13 +59,18 @@ type DeclSpecifierPack<'lang> (?funQual:FunQualifier<'lang>,
     member this.AddTypeQual tq =
         _typeQuals <- tq :: _typeQuals
 
-    override this.Equals(other) =
+    member this.Matches(other:obj) =
         match other with
         | :? DeclSpecifierPack<'lang> as o ->
+            let areTypesMatching =
+                match this.Type, o.Type with
+                | Some x, Some y -> x.Matches(y)
+                | None, None -> true
+                | _ -> false
             this.FunQual = o.FunQual
             && this.AddressSpaceQual = o.AddressSpaceQual
             && this.AccessQual = o.AccessQual
             && this.StorageClassSpec = o.StorageClassSpec
-            && this.Type = o.Type
+            && areTypesMatching
             && this.TypeQuals = o.TypeQuals
         | _ -> false

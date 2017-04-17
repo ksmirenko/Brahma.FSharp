@@ -15,4 +15,9 @@ let arg specs name = FunFormalArg<Lang>(specs, name)
 
 let testSuccess code res =
         let actualRes = parseCLCode code
-        Assert.AreEqual(res, actualRes)
+        let eq =
+            List.fold
+                (fun eq ((x, y):(FunDecl<_> * FunDecl<_>)) -> eq && x.Matches(y))
+                true
+                (List.zip res actualRes)
+        Assert.That(eq)
