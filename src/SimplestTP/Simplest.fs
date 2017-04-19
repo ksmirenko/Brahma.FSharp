@@ -22,7 +22,7 @@ open Brahma.FSharp.OpenCL.TypeProvider.Provided
 open Brahma.Helpers
 open Brahma.OpenCL
 
-let [<Literal>] clSourcePath = __SOURCE_DIRECTORY__ + "../../../Tests/Brahma.FSharp.OpenCL.TypeProvider.Tests/OpenCLSources/simplest.cl"
+let [<Literal>] clSourcePath = __SOURCE_DIRECTORY__ + "/../../Tests/Brahma.FSharp.OpenCL/OpenCLSources/simplest.cl"
 type ProvidedType = KernelProvider<clSourcePath, TreatPointersAsArrays=true>
 
 let length = 8

@@ -50,7 +50,6 @@
   </Choose>
   <Import Project="$(FSharpTargetsPath)" />
   <ItemGroup>
-    <None Include="Testfield.fsx" />
     <Compile Include="TypeProviderTests.fs" />
     <None Include="paket.references" />
     <Content Include="app.config" />

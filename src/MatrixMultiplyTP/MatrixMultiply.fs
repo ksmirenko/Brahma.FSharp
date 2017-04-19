@@ -22,7 +22,7 @@ open Brahma.FSharp.OpenCL.TypeProvider.Provided
 open Brahma.Helpers
 open Brahma.OpenCL
 
-let [<Literal>] clSourcePath = __SOURCE_DIRECTORY__ + "../../../Tests/Brahma.FSharp.OpenCL.TypeProvider.Tests/OpenCLSources/matmat.cl"
+let [<Literal>] clSourcePath = __SOURCE_DIRECTORY__ + "/../../Tests/Brahma.FSharp.OpenCL/OpenCLSources/matmat.cl"
 type ProvidedType = KernelProvider<clSourcePath, TreatPointersAsArrays=true>
 
 let size = 256 // matrix size

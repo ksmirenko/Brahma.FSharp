@@ -10,7 +10,7 @@ open Brahma.FSharp.OpenCL.TypeProvider.Provided
 
 [<TestFixture>]
 type TypeProviderTests() =
-    let [<Literal>] sourcesPath = __SOURCE_DIRECTORY__ + "/OpenCLSources/"
+    let [<Literal>] sourcesPath = "../Brahma.FSharp.OpenCL/OpenCLSources/"
     let [<Literal>] simplePath = sourcesPath + "simple.cl"
     let [<Literal>] matvecPath = sourcesPath + "matvec.cl"
     let [<Literal>] matmatPath = sourcesPath + "matmat.cl"
