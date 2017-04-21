@@ -23,8 +23,8 @@ open Brahma.Helpers
 open Brahma.OpenCL
 
 // TP configuration
-let constantsPath = __SOURCE_DIRECTORY__ + "/../../Tests/Brahma.FSharp.OpenCL/OpenCLSources/constants.h"
-let [<Literal>] clSourcePath = __SOURCE_DIRECTORY__ + "/../../Tests/Brahma.FSharp.OpenCL/OpenCLSources/mygemm.cl"
+let constantsPath = __SOURCE_DIRECTORY__ + "/../../Tests/Brahma.FSharp.OpenCL/OpenCLSources/MyGEMM/constants.h"
+let [<Literal>] clSourcePath = __SOURCE_DIRECTORY__ + "/../../Tests/Brahma.FSharp.OpenCL/OpenCLSources/MyGEMM/mygemm.cl"
 type ProvidedType = KernelProvider<clSourcePath, TreatPointersAsArrays=true>
 
 // utils
@@ -33,17 +33,16 @@ let makeFloat32Matrix rows cols =
     Array.init (rows * cols) (fun i -> random.NextDouble() |> float32)
 
 // configuration
-let matrixSizes = [100; 56; 200] //seq { 84 .. 2 .. 100 } |> Seq.toList //[100, 256, 2048]
+let matrixSizes = seq { 90 .. 2 .. 120 } |> Seq.toList
 let iterations = 10
 let localWorkSize = 2
 let deviceType = DeviceType.Default
 
 let Run platformName =
     // load OpenCL C sources and headers
-    //let constants = System.IO.File.ReadAllText(constantsPath)
+    let constants = System.IO.File.ReadAllText(constantsPath)
     let clSource = System.IO.File.ReadAllText(clSourcePath)
     let myGEMM1 m n k a b c = ProvidedType.myGEMM1(m, n, k, a, b, c)
-    //let myGEMM3 m n k a b c = ProvidedType.myGEMM3(m, n, k, a, b, c)
     let myGEMM2 m n k a b c = ProvidedType.myGEMM2(m, n, k, a, b, c)
 
     // init compute resources
@@ -56,7 +55,7 @@ let Run platformName =
     // main loop - launching & time calculating
     printfn "Will do %A iterations for all matrices." iterations
     for size in matrixSizes do
-        printf "Size %A:\t" size
+        printfn "Size %A:" size
 
         let aValues = makeFloat32Matrix size size
         let bValues = makeFloat32Matrix size size
@@ -85,9 +84,9 @@ let Run platformName =
 
         let configs =
             [
-                //(commandFs, [], "brahmaKernel");
-                //(command1, [clSource], "myGEMM1");
-                (command2, [clSource], "myGEMM2")
+                (commandFs, [], "brahmaKernel");
+                (command1, [constants; clSource], "myGEMM1");
+                (command2, [constants; clSource], "myGEMM2")
             ]
 
         for command, addsrc, desc in configs do
@@ -109,9 +108,6 @@ let Run platformName =
                 printfn "%.8f sec." avgTime
             with
             | ex -> printfn "FAIL: %A" ex.Message
-
-            commandQueue.Dispose()
-            commandQueue <- new CommandQueue(computeProvider, computeProvider.Devices |> Seq.head)
 
     printfn "Done."
 
