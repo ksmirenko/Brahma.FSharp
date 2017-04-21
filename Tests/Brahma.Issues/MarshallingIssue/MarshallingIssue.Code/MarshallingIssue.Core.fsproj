@@ -6,7 +6,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>c47ce7f6-7ec9-46fc-8021-bef69c9f0864</ProjectGuid>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <RootNamespace>MarshallingIssue</RootNamespace>
     <AssemblyName>MarshallingIssue</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>

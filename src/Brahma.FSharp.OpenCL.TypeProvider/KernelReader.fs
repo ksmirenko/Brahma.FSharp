@@ -66,10 +66,7 @@ let buildProvidedMethod (treatPointersAsArrays:bool) (funDecl:FunDecl<Lang>) =
     )
 
 let readKernels filename (treatPointersAsArrays:bool) =
-    let isKernelFun (funDecl:FunDecl<Lang>) =
-        match funDecl.DeclSpecs.FunQual with
-        | Some Kernel -> true
-        | None -> false
+    let isKernelFun (funDecl:FunDecl<Lang>) = funDecl.DeclSpecs.FunQual.IsSome
     System.IO.File.ReadAllText(filename)
     |> parseCLCode
     |> List.filter isKernelFun

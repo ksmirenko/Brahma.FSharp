@@ -19,7 +19,10 @@
 
 ### OpenCL C 2.0 additional keywords:
 
-* Data types (see grammar)
+* Data types:
+        bool
+        uchar ushort uint ulong
+        half
 
 * Address space qualifiers:
 
@@ -40,3 +43,5 @@
 * Additional:
 
         uniform pipe
+
+Additional reference: https://www.fixstars.com/en/opencl/book/OpenCLProgrammingBook/opencl-c/

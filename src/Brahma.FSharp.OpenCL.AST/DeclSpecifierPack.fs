@@ -24,40 +24,22 @@ type DeclSpecifierPack<'lang> (?funQual:FunQualifier<'lang>,
     inherit Node<'lang>()
 
     let mutable _funQual = funQual
-    let mutable _addrSpaceQual =
-        match addrSpaceQual with
-        | Some x -> x
-        | None -> Default
+    let mutable _addrSpaceQual = defaultArg addrSpaceQual Default
     let mutable _accessQual = accessQual
     let mutable _storClassSpec = storClassSpec
     let mutable _typeSpec = typeSpec
-    let mutable _typeQuals =
-        match typeQuals with
-        | Some x -> x
-        | None -> []
+    let mutable _typeQuals = defaultArg typeQuals []
 
     override this.Children = []
-    member this.FunQual
-        with get() = _funQual
-        and set v = _funQual <- v
-    member this.AddressSpaceQual
-        with get() = _addrSpaceQual
-        and set v = _addrSpaceQual <- v
-    member this.AccessQual
-        with get() = _accessQual
-        and set v = _accessQual <- v
-    member this.StorageClassSpec
-        with get() = _storClassSpec
-        and set v = _storClassSpec <- v
-    member this.Type
-        with get() = _typeSpec
-        and set v = _typeSpec <- v
-    member this.TypeQuals
-        with get() = _typeQuals
-        and set v = _typeQuals <- v
+    member val FunQual = _funQual with get, set
+    member val AddressSpaceQual = _addrSpaceQual with get, set
+    member val AccessQual = _accessQual with get, set
+    member val StorageClassSpec = _storClassSpec with get, set
+    member val Type = _typeSpec with get, set
+    member val TypeQuals = _typeQuals with get, set
 
     member this.AddTypeQual tq =
-        _typeQuals <- tq :: _typeQuals
+        this.TypeQuals <- tq :: this.TypeQuals
 
     member this.Matches(other:obj) =
         match other with
