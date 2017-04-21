@@ -22,21 +22,13 @@ type DeclSpecifierPack<'lang> (?funQual:FunQualifier<'lang>,
                                ?typeSpec:Type<'lang>,
                                ?typeQuals:TypeQualifier<'lang> list) =
     inherit Node<'lang>()
-
-    let mutable _funQual = funQual
-    let mutable _addrSpaceQual = defaultArg addrSpaceQual Default
-    let mutable _accessQual = accessQual
-    let mutable _storClassSpec = storClassSpec
-    let mutable _typeSpec = typeSpec
-    let mutable _typeQuals = defaultArg typeQuals []
-
     override this.Children = []
-    member val FunQual = _funQual with get, set
-    member val AddressSpaceQual = _addrSpaceQual with get, set
-    member val AccessQual = _accessQual with get, set
-    member val StorageClassSpec = _storClassSpec with get, set
-    member val Type = _typeSpec with get, set
-    member val TypeQuals = _typeQuals with get, set
+    member val FunQual = funQual with get, set
+    member val AddressSpaceQual = defaultArg addrSpaceQual Default with get, set
+    member val AccessQual = accessQual with get, set
+    member val StorageClassSpec = storClassSpec with get, set
+    member val Type = typeSpec with get, set
+    member val TypeQuals = defaultArg typeQuals [] with get, set
 
     member this.AddTypeQual tq =
         this.TypeQuals <- tq :: this.TypeQuals
