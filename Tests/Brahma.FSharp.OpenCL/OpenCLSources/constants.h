@@ -1,0 +1,9 @@
+constant int TSM = 128;
+constant int TSN = 128;
+constant int TSK = 16;
+constant int WPTM = 8;
+constant int WPTN = 8;
+constant int RTSM = 16; //(TSM/WPTM);
+constant int RTSN = 16; //(TSN/WPTN);
+constant int LPTA = 8; //((TSK*WPTM*WPTN)/(TSN));
+constant int LPTB = 8; //((TSK*WPTM*WPTN)/(TSM));
