@@ -43,12 +43,8 @@ type ComputeProvider with
         let r = CLCodeGenerator.GenerateKernel(lambda, this, kernel, translatorOptions)
         let mainSrc = (kernel :> ICLKernel).Source.ToString()    
         let program, error =
-            match additionalSources with
-            | [] ->
-                Cl.CreateProgramWithSource(this.Context, 1u, [|mainSrc|], null)
-            | _ ->
-                let sources = Array.concat [ additionalSources |> List.toArray ; [|mainSrc|] ]
-                Cl.CreateProgramWithSource(this.Context, 2u, sources, null)
+            let sources = additionalSources @ [mainSrc] |> List.toArray
+            Cl.CreateProgramWithSource(this.Context, uint32 (sources.Length), sources, null)
         let _devices = Array.ofSeq  this.Devices
         let error = Cl.BuildProgram(program, _devices.Length |> uint32, _devices, this.CompileOptionsStr, null, IntPtr.Zero)
         if error <> ErrorCode.Success
