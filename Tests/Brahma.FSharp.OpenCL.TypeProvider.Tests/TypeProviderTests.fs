@@ -1,10 +1,5 @@
 ﻿namespace Brahma.FSharp.OpenCL.TypeProvider.Tests
 
-#if INTERACTIVE
-#r "../../packages/NUnit/lib/nunit.framework.dll"
-#r "../../bin/Brahma.FSharp.OpenCL.TypeProvider/Brahma.FSharp.OpenCL.TypeProvider.dll"
-#endif
-
 open NUnit.Framework
 open Brahma.FSharp.OpenCL.TypeProvider.Provided
 
