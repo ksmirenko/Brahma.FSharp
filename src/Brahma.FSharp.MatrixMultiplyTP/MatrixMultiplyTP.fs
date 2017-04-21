@@ -33,9 +33,8 @@ let makeFloat32Matrix rows cols =
     Array.init (rows * cols) (fun i -> random.NextDouble() |> float32)
 
 // configuration
-let matrixSizes = seq { 90 .. 2 .. 120 } |> Seq.toList
-let iterations = 10
-let localWorkSize = 2
+let matrixSizes = [128; 256; 1024; 2048]
+let iterations = 20
 let deviceType = DeviceType.Default
 
 let Run platformName =
@@ -50,12 +49,18 @@ let Run platformName =
         try ComputeProvider.Create(platformName, deviceType)
         with
         | ex -> failwith ex.Message
-    let mutable commandQueue = new CommandQueue(computeProvider, computeProvider.Devices |> Seq.head)
+
+    let device = computeProvider.Devices |> Seq.head
+    let lws, ex = OpenCL.Net.Cl.GetDeviceInfo(device, OpenCL.Net.DeviceInfo.MaxWorkGroupSize)
+    let maxLocalWorkSize = int <| lws.CastTo<uint64>()
+
+    let mutable commandQueue = new CommandQueue(computeProvider, device)
 
     // main loop - launching & time calculating
     printfn "Will do %A iterations for all matrices." iterations
     for size in matrixSizes do
         printfn "Size %A:" size
+        let localWorkSize = 8 //min maxLocalWorkSize size
 
         let aValues = makeFloat32Matrix size size
         let bValues = makeFloat32Matrix size size
@@ -93,6 +98,7 @@ let Run platformName =
             let outCode = ref ""
             let _, kernelPrepare, kernelRun = computeProvider.Compile(command, _outCode = outCode, _additionalSources = addsrc)
             let d =(new _2D(size, size, localWorkSize, localWorkSize))
+            //let d =(new _2D(size, size))
             kernelPrepare d aValues bValues cParallel
 
             printf "%12s:\t" desc
@@ -105,6 +111,7 @@ let Run platformName =
                 let _ = commandQueue.Add(cParallel.ToHost computeProvider).Finish()
 
                 let avgTime = Timer<string>.Global.Average("OpenCL")
+                Timer<string>.Global.Reset()
                 printfn "%.8f sec." avgTime
             with
             | ex -> printfn "FAIL: %A" ex.Message
