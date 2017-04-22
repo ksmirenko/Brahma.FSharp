@@ -33,7 +33,7 @@ let makeFloat32Matrix rows cols =
     Array.init (rows * cols) (fun i -> random.NextDouble() |> float32)
 
 // configuration
-let matrixSizes = [128; 256; 1024; 2048]
+let matrixSizes = [128; 256; 512; 1024; 2048]
 let iterations = 20
 let deviceType = DeviceType.Default
 
@@ -57,6 +57,7 @@ let Run platformName =
     let mutable commandQueue = new CommandQueue(computeProvider, device)
 
     // main loop - launching & time calculating
+    printfn "Device: %A" computeProvider
     printfn "Will do %A iterations for all matrices." iterations
     for size in matrixSizes do
         printfn "Size %A:" size
@@ -101,7 +102,7 @@ let Run platformName =
             //let d =(new _2D(size, size))
             kernelPrepare d aValues bValues cParallel
 
-            printf "%12s:\t" desc
+            //printf "%12s:\t" desc
             try
                 for i in 0 .. iterations - 1 do
                     Timer<string>.Global.Start()
@@ -112,7 +113,7 @@ let Run platformName =
 
                 let avgTime = Timer<string>.Global.Average("OpenCL")
                 Timer<string>.Global.Reset()
-                printfn "%.8f sec." avgTime
+                printfn "%.8f" avgTime
             with
             | ex -> printfn "FAIL: %A" ex.Message
 
