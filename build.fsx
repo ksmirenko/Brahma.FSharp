@@ -46,9 +46,10 @@ let tags = "F# OpenCL GPGPU Parallel .NET"
 
 // File system information
 let solutionFile  = "Brahma.FSharp.sln"
+let tpTestSolutionFile  = "OpenCLProviderTest.sln"
 
 // Pattern specifying assemblies to be tested using NUnit
-let testAssemblies = "tests/**/bin/Release/*Tests*.dll"
+let testAssemblies = "Tests/**/bin/Release/*Tests*.dll"
 
 // Git configuration (used for publishing documentation in gh-pages branch)
 // The profile where the project is posted
@@ -111,6 +112,14 @@ Target "AssemblyInfo" (fun _ ->
 Target "CopyBinaries" (fun _ ->
     !! "src/**/*.??proj"
     -- "src/**/*.shproj"
+    -- "src/**/*TP/*"
+    |>  Seq.map (fun f -> ((System.IO.Path.GetDirectoryName f) </> "bin/Release", "bin" </> (System.IO.Path.GetFileNameWithoutExtension f)))
+    |>  Seq.iter (fun (fromDir, toDir) -> CopyDir toDir fromDir (fun _ -> true))
+)
+
+Target "CopyTPSampleBinaries" (fun _ ->
+    !! "src/**/*TP/*.??proj"
+    -- "src/**/*.shproj"
     |>  Seq.map (fun f -> ((System.IO.Path.GetDirectoryName f) </> "bin/Release", "bin" </> (System.IO.Path.GetFileNameWithoutExtension f)))
     |>  Seq.iter (fun (fromDir, toDir) -> CopyDir toDir fromDir (fun _ -> true))
 )
@@ -131,6 +140,16 @@ Target "CleanDocs" (fun _ ->
 
 Target "Build" (fun _ ->
     !! solutionFile
+#if MONO
+    |> MSBuildReleaseExt "" [ ("DefineConstants","MONO") ] "Rebuild"
+#else
+    |> MSBuildRelease "" "Rebuild"
+#endif
+    |> ignore
+)
+
+Target "BuildTPTests" (fun () ->
+    !! tpTestSolutionFile
 #if MONO
     |> MSBuildReleaseExt "" [ ("DefineConstants","MONO") ] "Rebuild"
 #else
@@ -376,6 +395,8 @@ Target "All" DoNothing
   ==> "AssemblyInfo"
   ==> "Build"
   ==> "CopyBinaries"
+  ==> "BuildTPTests"
+  ==> "CopyTPSampleBinaries"
   =?> ("RunTests",isLocalBuild)
   ==> "GenerateReferenceDocs"
   ==> "GenerateDocs"
