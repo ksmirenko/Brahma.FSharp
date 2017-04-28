@@ -77,7 +77,7 @@ namespace Brahma.OpenCL.Commands
                 Type d1 = typeof(t3<,,>);
                 Type[] typeArgs = { typeof(TRange), _types[0], _types[1], _types[2] };
                 Type makeme = d1.MakeGenericType(typeArgs);
-                var tupleStruct = Activator.CreateInstance(makeme, new object[] { Convert.ChangeType(tupleArgs[0], _types[0]), Convert.ChangeType(tupleArgs[1], _types[1]), Convert.ChangeType(tupleArgs[1], _types[2]) });
+                var tupleStruct = Activator.CreateInstance(makeme, new object[] { Convert.ChangeType(tupleArgs[0], _types[0]), Convert.ChangeType(tupleArgs[1], _types[1]), Convert.ChangeType(tupleArgs[2], _types[2]) });
                 return (tupleStruct);
             }
             else return null;

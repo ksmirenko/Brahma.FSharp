@@ -191,7 +191,7 @@ type Translator() =
     member this.``some tuples``() = 
         let command = 
             <@ 
-                fun (range:_1D) (buf:array<int>) (k1:int*int) (k2: int64*byte)  (k3: float32*int) -> 
+                fun (range:_1D) (buf:array<int>) (k1:int*int) (k2:int64*byte) (k3:float32*int) -> 
                     let x = fst k1
                     buf.[0] <- x
                     buf.[1] <- int(fst k3)
@@ -199,7 +199,6 @@ type Translator() =
         let run,check = checkResult command
         run _1d intInArr (10, 2) (4294967297L, 4uy) (float32(0), 9) 
         check intInArr [|10;0;2;3|]
-
 
     [<Test>]
     member this.``fst, snd and new tuple``() = 
@@ -229,11 +228,11 @@ type Translator() =
                     buf.[0] <- fst (arr.[0]) + snd (arr.[1]) + snd (arr.[2])
             @>
         let run,check = checkResult command
-        run _1d intInArr (1,2) [|(1,2);(3,4);(5,6)|]
+        run _1d intInArr (1, 2) [|(1, 2); (3, 4); (5, 6)|]
         check intInArr [|13;1;2;3|]
 
     [<Test>]
-    member this.``triple``() = //doesn't work
+    member this.``triple``() = 
         let command = 
             <@ 
                 fun (range:_1D) (buf:array<int>) (k:int*int*int)  -> 
@@ -242,5 +241,32 @@ type Translator() =
                     buf.[2] <- third k
             @>
         let run,check = checkResult command
-        run _1d intInArr (1,2,3)
+        run _1d intInArr (1, 2, 3)
         check intInArr [|1;2;3;3|]
+
+    [<Test>]
+    member this.``Write buffer``() = 
+        let command = 
+            <@ 
+                fun (range:_1D) (buf:array<a>) ->
+                    buf.[0] <- buf.[1] 
+                    buf.[1] <- buf.[2] 
+            @>
+        let kernel,kernelPrepareF, kernelRunF = provider.Compile command
+        let s = new a(2, 3)
+        let s2 = new a(1, 2)
+        let inArray = [|s;s;s2|]
+        kernelPrepareF _1d inArray
+        let commandQueue = new CommandQueue(provider, provider.Devices |> Seq.head)        
+        let _ = commandQueue.Add(kernelRunF())
+        let _ = commandQueue.Add(inArray.ToHost provider).Finish()
+        let expected = [|s;s2;s2|] 
+        Assert.AreEqual(expected, inArray)
+        inArray.[0] <- s2
+        commandQueue.Add(inArray.ToGpu provider) |> ignore
+        let _ = commandQueue.Add(kernelRunF())
+        let _ = commandQueue.Add(inArray.ToHost provider).Finish()
+        let expected = [|s2;s2;s2|]
+        Assert.AreEqual(expected, inArray)
+        commandQueue.Dispose()        
+        provider.CloseAllBuffers()
