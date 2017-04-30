@@ -16,7 +16,6 @@ open Microsoft.FSharp.Quotations
 open Brahma.FSharp.OpenCL.Extensions
 
 
-
 [<Struct>]
 type a = 
         val mutable x: int 
@@ -76,10 +75,10 @@ type Translator() =
         kernelPrepareF,check
     
     [<Test>]
-    member this.``some structs``() = 
+    member this.``Some structs``() = 
         let command = 
             <@ 
-                fun (range:_1D) (buf:array<int>) (s1:a) (s2:b)  -> 
+                fun (range:_1D) (buf:array<int>) (s1:a) (s2:b) -> 
                     buf.[0] <- s1.x
                     buf.[1] <- s2.x
             @>
@@ -87,11 +86,11 @@ type Translator() =
         let s1 = new a(1, 1)
         let s2 = new b(2, 86uy)
         let run1,check1 = checkResult command
-        run1 _1d intInArr s1 s2      
-        check1 intInArr [|1;2;2;3|]
+        run1 _1d intInArr s1 s2     
+        check1 intInArr [|1; 2; 2; 3|]
 
     [<Test>]
-    member this.``struct int bool``() = //doesn't work
+    member this.``Struct with bool``() = //doesn't work
         let command = 
             <@ 
                 fun (range:_1D) (buf:array<int>) (s:e)  -> 
@@ -101,10 +100,10 @@ type Translator() =
         let s = new e(1, true)
         let run1,check1 = checkResult command
         run1 _1d intInArr s      
-        check1 intInArr [|1;1;2;3|]
+        check1 intInArr [|1; 1; 2; 3|]
 
     [<Test>]
-    member this.``newstruct``() = 
+    member this.``New struct``() = 
         let command = 
             <@ 
                 fun (range:_1D) (buf:array<int>)  -> 
@@ -114,10 +113,10 @@ type Translator() =
 
         let run,check = checkResult command
         run _1d intInArr      
-        check intInArr [|1;1;2;3|]
+        check intInArr [|1; 1; 2; 3|]
 
     [<Test>]
-    member this.``change field``() = 
+    member this.``Change field``() = 
         let command = 
             <@ 
                 fun (range:_1D) (buf:array<int>)  -> 
@@ -128,10 +127,10 @@ type Translator() =
 
         let run,check = checkResult command
         run _1d intInArr      
-        check intInArr [|6;1;2;3|]
+        check intInArr [|6; 1; 2; 3|]
 
     [<Test>]
-    member this.``arr of structs``() = 
+    member this.``Arr of structs``() = 
         let command = 
             <@ 
                 fun(range:_1D) (buf:array<int>) (arr:array<a>) -> 
@@ -142,8 +141,8 @@ type Translator() =
         let s2 = new a(2, 2)
         let s3 = new a(2, 2)
         let run,check = checkResult command
-        run _1d intInArr [|s1;s2;s3|]       
-        check intInArr [|2;1;2;3|]
+        run _1d intInArr [|s1; s2; s3|]       
+        check intInArr [|2; 1; 2; 3|]
 
     [<Test>]
     member this.``Struct with 2 constructors``() = 
@@ -159,10 +158,10 @@ type Translator() =
         let s = new c(2, 3)
         let run,check = checkResult command
         run _1d intInArr s        
-        check intInArr [|5;6;2;3|]
+        check intInArr [|5; 6; 2; 3|]
 
     [<Test>]
-    member this.``constructor``() = //doesn't work
+    member this.``Constructor``() = //doesn't work
         let command = 
             <@ 
                 fun(range:_1D) (buf:array<int>)  -> 
@@ -185,10 +184,10 @@ type Translator() =
         let s = new d(1, [|1;2;3|])
         let run,check = checkResult command
         run _1d intInArr s        
-        check intInArr [|1;1;2;3|]
+        check intInArr [|1; 1; 2; 3|]
 
     [<Test>]
-    member this.``some tuples``() = 
+    member this.``Some tuples``() = 
         let command = 
             <@ 
                 fun (range:_1D) (buf:array<int>) (k1:int*int) (k2:int64*byte) (k3:float32*int) -> 
@@ -198,7 +197,7 @@ type Translator() =
             @>
         let run,check = checkResult command
         run _1d intInArr (10, 2) (4294967297L, 4uy) (float32(0), 9) 
-        check intInArr [|10;0;2;3|]
+        check intInArr [|10; 0; 2; 3|]
 
     [<Test>]
     member this.``fst, snd and new tuple``() = 
@@ -215,10 +214,10 @@ type Translator() =
         let s = new c(2)
         let run,check = checkResult command
         run _1d intInArr (10, 20) 
-        check intInArr [|10;20;11;3|]
+        check intInArr [|10; 20; 11; 3|]
 
     [<Test>]
-    member this.``arr of tuples``() = 
+    member this.``Arr of tuples``() = 
         let command = 
             <@ 
                 fun (range:_1D) (buf:array<int>) (k1:int*int) (arr:array<int*int>)  -> 
@@ -229,10 +228,10 @@ type Translator() =
             @>
         let run,check = checkResult command
         run _1d intInArr (1, 2) [|(1, 2); (3, 4); (5, 6)|]
-        check intInArr [|13;1;2;3|]
+        check intInArr [|13; 1; 2; 3|]
 
     [<Test>]
-    member this.``triple``() = 
+    member this.``Triple``() = 
         let command = 
             <@ 
                 fun (range:_1D) (buf:array<int>) (k:int*int*int)  -> 
@@ -242,7 +241,7 @@ type Translator() =
             @>
         let run,check = checkResult command
         run _1d intInArr (1, 2, 3)
-        check intInArr [|1;2;3;3|]
+        check intInArr [|1; 2; 3; 3|]
 
     [<Test>]
     member this.``Write buffer``() = 
@@ -260,13 +259,13 @@ type Translator() =
         let commandQueue = new CommandQueue(provider, provider.Devices |> Seq.head)        
         let _ = commandQueue.Add(kernelRunF())
         let _ = commandQueue.Add(inArray.ToHost provider).Finish()
-        let expected = [|s;s2;s2|] 
+        let expected = [|s; s2; s2|] 
         Assert.AreEqual(expected, inArray)
         inArray.[0] <- s2
         commandQueue.Add(inArray.ToGpu provider) |> ignore
         let _ = commandQueue.Add(kernelRunF())
         let _ = commandQueue.Add(inArray.ToHost provider).Finish()
-        let expected = [|s2;s2;s2|]
+        let expected = [|s2; s2; s2|]
         Assert.AreEqual(expected, inArray)
         commandQueue.Dispose()        
         provider.CloseAllBuffers()

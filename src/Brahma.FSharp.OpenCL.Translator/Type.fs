@@ -20,7 +20,7 @@ open System.Reflection
 open Microsoft.FSharp.Collections
 open Microsoft.FSharp.Quotations
 
-let printElementType (_type: string) =
+let printElementType (_type: string) (context:TargetContext<_,_>) =
     let pType = 
         match _type.ToLowerInvariant() with
         | "int"| "int32" -> PrimitiveType<Lang>(Int) 
@@ -32,11 +32,11 @@ let printElementType (_type: string) =
         | "int64" -> PrimitiveType<Lang>(Long)
         | "uint64" -> PrimitiveType<Lang>(ULong) 
         | "boolean" -> PrimitiveType<Lang>(Int)
-        | "float" | "double" -> PrimitiveType<Lang>(Double)  
-            //context.Flags.enableFP64 <- true     
+        | "float" | "double" -> 
+            context.Flags.enableFP64 <- true
+            PrimitiveType<Lang>(Double)              
         | x -> "Unsuported tuple type: " + x |> failwith
     match pType.Type with
-    //| Char -> "char"
     | UChar -> "uchar"
     | Short -> "short"
     | UShort -> "ushort"
@@ -53,7 +53,6 @@ let mutable tupleDecl = ""
 let rec Translate (_type:System.Type) isKernelArg size (context:TargetContext<_,_>) : Type<Lang> =
     let rec go (str:string)=
         let mutable low = str.ToLowerInvariant()
-        //let mutable tupleDecl = ""
         match low with
         | "int"| "int32" -> PrimitiveType<Lang>(Int) :> Type<Lang>
         | "int16" -> PrimitiveType<Lang>(Short) :> Type<Lang>
@@ -92,10 +91,10 @@ let rec Translate (_type:System.Type) isKernelArg size (context:TargetContext<_,
                  let el2 = new StructField<'lang> ("snd", go baseT2)
                  let a = new Struct<Lang>("tuple", [el1; el2])
                  let decl = Some a
-                 if not (tupleDecl.Contains(printElementType baseT1 + " fst; " + printElementType baseT2 + " snd;} tuple")) then
+                 if not (tupleDecl.Contains(printElementType baseT1 context + " fst; " + printElementType baseT2 context + " snd;} tuple")) then
                     tupleNumber <- tupleNumber + 1
                     context.UserDefinedTypesOpenCLDeclaration.Add("tuple"+ tupleNumber.ToString(), a)
-                    tupleDecl <- tupleDecl + " typedef struct tuple"+ tupleNumber.ToString() + " {" + printElementType baseT1 + " fst; " + printElementType baseT2 + " snd;} tuple"+ tupleNumber.ToString() + ";"
+                    tupleDecl <- tupleDecl + " typedef struct tuple"+ tupleNumber.ToString() + " {" + printElementType baseT1 context + " fst; " + printElementType baseT2 context + " snd;} tuple"+ tupleNumber.ToString() + ";"
              else if types.Length = 3 then
                  let baseT1 = types.[0].Substring(7)
                  let baseT2 = types.[1].Substring(7)
@@ -105,11 +104,10 @@ let rec Translate (_type:System.Type) isKernelArg size (context:TargetContext<_,
                  let el3 = new StructField<'lang> ("thd", go baseT3)
                  let a = new Struct<Lang>("tuple", [el1; el2; el3])
                  let decl = Some a
-                 if not (tupleDecl.Contains(printElementType baseT1 + " fst; " + printElementType baseT2 + " snd; " + printElementType baseT3)) then
+                 if not (tupleDecl.Contains(printElementType baseT1 context + " fst; " + printElementType baseT2 context + " snd; " + printElementType baseT3 context)) then
                     tupleNumber <- tupleNumber + 1
                     context.UserDefinedTypesOpenCLDeclaration.Add("tuple"+ tupleNumber.ToString(), a)
-                    tupleDecl <- tupleDecl + " typedef struct tuple"+ tupleNumber.ToString() + " {" + printElementType baseT1 + " fst; " + printElementType baseT2 + " snd; " + printElementType baseT3 + " thd;} tuple"+ tupleNumber.ToString() + ";"
-             
+                    tupleDecl <- tupleDecl + " typedef struct tuple"+ tupleNumber.ToString() + " {" + printElementType baseT1 context + " fst; " + printElementType baseT2 context + " snd; " + printElementType baseT3 context + " thd;} tuple"+ tupleNumber.ToString() + ";"        
              TupleType<_>(StructType(decl), tupleNumber) :> Type<Lang>
 
         | x when context.UserDefinedTypes.Exists(fun t -> t.Name.ToLowerInvariant() = x)
