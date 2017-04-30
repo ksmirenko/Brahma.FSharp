@@ -112,14 +112,7 @@ Target "AssemblyInfo" (fun _ ->
 Target "CopyBinaries" (fun _ ->
     !! "src/**/*.??proj"
     -- "src/**/*.shproj"
-    -- "src/**/*TP/*"
-    |>  Seq.map (fun f -> ((System.IO.Path.GetDirectoryName f) </> "bin/Release", "bin" </> (System.IO.Path.GetFileNameWithoutExtension f)))
-    |>  Seq.iter (fun (fromDir, toDir) -> CopyDir toDir fromDir (fun _ -> true))
-)
-
-Target "CopyTPSampleBinaries" (fun _ ->
-    !! "src/**/*TP/*.??proj"
-    -- "src/**/*.shproj"
+    -- "src/**/*TP/*" // ignore possible TP samples, as they are not built yet
     |>  Seq.map (fun f -> ((System.IO.Path.GetDirectoryName f) </> "bin/Release", "bin" </> (System.IO.Path.GetFileNameWithoutExtension f)))
     |>  Seq.iter (fun (fromDir, toDir) -> CopyDir toDir fromDir (fun _ -> true))
 )
@@ -396,7 +389,6 @@ Target "All" DoNothing
   ==> "Build"
   ==> "CopyBinaries"
   ==> "BuildTPTests"
-  ==> "CopyTPSampleBinaries"
   =?> ("RunTests",isLocalBuild)
   ==> "GenerateReferenceDocs"
   ==> "GenerateDocs"
