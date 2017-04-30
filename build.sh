@@ -71,14 +71,6 @@ fi
 
 run $PAKET_EXE restore
 
-# Generate lexer and parser for OpenCLTranslator
-run packages/YC.SDK/tools/YC.FsLex.exe \
-  src/Brahma.FSharp.OpenCL.OpenCLTranslator/Lexer.fsl \
-  --unicode \
-  -o src/Brahma.FSharp.OpenCL.OpenCLTranslator/Lexer.fsl.fs
-run packages/YC.SDK/tools/YC.YaccConstructor.exe \
-  -i src/Brahma.FSharp.OpenCL.OpenCLTranslator/Parser.yrd
-
 [ ! -e build.fsx ] && run $PAKET_EXE update
 [ ! -e build.fsx ] && run $FAKE_EXE init.fsx
 run $FAKE_EXE "$@" $FSIARGS $FSIARGS2 build.fsx

@@ -78,6 +78,24 @@ let (|Fsproj|Csproj|Vbproj|Shproj|) (projFileName:string) =
     | f when f.EndsWith("shproj") -> Shproj
     | _                           -> failwith (sprintf "Project file %s not supported. Unknown project type." projFileName)
 
+// Helpers for running binaries within the script
+
+let runCmd cmdFile =
+#if MONO
+    let retCode = Fake.ProcessHelper.Shell.Exec("bash", args = System.IO.Path.GetFullPath(cmdFile), dir = System.IO.Path.GetDirectoryName (System.IO.Path.GetFullPath cmdFile))
+#else
+    let retCode = Fake.ProcessHelper.Shell.Exec(System.IO.Path.GetFullPath(cmdFile), dir = System.IO.Path.GetDirectoryName (System.IO.Path.GetFullPath cmdFile))
+#endif
+    if retCode <> 0
+    then failwithf "Execution of %A failed!" cmdFile
+
+let runShell shellFile =
+#if MONO
+    runCmd (shellFile + ".sh")
+#else
+    runCmd (shellFile + ".cmd")
+#endif
+
 // Generate assembly info files with the right version & up-to-date information
 Target "AssemblyInfo" (fun _ ->
     let getAssemblyInfoAttributes projectName =
@@ -130,6 +148,8 @@ Target "CleanDocs" (fun _ ->
 
 // --------------------------------------------------------------------------------------
 // Build library & test project
+
+Target "Gen:OpenCLTranslator" (fun _ -> runShell <| "src" @@ "Brahma.FSharp.OpenCL.OpenCLTranslator" @@ "gen")
 
 Target "Build" (fun _ ->
     !! solutionFile
@@ -386,6 +406,7 @@ Target "All" DoNothing
 
 "Clean"
   ==> "AssemblyInfo"
+  ==> "Gen:OpenCLTranslator"
   ==> "Build"
   ==> "CopyBinaries"
   ==> "BuildTPTests"
