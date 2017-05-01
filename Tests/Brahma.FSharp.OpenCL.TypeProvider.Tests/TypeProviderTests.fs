@@ -9,6 +9,7 @@ type TypeProviderTests() =
     let [<Literal>] simplePath = sourcesPath + "simple.cl"
     let [<Literal>] matvecPath = sourcesPath + "matvec.cl"
     let [<Literal>] matmatPath = sourcesPath + "matmat.cl"
+    let [<Literal>] macrosAndCommentsPath = sourcesPath + "macrosAndComments.cl"
 
     let sign = dict[
                     "void", "Microsoft.FSharp.Core.Unit";
@@ -26,7 +27,7 @@ type TypeProviderTests() =
         Assert.AreEqual(_params, actualParams)
 
     [<Test>]
-    member this.``Simple single kernel definition without body``() =
+    member this.``TP: simple single kernel definition without body``() =
         let foo = KernelProvider<simplePath>.foo
         checkKernelSignature foo [| sign.Item("int"); sign.Item("char") + "[]" |]
 
@@ -56,3 +57,20 @@ type TypeProviderTests() =
                         intArray
                       |]
         checkKernelSignature matmat _params
+
+    [<Test>]
+    member this.``TP: OpenCL source with macros and single-line comments``() =
+        let fun1 = KernelProvider<macrosAndCommentsPath, TreatPointersAsArrays=true>.myGEMM1
+        let fun2 = KernelProvider<macrosAndCommentsPath, TreatPointersAsArrays=true>.myGEMM2
+        let _int = sign.Item("int")
+        let floatArray = sign.Item("float") + "[]"
+        let _params = [|
+                        _int;
+                        _int;
+                        _int;
+                        floatArray;
+                        floatArray;
+                        floatArray
+                      |]
+        checkKernelSignature fun1 _params
+        checkKernelSignature fun2 _params

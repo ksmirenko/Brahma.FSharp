@@ -403,7 +403,9 @@ and Translate expr (targetContext:TargetContext<_,_>) =
        // translateLambda var expr targetContext
         "Lambda is not suported:" + string expr|> failwith
     | Patterns.Let (var, expr, inExpr) ->
-        translateLet var expr inExpr targetContext
+        match var.Name with
+        | "___providedCallInfo" -> translateProvidedCall expr targetContext
+        | _ -> translateLet var expr inExpr targetContext
 
     | Patterns.LetRecursive (bindings,expr) -> "LetRecursive is not suported:" + string expr|> failwith
     | Patterns.NewArray(sType,exprs) -> "NewArray is not suported:" + string expr|> failwith
@@ -472,3 +474,20 @@ and private translateLet var expr inExpr (targetContext:TargetContext<_,_>) =
     targetContext.Namer.LetOut()
     new StatementBlock<_>(sb) :> Node<_>
     , (clearContext targetContext)
+
+and private translateProvidedCall expr (targetContext:TargetContext<_,_>) =
+    let rec traverse expr args =
+        match expr with
+        | Patterns.Value(calledName, sType) ->
+            match sType.Name.ToLowerInvariant() with
+            | "string" -> (calledName :?> string), args
+            | _ -> "Failed to parse provided call, expected string call name: " + string expr |> failwith
+        | Patterns.Sequential(expr1, expr2) ->
+            let updatedArgs =
+                match expr2 with
+                | Patterns.Value(null, _) -> args // the last item in the sequence is null
+                | _ -> (TranslateAsExpr (expr2) targetContext |> fst)::args
+            traverse expr1 updatedArgs
+        | _ -> "Failed to parse provided call: " + string expr |> failwith
+    let funCall = new FunCall<_>(traverse expr []) :> Node<_>
+    funCall, targetContext

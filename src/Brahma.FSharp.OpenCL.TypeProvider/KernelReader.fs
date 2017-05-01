@@ -17,6 +17,7 @@ module Brahma.FSharp.OpenCL.TypeProvider.KernelReader
 
 open Brahma.FSharp.OpenCL.AST
 open Brahma.FSharp.OpenCL.OpenCLTranslator.Main
+open Microsoft.FSharp.Quotations
 open ProviderImplementation.ProvidedTypes
 open System
 
@@ -62,7 +63,14 @@ let buildProvidedMethod (treatPointersAsArrays:bool) (funDecl:FunDecl<Lang>) =
         funDecl.Args |> List.map buildProvidedParameter,
         typeof<Void>, // all kernels have void return type
         IsStaticMethod = true,
-        InvokeCode = (fun args -> <@@ ignore() @@>)
+        InvokeCode =
+            fun args ->
+                let providedFunName = Expr.Value (funDecl.Name, typeof<string>)
+                Expr.Let
+                   (   (new Var("___providedCallInfo", typeof<unit>))
+                     , Seq.fold (fun e1 e2 -> Expr.Sequential(e1,e2)) providedFunName (args @ [Expr.Value (null, typeof<unit>)])
+                     , (Expr.Value (null, typeof<unit>))
+                   )
     )
 
 let readKernels filename (treatPointersAsArrays:bool) =

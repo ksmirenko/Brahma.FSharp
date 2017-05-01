@@ -16,7 +16,7 @@
 namespace Brahma.FSharp.OpenCL.Translator
 
 open Microsoft.FSharp.Quotations
-open  Brahma.FSharp.OpenCL.AST
+open Brahma.FSharp.OpenCL.AST
 open System.Collections.Generic
 open Brahma.FSharp.OpenCL.Translator.Type
 
