@@ -41,8 +41,6 @@ let Run platformName =
     // load OpenCL C sources and headers
     let constants = System.IO.File.ReadAllText(constantsPath)
     let clSource = System.IO.File.ReadAllText(clSourcePath)
-    let myGEMM1 m n k a b c = ProvidedType.myGEMM1(m, n, k, a, b, c)
-    let myGEMM2 m n k a b c = ProvidedType.myGEMM2(m, n, k, a, b, c)
 
     // init compute resources
     let computeProvider =
@@ -80,12 +78,12 @@ let Run platformName =
         let command1 =
             <@
                 fun (r:_2D) (a:array<_>) (b:array<_>) (c:array<_>) ->
-                    myGEMM1 size size size a b c
+                    ProvidedType.myGEMM1(size, size, size, a, b, c)
             @>
         let command2 =
             <@
                 fun (r:_2D) (a:array<_>) (b:array<_>) (c:array<_>) ->
-                    myGEMM2 size size size a b c
+                    ProvidedType.myGEMM2(size, size, size, a, b, c)
             @>
 
         let configs =
