@@ -9,7 +9,6 @@
 * `inline` function specifier is not supported in OpenCL C
 * Unicode in identifiers is not supported
 * type casting in function definitions is not supported
-* comments in OpenCL C source files are not supported
 
 ### C99 keywords:
 
