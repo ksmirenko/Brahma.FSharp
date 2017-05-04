@@ -31,9 +31,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "content", "content", "{8E6D
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{ED8079DD-2B06-4030-9F0F-DC548F98E1C4}"
 EndProject
-Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Brahma.FSharp.OpenCL.Tests", "tests\Brahma.FSharp.OpenCL.Tests\Brahma.FSharp.OpenCL.Tests.fsproj", "{73882D44-0194-400A-BCE4-F29D66417DE0}"
+Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Brahma.FSharp.OpenCL.Tests", "Tests\Brahma.FSharp.OpenCL.Tests\Brahma.FSharp.OpenCL.Tests.fsproj", "{73882D44-0194-400A-BCE4-F29D66417DE0}"
 EndProject
-Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Brahman.Test", "tests\Brahman.Tests\Brahman.Test.fsproj", "{4E3137B9-DD0A-426A-A0D3-90C21EC1811E}"
+Project("{f2a71f9b-5d33-465a-a702-920d77279786}") = "Brahman.Test", "Tests\Brahman.Tests\Brahman.Test.fsproj", "{4E3137B9-DD0A-426A-A0D3-90C21EC1811E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{25E14FB9-7440-42DF-8166-7CD7A9ECDBE1}"
 EndProject

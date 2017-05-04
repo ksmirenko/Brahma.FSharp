@@ -1,4 +1,4 @@
-﻿namespace Brahma.FSharp.OpenCL.TypeProvider.Tests
+﻿module Brahma.FSharp.OpenCL.TypeProvider.Tests.Runner
 
 open System.IO
 open NUnit.Framework
@@ -9,10 +9,12 @@ open Brahma.FSharp.OpenCL.TypeProvider.Provided
 open Brahma.Helpers
 open Brahma.OpenCL
 
+let [<Literal>] clSourcePath = "../Brahma.FSharp.OpenCL/OpenCLSources/assignArr.cl"
+
+type Provided = KernelProvider<clSourcePath, TreatPointersAsArrays=true>
+
 [<TestFixture>]
 type RunWithTP() =
-    let [<Literal>] clSourcePath = "../Brahma.FSharp.OpenCL/OpenCLSources/assignArr.cl"
-
     let length = 8
     let gpuArr = Array.init length (fun _ -> 0)
 
@@ -21,10 +23,6 @@ type RunWithTP() =
         let deviceType = DeviceType.Default
 
         let additionalClSource = System.IO.File.ReadAllText(Path.Combine(__SOURCE_DIRECTORY__, clSourcePath))
-        let assignArr = fun a v ->
-            try KernelProvider<clSourcePath, TreatPointersAsArrays=true>.assignArr(a, v)
-            with
-            | ex -> failwith ex.Message
 
         let computeProvider =
             try ComputeProvider.Create(platformName, deviceType)
@@ -37,7 +35,7 @@ type RunWithTP() =
         let command =
             <@
                 fun (r:_1D) (a:array<_>) (v:int) ->
-                    assignArr a v
+                    Provided.assignArr(a, v)
             @>
 
         let kernel, kernelPrepare, kernelRun =

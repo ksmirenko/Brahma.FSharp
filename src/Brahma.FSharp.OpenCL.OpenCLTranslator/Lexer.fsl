@@ -63,6 +63,9 @@ rule token = parse
 
 | '{' { skipBody 1 lexbuf }
 
+| '#' [^ '\n']* '\n' { token lexbuf }
+| "//" [^ '\n']* '\n' { token lexbuf }
+
 | eof { RNGLR_EOF ("")}
 | _ {  failwithf "Unexpected input: %s" <| lexeme lexbuf }
 

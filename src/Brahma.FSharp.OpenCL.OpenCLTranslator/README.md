@@ -1,6 +1,7 @@
 ### Restrictions:
 
-* only function definitions are supported as top-level declarations
+* function declarations, preprocessor macros and single-line comments are allowed at the top level
+* preprocessor macros are ignored and don't have any impact on the parsing process
 * only basic data types are supported (see below in the grammar)
 * unions are not supported
 * anonymous structs as function parameters are not supported
