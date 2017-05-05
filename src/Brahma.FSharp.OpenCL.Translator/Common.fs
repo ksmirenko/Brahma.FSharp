@@ -17,6 +17,8 @@
 module Brahma.FSharp.OpenCL.Translator.Common
 
 open Microsoft.FSharp.Quotations
+open System.Collections.Generic
+open Brahma.FSharp.OpenCL.AST
 
 type Flags () =
     member val enableAtomic = false with get, set
@@ -34,6 +36,8 @@ type TargetContext<'lang,'vDecl>() =
     //let userDefinedTypes = new ResizeArray<System.Type>()
     //let userDeefinedTypeOpenCLDeclarations  = new System.Collections.Generic.Dictionary<System.Type,_>()
     let mutable translatorOptions = new ResizeArray<TranslatorOption>()
+    member val tupleDecls = new Dictionary<string, int>() 
+    member val tupleList = new List<Struct<Lang>>()
     member val UserDefinedTypes = new ResizeArray<System.Type>()
     member val UserDefinedTypesOpenCLDeclaration = new System.Collections.Generic.Dictionary<string,Brahma.FSharp.OpenCL.AST.Struct<'lang>>()
     member this.VarDecls
