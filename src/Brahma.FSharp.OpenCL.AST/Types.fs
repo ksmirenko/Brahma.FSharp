@@ -70,6 +70,12 @@ type Image2DType<'lang>(modifier:bool) =
     override this.Size = 32
     override this.Children = []
     member this.Modifier = modifier
+    override this.Matches(other:obj) =
+        match other with
+        | :? Image2DType<'lang> as o ->
+            this.Equals(o)
+            // NB: fields are omitted in this check
+        | _ -> false
 
 [<Struct>]
 type StructField<'lang> =
