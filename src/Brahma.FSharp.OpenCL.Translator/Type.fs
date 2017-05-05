@@ -107,7 +107,7 @@ let rec Translate (_type:System.Type) isKernelArg size (context:TargetContext<_,
                      let el2 = new StructField<'lang> ("snd", go baseT2)
                      let el3 = new StructField<'lang> ("thd", go baseT3)
                      if not (context.tupleDecls.ContainsKey(baseT1 + baseT2 + baseT3)) then
-                         context.tupleNumber <- tupleNumber + 1
+                         context.tupleNumber <- context.tupleNumber + 1
                          context.tupleDecls.Add(baseT1 + baseT2 + baseT3, context.tupleNumber)
                          let a = new Struct<Lang>("tuple" + context.tupleNumber.ToString(), [el1; el2; el3])
                          context.tupleList.Add(a)
