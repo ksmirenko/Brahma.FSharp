@@ -49,7 +49,7 @@ let printElementType (_type: string) (context:TargetContext<_,_>) =
     | Double -> "double"
     | x -> "Unsuported tuple type: " + x.ToString() |> failwith
 
-let mutable tupleNumber = 0
+
 let rec Translate (_type:System.Type) isKernelArg size (context:TargetContext<_,_>) : Type<Lang> =
     let rec go (str:string)=
         let mutable low = str.ToLowerInvariant()
@@ -91,9 +91,9 @@ let rec Translate (_type:System.Type) isKernelArg size (context:TargetContext<_,
                      let el1 = new StructField<'lang> ("fst", go baseT1)
                      let el2 = new StructField<'lang> ("snd", go baseT2)
                      if not (context.tupleDecls.ContainsKey(baseT1 + baseT2)) then
-                         tupleNumber <- tupleNumber + 1
-                         context.tupleDecls.Add(baseT1 + baseT2, tupleNumber)
-                         let a = new Struct<Lang>("tuple" + tupleNumber.ToString(), [el1; el2])
+                         context.tupleNumber <- context.tupleNumber + 1
+                         context.tupleDecls.Add(baseT1 + baseT2, context.tupleNumber)
+                         let a = new Struct<Lang>("tuple" + context.tupleNumber.ToString(), [el1; el2])
                          context.tupleList.Add(a)
                          Some a
                      else 
@@ -107,15 +107,15 @@ let rec Translate (_type:System.Type) isKernelArg size (context:TargetContext<_,
                      let el2 = new StructField<'lang> ("snd", go baseT2)
                      let el3 = new StructField<'lang> ("thd", go baseT3)
                      if not (context.tupleDecls.ContainsKey(baseT1 + baseT2 + baseT3)) then
-                         tupleNumber <- tupleNumber + 1
-                         context.tupleDecls.Add(baseT1 + baseT2 + baseT3, tupleNumber)
-                         let a = new Struct<Lang>("tuple" + tupleNumber.ToString(), [el1; el2; el3])
+                         context.tupleNumber <- tupleNumber + 1
+                         context.tupleDecls.Add(baseT1 + baseT2 + baseT3, context.tupleNumber)
+                         let a = new Struct<Lang>("tuple" + context.tupleNumber.ToString(), [el1; el2; el3])
                          context.tupleList.Add(a)
                          Some a
                      else 
                         let a = new Struct<Lang>("tuple" + (context.tupleDecls.Item(baseT1 + baseT2 + baseT3)).ToString(), [el1; el2; el3])
                         Some a
-             TupleType<_>(StructType(decl), tupleNumber) :> Type<Lang>
+             TupleType<_>(StructType(decl), context.tupleNumber) :> Type<Lang>
 
         | x when context.UserDefinedTypes.Exists(fun t -> t.Name.ToLowerInvariant() = x)
             -> 

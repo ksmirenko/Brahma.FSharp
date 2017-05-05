@@ -33,11 +33,12 @@ type TargetContext<'lang,'vDecl>() =
     let varDecls = new ResizeArray<'vDecl>()    
     let mutable flags = new Flags()
     let mutable namer = new Namer()
+    let mutable tupleNumber = 0
     //let userDefinedTypes = new ResizeArray<System.Type>()
     //let userDeefinedTypeOpenCLDeclarations  = new System.Collections.Generic.Dictionary<System.Type,_>()
     let mutable translatorOptions = new ResizeArray<TranslatorOption>()
     member val tupleDecls = new Dictionary<string, int>() 
-    member val tupleList = new List<Struct<Lang>>()
+    member val tupleList = new List<Struct<Lang>>()    
     member val UserDefinedTypes = new ResizeArray<System.Type>()
     member val UserDefinedTypesOpenCLDeclaration = new System.Collections.Generic.Dictionary<string,Brahma.FSharp.OpenCL.AST.Struct<'lang>>()
     member this.VarDecls
