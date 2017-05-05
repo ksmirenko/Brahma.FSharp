@@ -19,6 +19,7 @@ open Brahma.FSharp.OpenCL.AST
 open System.Reflection
 open Microsoft.FSharp.Collections
 open Microsoft.FSharp.Quotations
+open System.Collections.Generic
 
 let printElementType (_type: string) (context:TargetContext<_,_>) =
     let pType = 
@@ -50,6 +51,8 @@ let printElementType (_type: string) (context:TargetContext<_,_>) =
 
 let mutable tupleNumber = 0
 let mutable tupleDecl = ""
+let tupleDecls = new Dictionary<string, int>() 
+let tupleList = new List<Struct<Lang>>()
 let rec Translate (_type:System.Type) isKernelArg size (context:TargetContext<_,_>) : Type<Lang> =
     let rec go (str:string)=
         let mutable low = str.ToLowerInvariant()
@@ -83,31 +86,38 @@ let rec Translate (_type:System.Type) isKernelArg size (context:TargetContext<_,
              let types =
                 if _type.Name.EndsWith("[]") then  _type.UnderlyingSystemType.ToString().Substring(15, _type.UnderlyingSystemType.ToString().Length - 18).Split(',')
                 else _type.UnderlyingSystemType.ToString().Substring(15, _type.UnderlyingSystemType.ToString().Length - 16).Split(',')
-             let decl = None
-             if types.Length = 2 then
-                 let baseT1 = types.[0].Substring(7)
-                 let baseT2 = types.[1].Substring(7)
-                 let el1 = new StructField<'lang> ("fst", go baseT1)
-                 let el2 = new StructField<'lang> ("snd", go baseT2)
-                 let a = new Struct<Lang>("tuple", [el1; el2])
-                 let decl = Some a
-                 if not (tupleDecl.Contains(printElementType baseT1 context + " fst; " + printElementType baseT2 context + " snd;} tuple")) then
-                    tupleNumber <- tupleNumber + 1
-                    context.UserDefinedTypesOpenCLDeclaration.Add("tuple"+ tupleNumber.ToString(), a)
-                    tupleDecl <- tupleDecl + " typedef struct tuple"+ tupleNumber.ToString() + " {" + printElementType baseT1 context + " fst; " + printElementType baseT2 context + " snd;} tuple"+ tupleNumber.ToString() + ";"
-             else if types.Length = 3 then
-                 let baseT1 = types.[0].Substring(7)
-                 let baseT2 = types.[1].Substring(7)
-                 let baseT3 = types.[2].Substring(7)
-                 let el1 = new StructField<'lang> ("fst", go baseT1)
-                 let el2 = new StructField<'lang> ("snd", go baseT2)
-                 let el3 = new StructField<'lang> ("thd", go baseT3)
-                 let a = new Struct<Lang>("tuple", [el1; el2; el3])
-                 let decl = Some a
-                 if not (tupleDecl.Contains(printElementType baseT1 context + " fst; " + printElementType baseT2 context + " snd; " + printElementType baseT3 context)) then
-                    tupleNumber <- tupleNumber + 1
-                    context.UserDefinedTypesOpenCLDeclaration.Add("tuple"+ tupleNumber.ToString(), a)
-                    tupleDecl <- tupleDecl + " typedef struct tuple"+ tupleNumber.ToString() + " {" + printElementType baseT1 context + " fst; " + printElementType baseT2 context + " snd; " + printElementType baseT3 context + " thd;} tuple"+ tupleNumber.ToString() + ";"        
+             let decl = 
+                match types.Length with
+                |2 ->
+                     let baseT1 = types.[0].Substring(7)
+                     let baseT2 = types.[1].Substring(7)
+                     let el1 = new StructField<'lang> ("fst", go baseT1)
+                     let el2 = new StructField<'lang> ("snd", go baseT2)
+                     if not (tupleDecls.ContainsKey(baseT1 + baseT2)) then
+                         tupleNumber <- tupleNumber + 1
+                         tupleDecls.Add(baseT1 + baseT2, tupleNumber)
+                         let a = new Struct<Lang>("tuple" + tupleNumber.ToString(), [el1; el2])
+                         tupleList.Add(a)
+                         Some a
+                     else 
+                        let a = new Struct<Lang>("tuple" + (tupleDecls.Item(baseT1 + baseT2)).ToString(), [el1; el2])
+                        Some a
+                |3 ->
+                     let baseT1 = types.[0].Substring(7)
+                     let baseT2 = types.[1].Substring(7)
+                     let baseT3 = types.[2].Substring(7)
+                     let el1 = new StructField<'lang> ("fst", go baseT1)
+                     let el2 = new StructField<'lang> ("snd", go baseT2)
+                     let el3 = new StructField<'lang> ("thd", go baseT3)
+                     if not (tupleDecls.ContainsKey(baseT1 + baseT2 + baseT3)) then
+                         tupleNumber <- tupleNumber + 1
+                         tupleDecls.Add(baseT1 + baseT2 + baseT3, tupleNumber)
+                         let a = new Struct<Lang>("tuple" + tupleNumber.ToString(), [el1; el2; el3])
+                         tupleList.Add(a)
+                         Some a
+                     else 
+                        let a = new Struct<Lang>("tuple" + (tupleDecls.Item(baseT1 + baseT2 + baseT3)).ToString(), [el1; el2; el3])
+                        Some a
              TupleType<_>(StructType(decl), tupleNumber) :> Type<Lang>
 
         | x when context.UserDefinedTypes.Exists(fun t -> t.Name.ToLowerInvariant() = x)

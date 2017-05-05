@@ -19,10 +19,13 @@ open Brahma.FSharp.OpenCL.AST
 open Microsoft.FSharp.Text
 open Microsoft.FSharp.Text.StructuredFormat.LayoutOps
 open Brahma.FSharp.OpenCL.Printer
+open Brahma.FSharp.OpenCL.Translator
 
 let Print (ast:AST<'lang>) =
+    let td = Type.tupleList |> Seq.cast<_> |> List.ofSeq :> List<TopDef<'lang>>
+    let topDefs = List.concat [td; ast.TopDefs]
     let layout = 
-        ast.TopDefs 
+        topDefs  
         |> List.map 
             (fun d -> 
                 match d with 
@@ -33,4 +36,4 @@ let Print (ast:AST<'lang>) =
         |> aboveListL
     let result = StructuredFormat.Display.layout_to_string {StructuredFormat.FormatOptions.Default with PrintWidth=100} layout
     //printfn "%A" result
-    Brahma.FSharp.OpenCL.Translator.Type.tupleDecl + result
+    result
