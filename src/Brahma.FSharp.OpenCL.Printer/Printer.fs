@@ -22,10 +22,8 @@ open Brahma.FSharp.OpenCL.Printer
 open Brahma.FSharp.OpenCL.Translator
 
 let Print (ast:AST<'lang>) =
-    let td = Type.tupleList |> Seq.cast<_> |> List.ofSeq :> List<TopDef<'lang>>
-    let topDefs = List.concat [td; ast.TopDefs]
     let layout = 
-        topDefs  
+        ast.TopDefs
         |> List.map 
             (fun d -> 
                 match d with 

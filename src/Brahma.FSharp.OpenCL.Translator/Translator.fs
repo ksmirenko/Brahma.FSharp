@@ -127,7 +127,9 @@ type FSQuotationToOpenCLTranslator() =
                 if contextList.[i].Flags.enableFP64
                 then res.Add(new CLPragma<_>(CLFP64))
                 List.ofSeq res
-            listCLFun <- pragmas@types@listCLFun@[mainKernelFun]
+            let translatedTuples = Type.tupleList |> Seq.cast<_> |> List.ofSeq :> TopDef<Lang> list
+            let topDefs = List.concat [translatedTuples; types]
+            listCLFun <- pragmas@topDefs@listCLFun@[mainKernelFun]
         new AST<_>(listCLFun)
 
     let translate qExpr translatorOptions =
@@ -173,7 +175,6 @@ type FSQuotationToOpenCLTranslator() =
             listPartsASTPartialAst.Add((partialAst :> Statement<_>))
             listPartsASTContext.Add(context)
             //Body.dictionaryFun.Add(partAST.FunVar.Name, partialAst)
-
         let AST = buildFullAst (listPartsASTVars) translatedStructs (listPartsASTPartialAst) listPartsASTContext
         AST, newAST        
   
