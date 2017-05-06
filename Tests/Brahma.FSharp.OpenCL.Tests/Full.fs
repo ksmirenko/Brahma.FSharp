@@ -1237,6 +1237,7 @@ type Translator() =
         check intInArr [|2;3;6;7|]
 
     [<Test>]
+    [<Ignore("Image 2D not finished")>]
     member this.``Checking of Image2D``() = 
         let command = 
             <@ 

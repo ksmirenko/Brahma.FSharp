@@ -651,6 +651,7 @@ type Translator() =
         checkCode command "Template Test 16.gen" "Template Test 16.cl"
 
      [<Test>]
+     [<Ignore("Image 2D not finished")>]
      member this.``Checking of Image2D``() = 
         let command = 
             <@ 

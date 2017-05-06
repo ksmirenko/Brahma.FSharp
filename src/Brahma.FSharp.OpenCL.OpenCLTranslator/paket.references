@@ -8,5 +8,5 @@ Mono.Addins
 YC.PrettyPrinter
 YC.QuickGraph
 YC.SDK
-YC.SDK.Runtime
 YC.Utils.SourceText
+YC.SDK.Runtime
