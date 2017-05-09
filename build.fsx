@@ -149,7 +149,7 @@ Target "CleanDocs" (fun _ ->
 // --------------------------------------------------------------------------------------
 // Build library & test project
 
-Target "Gen:OpenCLTranslator" (fun _ -> runShell <| "src" @@ "Brahma.FSharp.OpenCL.OpenCLTranslator" @@ "gen")
+Target "Gen:OpenCLTranslator" (fun _ -> runShell <| "src" @@ "Brahma.FSharp.OpenCL.OpenCLParser" @@ "gen")
 
 Target "Build" (fun _ ->
     !! solutionFile

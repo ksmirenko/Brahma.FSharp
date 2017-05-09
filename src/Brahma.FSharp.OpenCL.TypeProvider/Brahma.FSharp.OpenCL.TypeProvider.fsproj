@@ -70,7 +70,7 @@
     <Content Include="app.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Brahma.FSharp.OpenCL.OpenCLTranslator\Brahma.FSharp.OpenCL.OpenCLParser.fsproj">
+    <ProjectReference Include="..\Brahma.FSharp.OpenCL.OpenCLParser\Brahma.FSharp.OpenCL.OpenCLParser.fsproj">
       <Name>Brahma.FSharp.OpenCL.OpenCLParser</Name>
       <Project>{a93e672f-931f-415d-84a9-e7ca230f5ce8}</Project>
       <Private>True</Private>
