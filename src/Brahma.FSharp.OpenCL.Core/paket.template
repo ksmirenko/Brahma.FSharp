@@ -40,9 +40,13 @@ files
     ../../bin/Brahma.FSharp.OpenCL.Core/Brahma.FSharp.OpenCL.Translator.dll ==> lib/net45
     ../../bin/Brahma.FSharp.OpenCL.TypeProvider/Brahma.FSharp.OpenCL.TypeProvider.dll ==> lib/net45
     ../../bin/Brahma.FSharp.OpenCL.OpenCLParser/Brahma.FSharp.OpenCL.OpenCLParser.dll ==> lib/net45
+    ../../bin/Brahma.FSharp.OpenCL.TypeProvider/YC.AST.Common.dll ==> lib/net45
+    ../../bin/Brahma.FSharp.OpenCL.TypeProvider/YC.FsYacc.dll ==> lib/net45
+    ../../bin/Brahma.FSharp.OpenCL.TypeProvider/YC.RNGLRCommon.dll ==> lib/net45
+    ../../bin/Brahma.FSharp.OpenCL.TypeProvider/YC.RNGLRParser.dll ==> lib/net45
+    ../../bin/Brahma.FSharp.OpenCL.TypeProvider/FSharpx.Collections.dll ==> lib/net45
+    ../../bin/Brahma.FSharp.OpenCL.TypeProvider/FSharpx.Collections.Experimental.dll ==> lib/net45
 dependencies
-    FSharpx.Collections
-    YC.PrettyPrinter
+    FSharpx.Collections >= 1.15.0
+    YC.PrettyPrinter >= 0.0.5
     OpenCL.NET = 2.2.9
-    YC.SDK.Runtime
-    FSharp.TypeProviders.StarterPack
