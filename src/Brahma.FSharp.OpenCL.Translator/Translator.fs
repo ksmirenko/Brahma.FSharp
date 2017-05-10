@@ -149,6 +149,9 @@ type FSQuotationToOpenCLTranslator() =
                         c.UserDefinedTypes.AddRange context.UserDefinedTypes
                         c.UserDefinedTypesOpenCLDeclaration.Clear()
                         for x in context.UserDefinedTypesOpenCLDeclaration do c.UserDefinedTypesOpenCLDeclaration.Add (x.Key,x.Value)
+                        for x in context.tupleDecls do c.tupleDecls.Add(x.Key,x.Value)
+                        for x in context.tupleList do c.tupleList.Add(x)
+                        c.tupleNumber <- context.tupleNumber
 
                         c.Flags.enableFP64 <- context.Flags.enableFP64
                         c.Namer.LetIn()

@@ -24,6 +24,9 @@ let private clearContext (targetContext:TargetContext<'a,'b>) =
     let c = new TargetContext<'a,'b>()
     c.Namer <- targetContext.Namer
     c.Flags <- targetContext.Flags
+    for td in targetContext.tupleDecls do c.tupleDecls.Add(td.Key, td.Value)
+    for t in targetContext.tupleList do c.tupleList.Add(t)
+    c.tupleNumber <- targetContext.tupleNumber
     c.UserDefinedTypes.AddRange(targetContext.UserDefinedTypes)
     for kvp in targetContext.UserDefinedTypesOpenCLDeclaration do c.UserDefinedTypesOpenCLDeclaration.Add (kvp.Key,kvp.Value)
     c
@@ -359,6 +362,9 @@ and translateFieldSet host (*fldInfo:System.Reflection.FieldInfo*) name _val con
     let res = new FieldSet<_>(hostE, field, valE)
     res, tc
 
+
+
+
 and translateFieldGet host (*fldInfo:System.Reflection.FieldInfo*)name context =
     let hostE, tc = TranslateAsExpr host context
     let field = name//fldInfo.Name
@@ -421,27 +427,42 @@ and Translate expr (targetContext:TargetContext<_,_>) =
         else "NewObject is not suported:" + string expr|> failwith
     | Patterns.NewRecord(sType,exprs) -> "NewRecord is not suported:" + string expr|> failwith
     | Patterns.NewTuple(exprs) ->
-        if exprs.Length = 2 then
+        match exprs.Length with
+        | 2 ->
             let baseT1 = exprs.[0].Type
             let baseT2 = exprs.[1].Type
             let el1 = new StructField<'lang>("fst", Type.Translate baseT1 false None targetContext)
             let el2 = new StructField<'lang>("snd", Type.Translate baseT2 false None targetContext)
-            let structInfo = new Struct<Lang>("tuple", [el1; el2])      
-            let cArgs = exprs |> List.map (fun x -> TranslateAsExpr x targetContext) 
-            let res = new NewStruct<_>(structInfo,cArgs |> List.unzip |> fst)
-            res :> Node<_>, targetContext 
-        else if exprs.Length = 3 then
+            if not (targetContext.tupleDecls.ContainsKey(baseT1.Name + baseT2.Name)) then
+                targetContext.tupleNumber <- targetContext.tupleNumber + 1
+                targetContext.tupleDecls.Add(baseT1.Name + baseT2.Name, targetContext.tupleNumber)
+                let a = new Struct<Lang>("tuple" + targetContext.tupleNumber.ToString(), [el1; el2])
+                targetContext.tupleList.Add(a)
+                let cArgs = exprs |> List.map (fun x -> TranslateAsExpr x targetContext)
+                new NewStruct<_>(a,cArgs |> List.unzip |> fst) :> Node<_>, targetContext 
+            else 
+                let a = new Struct<Lang>("tuple" + (targetContext.tupleDecls.Item(baseT1.Name + baseT2.Name)).ToString(), [el1; el2])                     
+                let cArgs = exprs |> List.map (fun x -> TranslateAsExpr x targetContext)
+                new NewStruct<_>(a,cArgs |> List.unzip |> fst) :> Node<_>, targetContext   
+        | 3 -> 
             let baseT1 = exprs.[0].Type
             let baseT2 = exprs.[1].Type
             let baseT3 = exprs.[2].Type
             let el1 = new StructField<'lang>("fst", Type.Translate baseT1 false None targetContext)
             let el2 = new StructField<'lang>("snd", Type.Translate baseT2 false None targetContext)
             let el3 = new StructField<'lang>("thd", Type.Translate baseT3 false None targetContext)
-            let structInfo = new Struct<Lang>("tuple", [el1; el2; el3])      
-            let cArgs = exprs |> List.map (fun x -> TranslateAsExpr x targetContext) 
-            let res = new NewStruct<_>(structInfo,cArgs |> List.unzip |> fst)
-            res :> Node<_>, targetContext 
-        else "Tuple with " + string exprs.Length + " items is not supported"|> failwith    
+            if not (targetContext.tupleDecls.ContainsKey(baseT1.Name + baseT2.Name + baseT3.Name)) then
+                targetContext.tupleNumber <- targetContext.tupleNumber + 1
+                targetContext.tupleDecls.Add(baseT1.Name + baseT2.Name + baseT3.Name, targetContext.tupleNumber)
+                let a = new Struct<Lang>("tuple" + targetContext.tupleNumber.ToString(), [el1; el2; el3])
+                targetContext.tupleList.Add(a)
+                let cArgs = exprs |> List.map (fun x -> TranslateAsExpr x targetContext)
+                new NewStruct<_>(a,cArgs |> List.unzip |> fst) :> Node<_>, targetContext 
+            else 
+                let a = new Struct<Lang>("tuple" + (targetContext.tupleDecls.Item(baseT1.Name + baseT2.Name + baseT3.Name)).ToString(), [el1; el2; el3])                     
+                let cArgs = exprs |> List.map (fun x -> TranslateAsExpr x targetContext)
+                new NewStruct<_>(a,cArgs |> List.unzip |> fst) :> Node<_>, targetContext 
+        | _ -> "Tuple with " + string exprs.Length + " items is not supported"|> failwith    
     | Patterns.NewUnionCase(unionCaseinfo,exprs) -> "NewUnionCase is not suported:" + string expr|> failwith
     | Patterns.PropertyGet(exprOpt,propInfo,exprs) -> 
         let res, tContext = transletaPropGet exprOpt propInfo exprs targetContext
@@ -495,8 +516,14 @@ and private translateLet var expr inExpr (targetContext:TargetContext<_,_>) =
     vDecl.IsLocal <- isLocal
     targetContext.VarDecls.Add vDecl    
     targetContext.Namer.LetIn var.Name    
-    let sb = new ResizeArray<_>(targetContext.VarDecls |> Seq.cast<Statement<_>>)
+    
     let res,tContext = clearContext targetContext |> Translate inExpr //вот тут мб нужно проверять на call или application
+    let sb = new ResizeArray<_>(targetContext.VarDecls |> Seq.cast<Statement<_>>)
+    targetContext.tupleDecls.Clear()
+    targetContext.tupleList.Clear()
+    for td in tContext.tupleDecls do targetContext.tupleDecls.Add(td.Key, td.Value)
+    for t in tContext.tupleList do targetContext.tupleList.Add(t)
+    targetContext.tupleNumber <- tContext.tupleNumber
     match res with
     | :? StatementBlock<Lang> as s -> sb.AddRange s.Statements; 
     | _ -> sb.Add (res :?> Statement<_>)                       

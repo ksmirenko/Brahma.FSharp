@@ -83,6 +83,7 @@ let rec Translate (_type:System.Type) isKernelArg size (context:TargetContext<_,
              let types =
                 if _type.Name.EndsWith("[]") then  _type.UnderlyingSystemType.ToString().Substring(15, _type.UnderlyingSystemType.ToString().Length - 18).Split(',')
                 else _type.UnderlyingSystemType.ToString().Substring(15, _type.UnderlyingSystemType.ToString().Length - 16).Split(',')
+             let mutable n = 0
              let decl = 
                 match types.Length with
                 |2 ->
@@ -92,12 +93,14 @@ let rec Translate (_type:System.Type) isKernelArg size (context:TargetContext<_,
                      let el2 = new StructField<'lang> ("snd", go baseT2)
                      if not (context.tupleDecls.ContainsKey(baseT1 + baseT2)) then
                          context.tupleNumber <- context.tupleNumber + 1
-                         context.tupleDecls.Add(baseT1 + baseT2, context.tupleNumber)
-                         let a = new Struct<Lang>("tuple" + context.tupleNumber.ToString(), [el1; el2])
+                         n <- context.tupleNumber
+                         context.tupleDecls.Add(baseT1 + baseT2, n)
+                         let a = new Struct<Lang>("tuple" + n.ToString(), [el1; el2])
                          context.tupleList.Add(a)
                          Some a
                      else 
-                        let a = new Struct<Lang>("tuple" + (context.tupleDecls.Item(baseT1 + baseT2)).ToString(), [el1; el2])
+                        n <- context.tupleDecls.Item(baseT1 + baseT2)
+                        let a = new Struct<Lang>("tuple" + n.ToString(), [el1; el2])
                         Some a
                 |3 ->
                      let baseT1 = types.[0].Substring(7)
@@ -108,14 +111,16 @@ let rec Translate (_type:System.Type) isKernelArg size (context:TargetContext<_,
                      let el3 = new StructField<'lang> ("thd", go baseT3)
                      if not (context.tupleDecls.ContainsKey(baseT1 + baseT2 + baseT3)) then
                          context.tupleNumber <- context.tupleNumber + 1
-                         context.tupleDecls.Add(baseT1 + baseT2 + baseT3, context.tupleNumber)
-                         let a = new Struct<Lang>("tuple" + context.tupleNumber.ToString(), [el1; el2; el3])
+                         n <- context.tupleNumber
+                         context.tupleDecls.Add(baseT1 + baseT2 + baseT3, n)
+                         let a = new Struct<Lang>("tuple" + n.ToString(), [el1; el2; el3])
                          context.tupleList.Add(a)
                          Some a
                      else 
-                        let a = new Struct<Lang>("tuple" + (context.tupleDecls.Item(baseT1 + baseT2 + baseT3)).ToString(), [el1; el2; el3])
+                        n <- context.tupleDecls.Item(baseT1 + baseT2 + baseT3)
+                        let a = new Struct<Lang>("tuple" + n.ToString(), [el1; el2; el3])
                         Some a
-             TupleType<_>(StructType(decl), context.tupleNumber) :> Type<Lang>
+             TupleType<_>(StructType(decl), n) :> Type<Lang>
 
         | x when context.UserDefinedTypes.Exists(fun t -> t.Name.ToLowerInvariant() = x)
             -> 
