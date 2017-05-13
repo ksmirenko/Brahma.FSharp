@@ -455,18 +455,9 @@ and Translate expr (targetContext:TargetContext<_,_>) =
         res :> Node<_>,tContext
     | Patterns.TryFinally(tryExpr,finallyExpr) -> "TryFinally is not suported:" + string expr|> failwith
     | Patterns.TryWith(expr1,var1,expr2,var2,expr3) -> "TryWith is not suported:" + string expr|> failwith 
-    | Patterns.TupleGet(expr,i) ->  
-        match i with
-        | 0 ->            
-            let r,tContext =  translateFieldGet expr "_1" targetContext
-            r :> Node<_>,tContext
-        | 1 ->            
-            let r,tContext = translateFieldGet expr "_2" targetContext
-            r :> Node<_>,tContext
-        | 2 ->            
-            let r,tContext = translateFieldGet expr "_3" targetContext
-            r :> Node<_>,tContext
-        | _ -> "TupleGet is not suported:" + string expr|> failwith
+    | Patterns.TupleGet(expr,i) ->           
+        let r,tContext =  translateFieldGet expr  ("_" + (string (i + 1))) targetContext
+        r :> Node<_>,tContext
     | Patterns.TypeTest(expr,sType) -> "TypeTest is not suported:" + string expr|> failwith
     | Patterns.UnionCaseTest(expr,unionCaseInfo) -> "UnionCaseTest is not suported:" + string expr|> failwith
     | Patterns.Value(_obj,sType) -> translateValue _obj sType  targetContext :> Node<_> , targetContext 
