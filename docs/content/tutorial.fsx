@@ -123,32 +123,6 @@ let commandTeplate f =
 let cmd1 = commandTeplate  <@ fun x y -> y - x @>
 let cmd2 = commandTeplate  <@ fun x y -> y + x @>
 
-(**
-### Custom types
-*)
-[<Struct>]
-type testStuct = 
-        val x: int 
-        val y: int     
-        new (x1, y1) = {x = x1; y = y1}
-let command = 
-    <@ 
-        fun (range:_1D) (buf:array<int>) -> 
-            let s = new testStruct (1, 2)
-            buf.[0] <- s.x
-            buf.[1] <- s.y
-    @>
-
-(**
-### Tuples
-*)
-let command = 
-    <@ 
-        fun (range:_1D) (buf:array<int>) (a:int*int) (b:int*byte*int)-> 
-            let c = (3, 4)
-            buf.[0] <- fst a + snd c
-            buf.[1] <- third b 
-    @>
 
 (**
 Some more info
