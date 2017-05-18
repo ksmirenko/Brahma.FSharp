@@ -88,7 +88,8 @@ let rec Translate (_type:System.Type) isKernelArg size (context:TargetContext<_,
              let elements = [for i in 0..types.Length - 1 -> new StructField<'lang> ("_" + (i + 1).ToString(), go baseTypes.[i])]
              let mutable s = ""
              for i in 0..baseTypes.Length - 1 do s <- s + baseTypes.[i]
-             if not (context.tupleDecls.ContainsKey(s)) then
+             if not (context.tupleDecls.ContainsKey(s)) 
+             then
                  context.tupleNumber <- context.tupleNumber + 1
                  n <- context.tupleNumber
                  context.tupleDecls.Add(s, n)

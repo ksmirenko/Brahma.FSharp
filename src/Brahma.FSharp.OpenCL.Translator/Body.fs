@@ -432,7 +432,8 @@ and Translate expr (targetContext:TargetContext<_,_>) =
         let elements = [for i in 0..exprs.Length - 1 -> new StructField<'lang> ("_" + (i + 1).ToString(), Type.Translate baseTypes.[i] false None targetContext)]
         let mutable s = ""
         for i in 0..baseTypes.Length - 1 do s <- s + baseTypes.[i].Name
-        if not (targetContext.tupleDecls.ContainsKey(s)) then
+        if not (targetContext.tupleDecls.ContainsKey(s)) 
+        then
             targetContext.tupleNumber <- targetContext.tupleNumber + 1
             targetContext.tupleDecls.Add(s, targetContext.tupleNumber)
             let a = new Struct<Lang>("tuple" + targetContext.tupleNumber.ToString(), elements)
