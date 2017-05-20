@@ -265,7 +265,7 @@ type Translator() =
         let command = 
             <@ 
                 fun (range:_1D) (buf:array<int>) (k:int*int*int)  -> 
-                    buf.[0] <- first k
+                    //buf.[0] <- first k
                     buf.[1] <- second k
                     buf.[2] <- third k
             @>
@@ -282,14 +282,14 @@ type Translator() =
                     buf.[1] <- buf.[2] 
             @>
         let kernel,kernelPrepareF, kernelRunF = provider.Compile command
-        let s = new a(2, 3)
+        let s1 = new a(2, 3)
         let s2 = new a(1, 2)
-        let inArray = [|s;s;s2|]
+        let inArray = [|s1; s1; s2|]
         kernelPrepareF _1d inArray
         let commandQueue = new CommandQueue(provider, provider.Devices |> Seq.head)        
         let _ = commandQueue.Add(kernelRunF())
         let _ = commandQueue.Add(inArray.ToHost provider).Finish()
-        let expected = [|s; s2; s2|] 
+        let expected = [|s1; s2; s2|] 
         Assert.AreEqual(expected, inArray)
         inArray.[0] <- s2
         commandQueue.Add(inArray.ToGpu provider) |> ignore
