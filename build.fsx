@@ -374,11 +374,11 @@ Target "All" DoNothing
 
 "Clean"
   ==> "AssemblyInfo"
-  ==> "GenerateReferenceDocs"
-  ==> "GenerateDocs"
   ==> "Build"
   ==> "CopyBinaries"
   =?> ("RunTests",isLocalBuild)
+  ==> "GenerateReferenceDocs"
+  ==> "GenerateDocs"
   ==> "All"
   =?> ("ReleaseDocs",isLocalBuild)
 
