@@ -69,6 +69,7 @@
     <Compile Include="Translator.fs" />
     <None Include="app.config" />
     <None Include="paket.references" />
+    <Compile Include="StructAndTuple.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />

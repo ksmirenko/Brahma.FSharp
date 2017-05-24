@@ -19,10 +19,40 @@ open Brahma.FSharp.OpenCL.AST
 open System.Reflection
 open Microsoft.FSharp.Collections
 open Microsoft.FSharp.Quotations
+open System.Collections.Generic
+
+let printElementType (_type: string) (context:TargetContext<_,_>) =
+    let pType = 
+        match _type.ToLowerInvariant() with
+        | "int"| "int32" -> PrimitiveType<Lang>(Int) 
+        | "int16" -> PrimitiveType<Lang>(Short)
+        | "uint16" -> PrimitiveType<Lang>(UShort)
+        | "uint32" -> PrimitiveType<Lang>(UInt) 
+        | "float32" | "single"-> PrimitiveType<Lang>(Float) 
+        | "byte" -> PrimitiveType<Lang>(UChar) 
+        | "int64" -> PrimitiveType<Lang>(Long)
+        | "uint64" -> PrimitiveType<Lang>(ULong) 
+        | "boolean" -> PrimitiveType<Lang>(Int)
+        | "float" | "double" -> 
+            context.Flags.enableFP64 <- true
+            PrimitiveType<Lang>(Double)              
+        | x -> "Unsuported tuple type: " + x |> failwith
+    match pType.Type with
+    | UChar -> "uchar"
+    | Short -> "short"
+    | UShort -> "ushort"
+    | Int -> "int"
+    | UInt -> "uint"
+    | Float -> "float"
+    | Long -> "long"
+    | ULong -> "ulong"
+    | Double -> "double"
+    | x -> "Unsuported tuple type: " + x.ToString() |> failwith
+
 
 let rec Translate (_type:System.Type) isKernelArg size (context:TargetContext<_,_>) : Type<Lang> =
-    let rec go (str:string) =
-        let low = str.ToLowerInvariant()
+    let rec go (str:string)=
+        let mutable low = str.ToLowerInvariant()
         match low with
         | "int"| "int32" -> PrimitiveType<Lang>(Int) :> Type<Lang>
         | "int16" -> PrimitiveType<Lang>(Short) :> Type<Lang>
@@ -45,10 +75,33 @@ let rec Translate (_type:System.Type) isKernelArg size (context:TargetContext<_,
             then RefType<_>(go baseT, []) :> Type<Lang>
             else ArrayType<_>(go baseT, size |> Option.get) :> Type<Lang>
         | s when s.StartsWith "fsharpref" ->
-            go (_type.GetGenericArguments().[0].Name)
+            go (_type.GetGenericArguments().[0].Name) 
         | f when f.StartsWith "fsharpfunc" ->
 //            go (_type.GetGenericArguments().[1].Name)
             Translate (_type.GetGenericArguments().[1]) isKernelArg size context
+        | tp when tp.Contains ("tuple") ->
+             let types =
+                if _type.Name.EndsWith("[]") then  _type.UnderlyingSystemType.ToString().Substring(15, _type.UnderlyingSystemType.ToString().Length - 18).Split(',')
+                else _type.UnderlyingSystemType.ToString().Substring(15, _type.UnderlyingSystemType.ToString().Length - 16).Split(',')
+             let mutable n = 0
+             let baseTypes = [|for i in 0..types.Length - 1 -> types.[i].Substring(7)|]           
+             let elements = [for i in 0..types.Length - 1 -> new StructField<'lang> ("_" + (i + 1).ToString(), go baseTypes.[i])]
+             let mutable s = ""
+             for i in 0..baseTypes.Length - 1 do s <- s + baseTypes.[i]
+             if not (context.tupleDecls.ContainsKey(s)) 
+             then
+                 context.tupleNumber <- context.tupleNumber + 1
+                 n <- context.tupleNumber
+                 context.tupleDecls.Add(s, n)
+                 let a = new Struct<Lang>("tuple" + n.ToString(), elements)
+                 context.tupleList.Add(a)
+                 let decl = Some a
+                 TupleType<_>(StructType(decl), n) :> Type<Lang>
+             else
+                 n <- context.tupleDecls.Item(s)
+                 let a = new Struct<Lang>("tuple" + n.ToString(), elements)
+                 let decl = Some a
+                 TupleType<_>(StructType(decl), n) :> Type<Lang>
         | x when context.UserDefinedTypes.Exists(fun t -> t.Name.ToLowerInvariant() = x)
             -> 
                 let decl =

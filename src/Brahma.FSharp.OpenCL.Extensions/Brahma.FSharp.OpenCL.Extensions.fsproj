@@ -60,6 +60,8 @@
     <Compile Include="Array.fs" />
     <Compile Include="OpenCL.fs" />
     <None Include="paket.references" />
+    <Compile Include="Tuple.fsi" />
+    <Compile Include="Tuple.fs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="mscorlib" />
