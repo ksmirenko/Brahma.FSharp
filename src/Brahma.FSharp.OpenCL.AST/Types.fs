@@ -76,9 +76,13 @@ type StructType<'lang>(decl)=
         | Some decl -> decl.Fields |> List.sumBy (fun f -> f.FType.Size)
         | None -> 0
    
-
-        
-
+type TupleType<'lang>(baseStruct:StructType<'lang>, number:int)=    
+    inherit Type<'lang>()
+    override this.Children = []
+    override this.Size = baseStruct.Size
+    member this.Number = number
+   
+       
 type RefType<'lang>(baseType:Type<'lang>) =
     inherit Type<'lang>()
     override this.Size = baseType.Size
