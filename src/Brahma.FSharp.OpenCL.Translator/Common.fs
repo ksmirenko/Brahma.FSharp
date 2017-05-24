@@ -24,8 +24,6 @@ type Flags () =
     member val enableAtomic = false with get, set
     member val enableFP64 = false with get, set
 
-type Lang = OpenCL
-
 type TranslatorOption =
     | BoolAsBit
 
