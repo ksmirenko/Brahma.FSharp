@@ -29,7 +29,7 @@ type Translator() =
     let _1d = new _1D(defaultInArrayLength, 1)
     let _2d = new _2D(defaultInArrayLength, 1)
     let deviceType = DeviceType.Default
-    let platformName = "NVIDIA*"
+    let platformName = "*"
 
     let provider =
         try  ComputeProvider.Create(platformName, deviceType)

@@ -32,7 +32,7 @@ type Translator() =
     let basePath = "../../../Brahma.FSharp.OpenCL/Translator/Expected/"
 
     let deviceType = DeviceType.Gpu
-    let platformName = "NVIDIA*"
+    let platformName = "*"
 
     let provider =
         try  ComputeProvider.Create(platformName, deviceType)
