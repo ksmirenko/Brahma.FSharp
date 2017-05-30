@@ -1,3 +1,8 @@
+### 1.1.0-alpha4
+* Basic support of structs and tuples.
+* Clean references.
+* OpenCL type provider. Strongly typed kernels from OpenCL code are available in F#.
+
 ### 1.1.0-alpha3
 * Clean references.
 * OpenCL type provider. Strongly typed kernels from OpenCL code are available in F#.
