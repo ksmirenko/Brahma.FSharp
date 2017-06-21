@@ -1,3 +1,9 @@
+### 1.1.0
+* Basic support of structs and tuples.
+* OpenCL type provider. Strongly typed kernels from OpenCL code are available in F#.
+* Documentation updated.
+* More examples added.
+
 ### 1.1.0-alpha4
 * Basic support of structs and tuples.
 * Clean references.
