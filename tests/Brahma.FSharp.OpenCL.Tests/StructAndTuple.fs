@@ -299,3 +299,31 @@ type Translator() =
         Assert.AreEqual(expected, inArray)
         commandQueue.Dispose()        
         provider.CloseAllBuffers()
+
+    [<Ignore("Tuples support is limitetd")>]
+    [<Test>]
+    member this.``Tuples ToGPU``() = 
+        let command = 
+            <@ 
+                fun (range:_1D) (buf:array<_>) ->
+                    buf.[0] <- buf.[1] 
+                    buf.[1] <- buf.[2] 
+            @>
+        let kernel,kernelPrepareF, kernelRunF = provider.Compile command
+        let s = (2, 3)
+        let s2 = (1, 2)
+        let inArray = [|s;s;s2|]
+        kernelPrepareF _1d inArray
+        let commandQueue = new CommandQueue(provider, provider.Devices |> Seq.head)        
+        let _ = commandQueue.Add(kernelRunF())
+        let _ = commandQueue.Add(inArray.ToHost provider).Finish()
+        let expected = [|s; s2; s2|] 
+        Assert.AreEqual(expected, inArray)
+        inArray.[0] <- s2
+        commandQueue.Add(inArray.ToGpu provider) |> ignore
+        let _ = commandQueue.Add(kernelRunF())
+        let _ = commandQueue.Add(inArray.ToHost provider).Finish()
+        let expected = [|s2; s2; s2|]
+        Assert.AreEqual(expected, inArray)
+        commandQueue.Dispose()        
+        provider.CloseAllBuffers()
