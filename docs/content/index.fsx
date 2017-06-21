@@ -158,6 +158,8 @@ Samples & documentation
  * [API Reference](reference/index.html) contains automatically generated documentation for all types, modules
    and functions in the library. This includes additional brief samples on using most of the
    functions.
+
+ * [More examples are available here.](https://github.com/YaccConstructor/Brahma.FSharp.Examples) 
  
 Contributing and copyright
 --------------------------
